@@ -3,7 +3,7 @@
 function WatchList() {
   return (
     <div>
-      <h1>WatchList</h1>
+      <h1 className="text-center font-bold text-2xl">WatchList</h1>
     </div>
   );
 }
