@@ -1,10 +1,16 @@
 import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import WatchList from "./pages/WatchList";
 
 function App() {
   return (
-    <div>
-      <h1>Project 1 - Team 2</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="watchlist" element={<WatchList />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
