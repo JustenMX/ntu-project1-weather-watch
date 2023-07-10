@@ -13,7 +13,7 @@ import PsiNeaContainer from "./components/PsiNeaContainer";
 import Pm25NeaContainer from "./components/Pm25NeaContainer";
 import Weather2HrsContainer from "./components/Weather2HrsContainer";
 import WetbulbTempController from "./components/WetbulbTempContainer";
-
+import UvNeaContainer from "./components/UvNeaContainer";
 // data
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
           <Route path="pm25" element={<Pm25NeaContainer />} />
           <Route path="weather2hr" element={<Weather2HrsContainer />} />
           <Route path="wetbulb" element={<WetbulbTempController />} />
+          <Route path="uv" element={<UvNeaContainer />} />
         </Route>
         <Route path="watchlist" element={<WatchList />} />
         <Route path="about" element={<About />} />
