@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationArrow, faBookmark } from "@fortawesome/free-solid-svg-icons";
 //
@@ -5,7 +6,8 @@ import Button from "../components/Button";
 //
 import regionalData from "../data/regionalData";
 
-function SelectionField() {
+function SelectionField(props) {
+  const { region } = props;
   return (
     <>
       <div className="relative flex w-1/2">
@@ -14,7 +16,7 @@ function SelectionField() {
           className="flex-grow bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           <option selected>Choose your location</option>
-          {regionalData.map((data, i) => (
+          {region.map((data, i) => (
             <option key={i} value={data.name}>
               {data.name}
             </option>
