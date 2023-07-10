@@ -1,3 +1,6 @@
+// dependencies
+import { Outlet } from "react-router-dom";
+// components
 import NavSideBar from "../components/NavSideBar";
 import PsiNea from "../components/PsiNea";
 import Pm25Nea from "../components/Pm25Nea";
@@ -22,6 +25,10 @@ function Dashboard() {
             <Weather2Hrs />
             <WetbulbTemp />
           </div>
+        </div>
+        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
+          <h1 className="text-center font-bold text-2xl mb-5">Read More</h1>
+          <Outlet />
         </div>
       </div>
     </>
