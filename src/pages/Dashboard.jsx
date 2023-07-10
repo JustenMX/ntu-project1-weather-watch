@@ -10,7 +10,8 @@ import UvNea from "../components/UvNea";
 import SelectionField from "../components/SelectionField";
 import SingaporeMap from "../components/SingaporeMap";
 
-function Dashboard() {
+function Dashboard(props) {
+  const { region } = props;
   return (
     <>
       <NavSideBar />
@@ -20,7 +21,7 @@ function Dashboard() {
           <h1 className="text-center font-bold text-2xl mb-5">Dashboard</h1>
 
           <div className="mb-10 flex justify-center">
-            <SelectionField />
+            <SelectionField region={region} />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
             <PsiNea />

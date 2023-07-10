@@ -1,6 +1,7 @@
 // css
 import "./index.css";
 // dependencies
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // pages
 import LandingPage from "./pages/LandingPage";
@@ -15,13 +16,18 @@ import Weather2HrsContainer from "./components/Weather2HrsContainer";
 import WetbulbTempController from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
 // data
+import regionalData from "./data/regionalData";
 
 function App() {
+  // state management
+  const [region, setRegion] = useState(regionalData);
+  console.log(region);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="dashboard" element={<Dashboard />}>
+        <Route path="dashboard" element={<Dashboard region={region} />}>
           <Route path="psi" element={<PsiNeaContainer />} />
           <Route path="pm25" element={<Pm25NeaContainer />} />
           <Route path="weather2hr" element={<Weather2HrsContainer />} />
