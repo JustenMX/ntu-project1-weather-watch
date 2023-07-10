@@ -7,6 +7,7 @@ import Pm25Nea from "../components/Pm25Nea";
 import Weather2Hrs from "../components/Weather2Hrs";
 import WetbulbTemp from "../components/WetbulbTemp";
 import SelectionField from "../components/SelectionField";
+import SingaporeMap from "../components/SingaporeMap";
 
 function Dashboard() {
   return (
@@ -16,6 +17,7 @@ function Dashboard() {
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
           <h1 className="text-center font-bold text-2xl mb-5">Dashboard</h1>
+
           <div className="mb-10 flex justify-center">
             <SelectionField />
           </div>
@@ -29,6 +31,10 @@ function Dashboard() {
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
           <h1 className="text-center font-bold text-2xl mb-5">Read More</h1>
           <Outlet />
+        </div>
+        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
+          <h1 className="text-center font-bold text-2xl mb-5">Singapore Map</h1>
+          <SingaporeMap />
         </div>
       </div>
     </>

@@ -1,191 +1,378 @@
 const regionalData = [
   {
     name: "Ang Mo Kio",
-    region: "north",
+    label_location: {
+      latitude: 1.375,
+      longitude: 103.839,
+      region: "north",
+    },
   },
   {
     name: "Bedok",
-    region: "east",
+    label_location: {
+      latitude: 1.321,
+      longitude: 103.924,
+      region: "east",
+    },
   },
   {
     name: "Bishan",
-    region: "central",
+    label_location: {
+      latitude: 1.350772,
+      longitude: 103.839,
+      region: "central",
+    },
   },
   {
     name: "Boon Lay",
-    region: "west",
+    label_location: {
+      latitude: 1.304,
+      longitude: 103.701,
+      region: "west",
+    },
   },
   {
     name: "Bukit Batok",
-    region: "west",
+    label_location: {
+      latitude: 1.353,
+      longitude: 103.754,
+      region: "west",
+    },
   },
   {
     name: "Bukit Merah",
-    region: "south",
+    label_location: {
+      latitude: 1.277,
+      longitude: 103.819,
+      region: "south",
+    },
   },
   {
     name: "Bukit Panjang",
-    region: "west",
+    label_location: {
+      latitude: 1.362,
+      longitude: 103.77195,
+      region: "west",
+    },
   },
   {
     name: "Bukit Timah",
-    region: "south",
+    label_location: {
+      latitude: 1.325,
+      longitude: 103.791,
+      region: "south",
+    },
   },
   {
     name: "Central Water Catchment",
-    region: "central",
+    label_location: {
+      latitude: 1.38,
+      longitude: 103.805,
+      region: "central",
+    },
   },
   {
     name: "Changi",
-    region: "east",
+    label_location: {
+      latitude: 1.357,
+      longitude: 103.987,
+      region: "east",
+    },
   },
   {
     name: "Choa Chu Kang",
-    region: "west",
+    label_location: {
+      latitude: 1.377,
+      longitude: 103.745,
+      region: "west",
+    },
   },
   {
     name: "Clementi",
-    region: "west",
+    label_location: {
+      latitude: 1.315,
+      longitude: 103.76,
+      region: "west",
+    },
   },
   {
     name: "City",
-    region: "south",
+    label_location: {
+      latitude: 1.292,
+      longitude: 103.844,
+      region: "south",
+    },
   },
   {
     name: "Geylang",
-    region: "east",
+    label_location: {
+      latitude: 1.318,
+      longitude: 103.884,
+      region: "east",
+    },
   },
   {
     name: "Hougang",
-    region: "east",
+    label_location: {
+      latitude: 1.361218,
+      longitude: 103.886,
+      region: "east",
+    },
   },
   {
     name: "Jalan Bahar",
-    region: "west",
+    label_location: {
+      latitude: 1.347,
+      longitude: 103.67,
+      region: "west",
+    },
   },
   {
     name: "Jurong East",
-    region: "west",
+    label_location: {
+      latitude: 1.326,
+      longitude: 103.737,
+      region: "west",
+    },
   },
   {
     name: "Jurong Island",
-    region: "west",
+    label_location: {
+      latitude: 1.266,
+      longitude: 103.699,
+      region: "west",
+    },
   },
   {
     name: "Jurong West",
-    region: "west",
+    label_location: {
+      latitude: 1.34039,
+      longitude: 103.705,
+      region: "west",
+    },
   },
   {
     name: "Kallang",
-    region: "east",
+    label_location: {
+      latitude: 1.312,
+      longitude: 103.862,
+      region: "east",
+    },
   },
   {
     name: "Lim Chu Kang",
-    region: "west",
+    label_location: {
+      latitude: 1.423,
+      longitude: 103.717332,
+      region: "west",
+    },
   },
   {
     name: "Mandai",
-    region: "north",
+    label_location: {
+      latitude: 1.419,
+      longitude: 103.812,
+      region: "north",
+    },
   },
   {
     name: "Marine Parade",
-    region: "east",
+    label_location: {
+      latitude: 1.297,
+      longitude: 103.891,
+      region: "east",
+    },
   },
   {
     name: "Novena",
-    region: "central",
+    label_location: {
+      latitude: 1.327,
+      longitude: 103.826,
+      region: "central",
+    },
   },
   {
     name: "Pasir Ris",
-    region: "east",
+    label_location: {
+      latitude: 1.37,
+      longitude: 103.948,
+      region: "east",
+    },
   },
   {
     name: "Paya Lebar",
-    region: "east",
+    label_location: {
+      latitude: 1.358,
+      longitude: 103.914,
+      region: "west",
+    },
   },
   {
     name: "Pioneer",
-    region: "west",
+    label_location: {
+      latitude: 1.315,
+      longitude: 103.675,
+    },
   },
   {
     name: "Pulau Tekong",
-    region: "east",
+    label_location: {
+      latitude: 1.403,
+      longitude: 104.053,
+      region: "east",
+    },
   },
   {
     name: "Pulau Ubin",
-    region: "east",
+    label_location: {
+      latitude: 1.404,
+      longitude: 103.96,
+      region: "east",
+    },
   },
   {
     name: "Punggol",
-    region: "east",
+    label_location: {
+      latitude: 1.401,
+      longitude: 103.904,
+      region: "east",
+    },
   },
   {
     name: "Queenstown",
-    region: "south",
+    label_location: {
+      latitude: 1.291,
+      longitude: 103.78576,
+      region: "south",
+    },
   },
   {
     name: "Seletar",
-    region: "north",
+    label_location: {
+      latitude: 1.404,
+      longitude: 103.869,
+      region: "north",
+    },
   },
   {
     name: "Sembawang",
-    region: "north",
+    label_location: {
+      latitude: 1.445,
+      longitude: 103.818495,
+      region: "north",
+    },
   },
   {
     name: "Sengkang",
-    region: "north",
+    label_location: {
+      latitude: 1.384,
+      longitude: 103.891443,
+      region: "north",
+    },
   },
   {
     name: "Sentosa",
-    region: "central",
+    label_location: {
+      latitude: 1.243,
+      longitude: 103.832,
+      region: "central",
+    },
   },
   {
     name: "Serangoon",
-    region: "east",
+    label_location: {
+      latitude: 1.357,
+      longitude: 103.865,
+      region: "east",
+    },
   },
   {
     name: "Southern Islands",
-    region: "south",
+    label_location: {
+      latitude: 1.208,
+      longitude: 103.842,
+      region: "south",
+    },
   },
   {
     name: "Sungei Kadut",
-    region: "west",
+    label_location: {
+      latitude: 1.413,
+      longitude: 103.756,
+      region: "west",
+    },
   },
   {
     name: "Tampines",
-    region: "east",
+    label_location: {
+      latitude: 1.345,
+      longitude: 103.944,
+      region: "east",
+    },
   },
   {
     name: "Tanglin",
-    region: "central",
+    label_location: {
+      latitude: 1.308,
+      longitude: 103.813,
+      region: "central",
+    },
   },
   {
     name: "Tengah",
-    region: "west",
+    label_location: {
+      latitude: 1.374,
+      longitude: 103.715,
+      region: "west",
+    },
   },
   {
     name: "Toa Payoh",
-    region: "central",
+    label_location: {
+      latitude: 1.334304,
+      longitude: 103.856327,
+      region: "central",
+    },
   },
   {
     name: "Tuas",
-    region: "west",
+    label_location: {
+      latitude: 1.294947,
+      longitude: 103.635,
+      region: "west",
+    },
   },
   {
     name: "Western Islands",
-    region: "west",
+    label_location: {
+      latitude: 1.205926,
+      longitude: 103.746,
+      region: "west",
+    },
   },
   {
     name: "Western Water Catchment",
-    region: "west",
+    label_location: {
+      latitude: 1.405,
+      longitude: 103.689,
+      region: "west",
+    },
   },
   {
     name: "Woodlands",
-    region: "north",
+    label_location: {
+      latitude: 1.432,
+      longitude: 103.786528,
+      region: "north",
+    },
   },
   {
     name: "Yishun",
-    region: "north",
+    label_location: {
+      latitude: 1.418,
+      longitude: 103.839,
+      region: "north",
+    },
   },
 ];
 
