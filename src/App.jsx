@@ -1,7 +1,6 @@
 // css
 import "./index.css";
 // dependencies
-import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // pages
 import LandingPage from "./pages/LandingPage";
@@ -18,26 +17,6 @@ import WetbulbTempController from "./components/WetbulbTempContainer";
 // data
 
 function App() {
-  // state management
-  const [userGeoLocation, setUserGeoLocation] = useState({});
-
-  // Get users current geolocation
-  const fetchUsersLocation = async () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setUserGeoLocation((prevState) => ({
-        ...prevState,
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      }));
-    });
-  };
-  console.log(userGeoLocation);
-
-  // Get users current geolocation upon load
-  useEffect(() => {
-    fetchUsersLocation();
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>
