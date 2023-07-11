@@ -4,14 +4,15 @@ function ExternalButton(props) {
   const { className, extButtonFunc, extButtonLabel, hrefLink } = props;
   return (
     <>
-      <button
+      <a
         className={className}
         onClick={extButtonFunc}
         href={hrefLink}
         target="_blank"
+        rel="noopener noreferrer"
       >
         {extButtonLabel}
-      </button>
+      </a>
     </>
   );
 }

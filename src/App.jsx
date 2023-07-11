@@ -21,13 +21,30 @@ import regionalData from "./data/regionalData";
 function App() {
   // state management
   const [region, setRegion] = useState(regionalData);
-  console.log(region);
+  const [selectRegion, setSelectRegion] = useState("");
+
+  // handler Selected Option
+  const handlerSelectOption = (value) => {
+    setSelectRegion(value);
+  };
+
+  // debug
+  console.log(`State Region: ${region}`);
+  console.log(`State selectRegion: ${selectRegion}`);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="dashboard" element={<Dashboard region={region} />}>
+        <Route
+          path="dashboard"
+          element={
+            <Dashboard
+              region={region}
+              handlerSelectOption={handlerSelectOption}
+            />
+          }
+        >
           <Route path="psi" element={<PsiNeaContainer />} />
           <Route path="pm25" element={<Pm25NeaContainer />} />
           <Route path="weather2hr" element={<Weather2HrsContainer />} />

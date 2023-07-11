@@ -6,13 +6,19 @@ import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import Button from "../components/Button";
 
 function SelectionField(props) {
-  const { region } = props;
+  const { region, handlerSelectOption } = props;
+  //
+  const handlerOnChange = (event) => {
+    handlerSelectOption(event.target.value);
+  };
+
   return (
     <>
       <div className="relative flex w-1/2">
         <select
           id="region"
           className="flex-grow bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          onChange={handlerOnChange}
         >
           <option selected>Choose your location</option>
           {region.map((data, i) => (

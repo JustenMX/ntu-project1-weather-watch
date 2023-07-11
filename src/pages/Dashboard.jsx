@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // dependencies
 import { Outlet } from "react-router-dom";
 // components
@@ -11,7 +12,7 @@ import SelectionField from "../components/SelectionField";
 import SingaporeMap from "../components/SingaporeMap";
 
 function Dashboard(props) {
-  const { region } = props;
+  const { region, handlerSelectOption } = props;
   return (
     <>
       <NavSideBar />
@@ -21,7 +22,10 @@ function Dashboard(props) {
           <h1 className="text-center font-bold text-2xl mb-5">Dashboard</h1>
 
           <div className="mb-10 flex justify-center">
-            <SelectionField region={region} />
+            <SelectionField
+              region={region}
+              handlerSelectOption={handlerSelectOption}
+            />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
             <PsiNea />
