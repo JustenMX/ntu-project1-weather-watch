@@ -22,7 +22,7 @@ function App() {
   // state management
   const [region, setRegion] = useState(regionalData);
   const [selectRegion, setSelectRegion] = useState("");
-  const [watchList, setWatchList] = useState([]);
+  const [watchList, setWatchList] = useState({});
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -32,10 +32,12 @@ function App() {
   //handler to Add WatchList
   const handlerAddWatchList = () => {
     const newWatchList = {
-      region: region,
+      region: selectRegion,
     };
     setWatchList(newWatchList);
   };
+
+  console.log(watchList);
 
   // debug
   console.log(`State Region: ${region}`);
