@@ -24,7 +24,7 @@ function App() {
   // state management
   const [region, setRegion] = useState(regionalData);
   const [selectRegion, setSelectRegion] = useState("");
-  const [watchList, setWatchList] = useState([{}]);
+  const [watchList, setWatchList] = useState([]);
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -65,6 +65,7 @@ function App() {
               handlerSelectOption={handlerSelectOption}
               handlerAddWatchList={handlerAddWatchList}
               ToastContainer={ToastContainer}
+              watchList={watchList}
             />
           }
         >
@@ -75,7 +76,7 @@ function App() {
           <Route path="uv" element={<UvNeaContainer />} />
         </Route>
         <Route path="watchlist" element={<WatchList watchList={watchList} />} />
-        <Route path="about" element={<About />} />
+        <Route path="about" element={<About watchList={watchList} />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

@@ -1,11 +1,13 @@
+/* eslint-disable react/prop-types */
 import DevCards from "../components/DevCards";
 import AboutContent from "../components/AboutContent";
 import NavSideBar from "../components/NavSideBar";
 
-function About() {
+function About(props) {
+  const { watchList } = props;
   return (
     <div>
-      <NavSideBar />
+      <NavSideBar watchList={watchList} />
       {/* vision */}
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
