@@ -12,7 +12,7 @@ import SelectionField from "../components/SelectionField";
 import SingaporeMap from "../components/SingaporeMap";
 
 function Dashboard(props) {
-  const { region, handlerSelectOption } = props;
+  const { region, handlerSelectOption, handlerAddWatchList } = props;
   return (
     <>
       <NavSideBar />
@@ -25,6 +25,7 @@ function Dashboard(props) {
             <SelectionField
               region={region}
               handlerSelectOption={handlerSelectOption}
+              handlerAddWatchList={handlerAddWatchList}
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">

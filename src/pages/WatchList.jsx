@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import NavSideBar from "../components/NavSideBar";
 
-function WatchList() {
+function WatchList(props) {
+  const { watchList } = props;
   return (
     <div>
       <NavSideBar />

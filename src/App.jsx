@@ -22,10 +22,19 @@ function App() {
   // state management
   const [region, setRegion] = useState(regionalData);
   const [selectRegion, setSelectRegion] = useState("");
+  const [watchList, setWatchList] = useState([]);
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
     setSelectRegion(value);
+  };
+
+  //handler to Add WatchList
+  const handlerAddWatchList = () => {
+    const newWatchList = {
+      region: region,
+    };
+    setWatchList(newWatchList);
   };
 
   // debug
@@ -42,6 +51,7 @@ function App() {
             <Dashboard
               region={region}
               handlerSelectOption={handlerSelectOption}
+              handlerAddWatchList={handlerAddWatchList}
             />
           }
         >
@@ -51,7 +61,7 @@ function App() {
           <Route path="wetbulb" element={<WetbulbTempController />} />
           <Route path="uv" element={<UvNeaContainer />} />
         </Route>
-        <Route path="watchlist" element={<WatchList />} />
+        <Route path="watchlist" element={<WatchList watchList={watchList} />} />
         <Route path="about" element={<About />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
