@@ -4,6 +4,7 @@ import WatchListContainer from "../components/WatchListContainer";
 
 function WatchList(props) {
   const { watchList } = props;
+
   return (
     <div>
       <NavSideBar />
@@ -17,8 +18,27 @@ function WatchList(props) {
                 {watchList.region}
               </p>
             </div>
-            <div className="grid grid-cols-4 gap-4 mb-4">
-              <WatchListContainer />
+            <div className="grid grid-cols-5 gap-4 my-4">
+              <WatchListContainer
+                watchListValue="0"
+                watchListLabel="24-hr PSI"
+              />
+              <WatchListContainer
+                watchListValue="0"
+                watchListLabel="1-hr PM2.5 (µg/m³)"
+              />
+              <WatchListContainer
+                watchListValue="0"
+                watchListLabel="24-hr weather forecast"
+              />
+              <WatchListContainer
+                watchListValue="0"
+                watchListLabel="wetbulb temperature"
+              />
+              <WatchListContainer
+                watchListValue="0"
+                watchListLabel="Ultraviolet Index"
+              />
             </div>
           </div>
         </div>

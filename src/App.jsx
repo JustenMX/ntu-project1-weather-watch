@@ -1,8 +1,10 @@
 // css
 import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
 // dependencies
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 // pages
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
@@ -22,7 +24,7 @@ function App() {
   // state management
   const [region, setRegion] = useState(regionalData);
   const [selectRegion, setSelectRegion] = useState("");
-  const [watchList, setWatchList] = useState({});
+  const [watchList, setWatchList] = useState([{}]);
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -34,14 +36,22 @@ function App() {
     const newWatchList = {
       region: selectRegion,
     };
-    setWatchList(newWatchList);
+    // check if the same region is already in the watchlist
+    const checkDuplicates = watchList.some(
+      (watchItem) => watchItem.region === selectRegion
+    );
+    if (checkDuplicates) {
+      toast.error("You already have this region in your watch list");
+    } else {
+      setWatchList((prevState) => [...prevState, newWatchList]);
+      toast.success(`You have added ${selectRegion} to your watch list`);
+    }
   };
 
-  console.log(watchList);
-
   // debug
-  console.log(`State Region: ${region}`);
-  console.log(`State selectRegion: ${selectRegion}`);
+  console.log(region);
+  console.log(selectRegion);
+  console.log(watchList);
 
   return (
     <BrowserRouter>
@@ -54,6 +64,7 @@ function App() {
               region={region}
               handlerSelectOption={handlerSelectOption}
               handlerAddWatchList={handlerAddWatchList}
+              ToastContainer={ToastContainer}
             />
           }
         >
