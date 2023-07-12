@@ -14,6 +14,7 @@ import SingaporeMap from "../components/SingaporeMap";
 function Dashboard(props) {
   const {
     region,
+    selectRegion,
     handlerSelectOption,
     handlerAddWatchList,
     ToastContainer,
@@ -31,6 +32,7 @@ function Dashboard(props) {
           <div className="mb-10 flex justify-center">
             <SelectionField
               region={region}
+              selectRegion={selectRegion}
               handlerSelectOption={handlerSelectOption}
               handlerAddWatchList={handlerAddWatchList}
               isOptionSelected={isOptionSelected}

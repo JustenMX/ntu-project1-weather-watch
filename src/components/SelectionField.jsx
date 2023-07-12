@@ -8,8 +8,13 @@ import { toast } from "react-toastify";
 import Button from "../components/Button";
 
 function SelectionField(props) {
-  const { region, handlerSelectOption, handlerAddWatchList, isOptionSelected } =
-    props;
+  const {
+    region,
+    selectRegion,
+    handlerSelectOption,
+    handlerAddWatchList,
+    isOptionSelected,
+  } = props;
 
   // handler for option selected in dropdown
   const handlerOnChange = (event) => {
@@ -21,6 +26,7 @@ function SelectionField(props) {
       <div className="relative flex w-1/2">
         <select
           id="region"
+          value={selectRegion}
           className="flex-grow bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           onChange={handlerOnChange}
         >

@@ -76,6 +76,7 @@ function App() {
           element={
             <Dashboard
               region={region}
+              selectRegion={selectRegion}
               handlerSelectOption={handlerSelectOption}
               handlerAddWatchList={handlerAddWatchList}
               ToastContainer={ToastContainer}
