@@ -2,12 +2,16 @@
 // css
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+//dependencies
+import { toast } from "react-toastify";
 // components
 import Button from "../components/Button";
 
 function SelectionField(props) {
-  const { region, handlerSelectOption, handlerAddWatchList } = props;
-  //
+  const { region, handlerSelectOption, handlerAddWatchList, isOptionSelected } =
+    props;
+
+  // handler for option selected in dropdown
   const handlerOnChange = (event) => {
     handlerSelectOption(event.target.value);
   };
@@ -31,11 +35,19 @@ function SelectionField(props) {
           className="flex items-center justify-center p-2 ml-2 w-14 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           buttonLabel={<FontAwesomeIcon icon={faLocationArrow} size="xl" />}
         /> */}
-        <Button
-          className="flex items-center justify-center p-2 ml-2 w-14 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          buttonLabel={<FontAwesomeIcon icon={faBookmark} size="xl" />}
-          buttonFunc={handlerAddWatchList}
-        />
+        {isOptionSelected ? (
+          <Button
+            className="flex items-center justify-center p-2 ml-2 w-14 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            buttonLabel={<FontAwesomeIcon icon={faBookmark} size="xl" />}
+            buttonFunc={handlerAddWatchList}
+          />
+        ) : (
+          <Button
+            className="flex items-center justify-center p-2 ml-2 w-14 text-sm font-medium text-white bg-slate-600 rounded-lg border"
+            buttonLabel={<FontAwesomeIcon icon={faBookmark} size="xl" />}
+            buttonFunc={() => toast.warning("Please select a valid location")}
+          />
+        )}
       </div>
     </>
   );

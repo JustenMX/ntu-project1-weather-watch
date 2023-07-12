@@ -25,26 +25,40 @@ function App() {
   const [region, setRegion] = useState(regionalData);
   const [selectRegion, setSelectRegion] = useState("");
   const [watchList, setWatchList] = useState([]);
+  const [isOptionSelected, setIsOptionSelected] = useState(false);
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
-    setSelectRegion(value);
+    if (value === "" || value === "Choose your location") {
+      setIsOptionSelected(false);
+      toast.warning("Please select a valid location");
+    } else {
+      setIsOptionSelected(true);
+      setSelectRegion(value);
+    }
   };
 
   //handler to Add WatchList
   const handlerAddWatchList = () => {
-    const newWatchList = {
-      region: selectRegion,
-    };
-    // check if the same region is already in the watchlist
-    const checkDuplicates = watchList.some(
-      (watchItem) => watchItem.region === selectRegion
-    );
-    if (checkDuplicates) {
-      toast.error("You already have this region in your watch list");
+    // I do not need this but this adds as an additional safety barrier
+    // will decide later if i need to remove the validation for the onclick
+    if (selectRegion === "") {
+      setIsOptionSelected(false);
+      toast.error("Please select a valid location");
     } else {
-      setWatchList((prevState) => [...prevState, newWatchList]);
-      toast.success(`You have added ${selectRegion} to your watch list`);
+      const newWatchList = {
+        region: selectRegion,
+      };
+      // Check if the same region is already in the watchlist
+      const checkDuplicates = watchList.some(
+        (watchItem) => watchItem.region === selectRegion
+      );
+      if (checkDuplicates) {
+        toast.error("You already have this location in your watch list");
+      } else {
+        setWatchList((prevState) => [...prevState, newWatchList]);
+        toast.success(`You have added ${selectRegion} to your watch list`);
+      }
     }
   };
 
@@ -66,6 +80,7 @@ function App() {
               handlerAddWatchList={handlerAddWatchList}
               ToastContainer={ToastContainer}
               watchList={watchList}
+              isOptionSelected={isOptionSelected}
             />
           }
         >

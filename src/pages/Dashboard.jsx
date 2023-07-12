@@ -18,6 +18,7 @@ function Dashboard(props) {
     handlerAddWatchList,
     ToastContainer,
     watchList,
+    isOptionSelected,
   } = props;
   return (
     <>
@@ -32,6 +33,7 @@ function Dashboard(props) {
               region={region}
               handlerSelectOption={handlerSelectOption}
               handlerAddWatchList={handlerAddWatchList}
+              isOptionSelected={isOptionSelected}
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
