@@ -27,6 +27,8 @@ function App() {
   const [watchList, setWatchList] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
+  //
+
   // handler Selected Option
   const handlerSelectOption = (value) => {
     if (value === "" || value === "Choose your location") {
