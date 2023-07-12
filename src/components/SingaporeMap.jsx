@@ -8,9 +8,9 @@ function SingaporeMap() {
     <div className="px-20 pb-10">
       <MapContainer
         center={[1.3521, 103.8198]} // singapore
-        zoom={12}
-        scrollWheelZoom={true}
-        style={{ height: "600px" }}
+        zoom={11}
+        scrollWheelZoom={false}
+        style={{ height: "500px" }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
