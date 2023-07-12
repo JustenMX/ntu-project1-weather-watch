@@ -8,8 +8,7 @@ function Pm25NeaContainer() {
             PM 2.5 Reading
           </h5>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Read More Farrhan.
           </p>
         </div>
       </div>
