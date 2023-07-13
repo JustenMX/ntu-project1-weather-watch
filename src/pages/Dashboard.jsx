@@ -16,14 +16,14 @@ function Dashboard(props) {
     region,
     selectRegion,
     handlerSelectOption,
-    handlerAddWatchList,
+    handlerAddWatchListRegion,
     ToastContainer,
-    watchList,
+    watchListRegion,
     isOptionSelected,
   } = props;
   return (
     <>
-      <NavSideBar watchList={watchList} />
+      <NavSideBar watchListRegion={watchListRegion} />
       <div className="p-4 sm:ml-64">
         <ToastContainer />
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
@@ -34,7 +34,7 @@ function Dashboard(props) {
               region={region}
               selectRegion={selectRegion}
               handlerSelectOption={handlerSelectOption}
-              handlerAddWatchList={handlerAddWatchList}
+              handlerAddWatchListRegion={handlerAddWatchListRegion}
               isOptionSelected={isOptionSelected}
             />
           </div>

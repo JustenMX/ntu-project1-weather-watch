@@ -24,10 +24,8 @@ function App() {
   // state management
   const [region, setRegion] = useState(regionalData);
   const [selectRegion, setSelectRegion] = useState("");
-  const [watchList, setWatchList] = useState([]);
+  const [watchListRegion, setWatchListRegion] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
-
-  //
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -41,7 +39,7 @@ function App() {
   };
 
   //handler to Add WatchList
-  const handlerAddWatchList = () => {
+  const handlerAddWatchListRegion = () => {
     // I do not need this but this adds as an additional safety barrier
     // will decide later if i need to remove the validation for the onclick
     if (selectRegion === "") {
@@ -52,13 +50,13 @@ function App() {
         region: selectRegion,
       };
       // Check if the same region is already in the watchlist
-      const checkDuplicates = watchList.some(
+      const checkDuplicates = watchListRegion.some(
         (watchItem) => watchItem.region === selectRegion
       );
       if (checkDuplicates) {
         toast.error("You already have this location in your watch list");
       } else {
-        setWatchList((prevState) => [...prevState, newWatchList]);
+        setWatchListRegion((prevState) => [...prevState, newWatchList]);
         toast.success(`You have added ${selectRegion} to your watch list`);
       }
     }
@@ -67,7 +65,7 @@ function App() {
   // debug
   console.log(region);
   console.log(selectRegion);
-  console.log(watchList);
+  console.log(watchListRegion);
 
   return (
     <BrowserRouter>
@@ -80,9 +78,9 @@ function App() {
               region={region}
               selectRegion={selectRegion}
               handlerSelectOption={handlerSelectOption}
-              handlerAddWatchList={handlerAddWatchList}
+              handlerAddWatchListRegion={handlerAddWatchListRegion}
               ToastContainer={ToastContainer}
-              watchList={watchList}
+              watchListRegion={watchListRegion}
               isOptionSelected={isOptionSelected}
             />
           }
@@ -93,8 +91,16 @@ function App() {
           <Route path="wetbulb" element={<WetbulbTempController />} />
           <Route path="uv" element={<UvNeaContainer />} />
         </Route>
-        <Route path="watchlist" element={<WatchList watchList={watchList} />} />
-        <Route path="about" element={<About watchList={watchList} />} />
+        <Route
+          path="watchlist"
+          element={
+            <WatchList watchListRegion={watchListRegion} region={region} />
+          }
+        />
+        <Route
+          path="about"
+          element={<About watchListRegion={watchListRegion} />}
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

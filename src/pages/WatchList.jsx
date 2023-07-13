@@ -1,19 +1,48 @@
 /* eslint-disable react/prop-types */
+//dependencies
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+// components
 import NavSideBar from "../components/NavSideBar";
 import WatchListContainer from "../components/WatchListContainer";
+// data
+import neaAPI from "../api/neaAPI";
+import { useEffect } from "react";
 
 function WatchList(props) {
-  const { watchList } = props;
+  const { watchListRegion, region } = props;
+  // State Management
+  const [watchPsi, setWatchPsi] = useState([]);
+  const [newWatchList, setNewWatchList] = useState([]);
+
+  // GET PSI
+  const getPSI = async () => {
+    try {
+      const response = await neaAPI.get(`/psi`);
+      setWatchPsi(response.data);
+      toast.promise("loading");
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  // const handlePsi = () => {};
+  // // debugging
+  // console.log(watchPsi);
+
+  useEffect(() => {
+    getPSI();
+  }, []);
 
   return (
     <div>
-      <NavSideBar watchList={watchList} />
+      <NavSideBar watchListRegion={watchListRegion} />
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
           <h1 className="text-center font-bold text-2xl">WatchList</h1>
           {/* map begins here */}
 
-          {watchList.map((watchItem, i) => (
+          {watchListRegion.map((watchItem, i) => (
             <div
               key={i}
               className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 my-5"
