@@ -94,7 +94,11 @@ function App() {
         <Route
           path="watchlist"
           element={
-            <WatchList watchListRegion={watchListRegion} region={region} />
+            <WatchList
+              watchListRegion={watchListRegion}
+              region={region}
+              ToastContainer={ToastContainer}
+            />
           }
         />
         <Route

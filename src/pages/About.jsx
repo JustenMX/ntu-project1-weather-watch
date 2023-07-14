@@ -4,10 +4,10 @@ import AboutContent from "../components/AboutContent";
 import NavSideBar from "../components/NavSideBar";
 
 function About(props) {
-  const { watchList } = props;
+  const { watchListRegion } = props;
   return (
     <div>
-      <NavSideBar watchList={watchList} />
+      <NavSideBar watchListRegion={watchListRegion} />
       {/* vision */}
       <div className="p-4 sm:ml-64">
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
