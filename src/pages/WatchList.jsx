@@ -15,9 +15,18 @@ function WatchList(props) {
   const [watchPsi, setWatchPsi] = useState([]);
   const [watchPM25, setWatchPM25] = useState([]);
   const [watchList, setWatchList] = useState([]);
+  const [watchUVIndex, setWatchUVIndex] = useState([]);
+
+  /////////////
+  // API
+  // getPSI()
+  // getPM25()
+  /////////////
 
   useEffect(() => {
+    /////////////
     // GET PSI
+    /////////////
     const getPSI = async () => {
       try {
         const response = await neaAPI.get(`/psi`);
@@ -27,7 +36,10 @@ function WatchList(props) {
         toast.error(error);
       }
     };
+
+    /////////////
     // GET PM2.5
+    /////////////
     const getPM25 = async () => {
       try {
         const response = await neaAPI.get(`/pm25`);
@@ -37,21 +49,47 @@ function WatchList(props) {
         toast.error(error);
       }
     };
+
+    /////////////
+    // GET UV Index
+    /////////////
+    const getUVIndex = async () => {
+      try {
+        const response = await neaAPI.get("/uv-index");
+        setWatchUVIndex(response.data);
+        toast.promise("loading");
+      } catch (error) {
+        toast.error(error);
+      }
+    };
+
     getPSI();
     getPM25();
+    getUVIndex();
   }, []);
 
+  /////////////
+  // Handlers
+  // handlePsi()
+  // handlePM25()
+  /////////////
+  // explaination provided below (only applies for handlePsi(), as once the watchList is updated, for subsequent handling I use the updated state)
+  /////////////
+  // region (state) passed as prop from App.jsx -> contains the data from regionalData.js
+  // watchListRegion (state) passed as props from App.jsx is an array of objects containing all regions selected by the user to be in watchList
+  // watchPsi (state), containing data from getPSI() api request and I store the entire response data
+  // source of truth would be (WatchListRegion) as it contains all the regions / locations that the user has added and I need this to run the match
+  // Primary Logic handling -> watchListRegion.region to check with region.name -> and if the watchListRegion.region matches with region.name, i want to get the respective regions from (state) region (region.label_location.region)
+  // store the location and region in a new object and hold them in a temporary array (array of objects)
+  // Secondary Logic handling -> once matched, to use that matched values (stored in an temp array of objects) and check against watchPsi. I need to match the region --> which the region in my api response, but the api response which contains the values is a object, whereas the value i want to match with is a single string, threfore i need to run a object loop in line 68 then run a match vice versa. if matched i create a new object, update the values, and update the state with the object variable. Take note that all this is being handled for every loop iteration.
+  /////////////
+
   useEffect(() => {
+    /////////////
+    // handlePsi()
+    /////////////
     const handlePsi = () => {
       let matchedRegions = [];
-      // region (state) passed as prop from App.jsx -> contains the data from regionalData.js
-      // watchListRegion (state) passed as props from App.jsx is an array of objects containing all regions selected by the user to be in watchList
-      // watchPsi (state), containing data from getPSI() api request and I store the entire response data
-      // source of truth would be (WatchListRegion) as it contains all the regions / locations that the user has added and I need this to run the match
-      // Primary Logic handling -> watchListRegion.region to check with region.name -> and if the watchListRegion.region matches with region.name, i want to get the respective regions from (state) region (region.label_location.region)
-      // store the location and region in a new object and hold them in a temporary array (array of objects)
-      // Secondary Logic handling -> once matched, to use that matched values (stored in an temp array of objects) and check against watchPsi. I need to match the region --> which the region in my api response, but the api response which contains the values is a object, whereas the value i want to match with is a single string, threfore i need to run a object loop in line 68 then run a match vice versa. if matched i create a new object, update the values, and update the state with the object variable. Take note that all this is being handled for every loop iteration.
-
       // execute for loop to the WatchListRegion array
       for (let i = 0; i < watchListRegion.length; i++) {
         // execute for loop to the Region array
@@ -67,21 +105,18 @@ function WatchList(props) {
           }
         }
       }
-      // console.log("matchedRegions");
-      // console.log(matchedRegions);
-
       // execute another for loop with matchedRegions
       for (let k = 0; k < matchedRegions.length; k++) {
         // pass the readings which is a object to a variable
         const psiValue = watchPsi?.items?.[0]?.readings?.psi_twenty_four_hourly;
         console.log("psiValue");
         console.log(psiValue);
-        for (const region in psiValue) {
-          if (matchedRegions[k].region === region) {
+        for (const regionKey in psiValue) {
+          if (matchedRegions[k].region === regionKey) {
             const newWatchList = {
               location: matchedRegions[k].location,
               region: matchedRegions[k].region,
-              psi: psiValue[region],
+              psi: psiValue[regionKey],
             };
             // update state with the new object every iteration of [matchedRegions]
             setWatchList((prevState) => [...prevState, newWatchList]);
@@ -89,20 +124,53 @@ function WatchList(props) {
         }
       }
     };
+
+    /////////////
+    // handlePM25()
+    /////////////
+    const handlePM25 = () => {
+      const updatedWatchList = [];
+      for (let i = 0; i < watchList.length; i++) {
+        const pm25Value = watchPM25?.items?.[0]?.readings?.pm25_one_hourly;
+        for (const regionKey in pm25Value) {
+          if (watchList[i].region === regionKey) {
+            const newWatchList = {
+              ...watchList[i],
+              pm25: pm25Value[regionKey],
+            };
+            // push all the updated values in an array first
+            updatedWatchList.push(newWatchList);
+          }
+        }
+      }
+      // override the state with the new array
+      setWatchList(updatedWatchList);
+    };
+
+    /////////////
+    // handleUVIndex()
+    /////////////
+    const handleUVIndex = () => {
+      const uvIndexValue = watchUVIndex?.items?.[0]?.index[0]?.value;
+      const updatedWatchList = watchList.map((item) => ({
+        ...item,
+        uvIndex: uvIndexValue,
+      }));
+      setWatchList(updatedWatchList);
+    };
+
+    handlePM25();
     handlePsi();
-  }, [watchListRegion, region, watchPsi]);
+    handleUVIndex();
+  }, [watchListRegion, region, watchPsi, watchPM25, watchUVIndex]);
 
-  // useEffect(() => {
-  //   const handlePM25 = () => {
-  //     //
-  //   };
-  // });
-
-  // debugging
+  /////////////
+  // debug
+  /////////////
   console.log("WatchList");
   console.log(watchList);
-  console.log("watchPM25");
-  console.log(watchPM25);
+  console.log("watchUVIndex");
+  console.log(watchUVIndex);
 
   return (
     <div>
