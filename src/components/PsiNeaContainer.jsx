@@ -5,7 +5,8 @@ import { useState,useEffect } from 'react';
 
 function PsiNeaContainer(props) {
   console.log(PsiNeaContainer);
-  console.log(props); 
+  console.log("PsiNeaContainer selectRegion : " + props.selectRegion); 
+  console.log("PsiNeaContainer psiObject : " + props.psiObject);
   const [psiAdvisory, setPsiAdvisory] = useState(psiInfo);  
   let currentPsi = 31; 
   let currentAdvisory = null;
