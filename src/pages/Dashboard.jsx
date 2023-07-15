@@ -28,12 +28,12 @@ function Dashboard(props) {
   } = props;
 
      
-  const [psiObject, setPsiObject] = useState();
+  const [psiObject, setPsiObject] = useState([]);
 
   const apiGetPsi = async () => {
     try { 
       console.log("apiGetPsi");
-      const response = await neaAPI.get(`/psi/`); 
+      const response = await neaAPI.get(`/psi`); 
       setPsiObject(response.data.items[0]['readings']['psi_twenty_four_hourly']);
         
     }catch (error) {

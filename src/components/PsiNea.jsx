@@ -9,69 +9,166 @@ import { useState,useEffect } from 'react';
 import regionalData from '../data/regionalData'; 
 
 function PsiNea(props) {
-  console.log("PsiNea"); 
+  console.log("PsiNea");  
+  const [regionalDataList, setRegionalDataList ] = useState(regionalData);  
+ 
+  let nationalBox = "";
+  let nationalPsi = "";
 
-  const [regionalDataList, setRegionalDataList ] = useState(regionalData); 
-  const [selectedRegionPsi, setSelectedRegionPsi ] = useState();
+  let regionBox = "";
+  let northSouthEastWestCentral = ""; 
+  let northSouthEastWestCentralPsi = "" ;
+  
+  const handleBox = (psi) => {  
+    console.log("handleBox");
+    if(psi >= 300){
+      return "red";
+     }else if(psi >= 201){
+      return "orange";
+     }else if(psi >= 101){
+      return "yellow";
+     }else if(psi>= 51){
+      return "blue";
+     }else{
+      return "green";
+     }
+  };
 
   if(props !== "undefined" && props.psiObject !== "undefined"){
     console.log("props is not undefined");
-    
+    console.log( props.psiObject );
     if(props.selectRegion !== "undefined"){
        
-      console.log(props.psiObject.national); 
-      const nationalPsi  = props.psiObject.national;
-
+      nationalPsi  = props.psiObject.national;
+      nationalBox = handleBox(nationalPsi);
+      console.log("nationalBox" + nationalBox);
       //check north south east west
       console.log("check north south east west");
+       
       for(let i = 0; i < regionalDataList.length; i++) {
         let obj = regionalDataList[i];
         if(obj.name == props.selectRegion){  
           console.log(obj.label_location['region']); 
-          const northSouthEastWestCentral = obj.label_location['region'];
-
-          //check north south east west psi 
-          /*
+          northSouthEastWestCentral = obj.label_location['region'].toUpperCase();
+ 
+          //check north south east west psi  
           switch(northSouthEastWestCentral){
-            case 'north': 
+            case 'NORTH': 
+              console.log(props.psiObject.north);   
+              northSouthEastWestCentralPsi = props.psiObject.north;
               break;
-            case 'south': 
+            case 'SOUTH': 
+              console.log(props.psiObject.south);  
+              northSouthEastWestCentralPsi = props.psiObject.south;
               break;
-            case 'east':
-              console.log("east");
-              //console.log(props.psiObject.east);
-              //setSelectedRegionPsi(props.psiObject.east);
+            case 'EAST': 
+              console.log(props.psiObject.east);   
+              northSouthEastWestCentralPsi = props.psiObject.east;
               break;
-            case 'west': 
+            case 'WEST': 
+              console.log(props.psiObject.west);  
+              northSouthEastWestCentralPsi = props.psiObject.west;
               break;
-            case 'central': 
-
-              break;
-          }
-          break;
-          */
+            case 'CENTRAL': 
+            console.log(props.psiObject.central);  
+            northSouthEastWestCentralPsi = props.psiObject.central;
+            break;
+          } 
+          break; 
         }
         
       }
-       
+      if(northSouthEastWestCentral !== ""){
+        console.log(northSouthEastWestCentral);
+        regionBox = handleBox(northSouthEastWestCentralPsi); 
+      }
+      
     }
   }
-   
- const getNorthSouthEastWest = (region) => {
-    console.log("getNorthSouthEastWest");
-  }
   
-   
   return (
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <img
-            className="rounded-t-lg"
-            src="https://images.pexels.com/photos/7532428/pexels-photo-7532428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-          />
-        </a>
+      {nationalBox === "green" ? 
+        <div className="max-w h-30 bg-green-200 rounded-lg">
+            <div className="p-5"> 
+                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
+            </div>
+          </div>
+        : null}
+        {nationalBox === "red" ? 
+        <div className="max-w h-30 bg-red-200 rounded-lg">
+            <div className="p-5"> 
+                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
+            </div>
+          </div>
+        : null}
+        {nationalBox === "orange" ? 
+        <div className="max-w h-30 bg-orange-200 rounded-lg">
+            <div className="p-5"> 
+                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
+            </div>
+          </div>
+        : null}
+        {nationalBox === "yellow" ? 
+        <div className="max-w h-30 bg-yellow-200 rounded-lg">
+            <div className="p-5"> 
+                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
+            </div>
+          </div>
+        : null}
+        {nationalBox === "blue" ? 
+        <div className="max-w h-30 bg-blue-200 rounded-lg">
+            <div className="p-5"> 
+                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
+            </div>
+          </div>
+        : null}
+        {regionBox === "green"?   
+        <div className="max-w h-30 bg-green-200 rounded-lg">
+          <div className="p-5"> 
+            <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
+            <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
+          </div>
+        </div>
+        : null}
+        {regionBox === "red" ?   
+        <div className="max-w h-30 bg-red-200 rounded-lg">
+          <div className="p-5"> 
+            <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
+            <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
+          </div>
+        </div>
+        : null}
+        {regionBox === "yellow" ?   
+        <div className="max-w h-30 bg-yellow-200 rounded-lg">
+          <div className="p-5"> 
+            <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
+            <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
+          </div>
+        </div>
+        : null}
+        {regionBox === "orange" ?   
+        <div className="max-w h-30 bg-orange-200 rounded-lg">
+          <div className="p-5"> 
+            <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
+            <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
+          </div>
+        </div>
+        : null}
+        {regionBox === "blue" ?   
+        <div className="max-w h-30 bg-blue-200 rounded-lg">
+          <div className="p-5"> 
+            <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
+            <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
+          </div>
+        </div>
+        : null}
         <div className="p-5">
           <a href="#">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
