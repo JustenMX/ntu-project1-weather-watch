@@ -9,7 +9,6 @@ import WatchListContainer from "../components/WatchListContainer";
 // data
 import neaAPI from "../api/neaAPI";
 import { useEffect } from "react";
-import { preview } from "vite";
 
 function WatchList(props) {
   const { watchListRegion, region, ToastContainer } = props;
@@ -181,42 +180,55 @@ function WatchList(props) {
     };
 
     //////////////////////////////
+    // handleWetBulbTemperature()
+    //////////////////////////////
+    // two states (watchAirTemp && watchHumidity) hold the api response data
+    // obtain the average Air Temperature && Relative Humidty and push it to a new state as an object
+    // using the average values, to run the calcualtions to get the wetblub temperature and push new values to watchWetBulb
+    //////////////////////////////
+    const handleWetBulbTemperature = () => {
+      const airTempArr = watchAirTemp?.items?.[0]?.readings;
+      const humidityArr = watchHumidity?.items?.[0]?.readings;
 
-    //////////////////////////////
-    // 1. Create a new state and push the specific objects (watchAirTemp && watchHumidity) into a new state
-    // 2. Once that is done I need to take these values and match it against the watchlist.stationID to match the values
-    // 3. If there is a match I need to push these values to the watchlist state
-    // 4. once the watchlist state has been updated, i need to extract the values and run a Math function to determine the wetbulb output for each iteration
-    //////////////////////////////
-    //////////////////////////////
-    // avgTempHumidity()
-    //////////////////////////////
-    const avgTempHumidity = () => {
-      const airTempArr = watchAirTemp?.items?.[0]?.readings; // array of objects
-      const avgTemp =
-        airTempArr.reduce(
+      if (airTempArr && humidityArr) {
+        // get average air temperature
+        const avgTemp =
+          airTempArr.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.value,
+            0
+          ) / airTempArr.length;
+        // get average humidity
+        const avgHumidity = humidityArr.reduce(
           (accumulator, currentValue) => accumulator + currentValue.value,
           0
-        ) / airTempArr.length;
-      console.log(avgTemp);
-      const humidityArr = watchHumidity?.items?.[0]?.readings;
-      const avgHumidity = humidityArr.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.value,
-        0
-      );
-      console.log(avgHumidity);
-      setWatchWetBulb((prevState) => ({
-        ...prevState,
-        avgAirTemp: Math.round(avgTemp * 100) / 100,
-        avgHumidity: Math.round(avgHumidity * 100) / 100,
-      }));
+        );
+        // get wetbulb temperature
+        const arctan = Math.atan;
+        const sqrt = Math.sqrt;
+        const wetBulbTemperature =
+          avgTemp * arctan(0.151977 * sqrt(avgHumidity + 8.313659)) +
+          arctan(avgTemp + avgHumidity) -
+          arctan(avgHumidity - 1.676331) +
+          0.00391838 *
+            Math.pow(avgHumidity, 1.5) *
+            arctan(0.023101 * avgHumidity) -
+          4.686035;
+
+        setWatchWetBulb({
+          avgTemp: Math.round(avgTemp * 100) / 100,
+          avgHumidity: Math.round(avgHumidity * 100) / 100,
+          wetBulbTemperature: Math.round(wetBulbTemperature * 100) / 100,
+        });
+      }
     };
+
+    // calculate wetbulb temperature
 
     handlePsi();
     handlePM25();
     handleUVIndex();
     handleWeather();
-    avgTempHumidity();
+    handleWetBulbTemperature();
   }, [
     region,
     watchListRegion,
@@ -243,6 +255,8 @@ function WatchList(props) {
   console.log(watchAirTemp);
   console.log("watchHumidity");
   console.log(watchHumidity);
+  console.log("watchWetBulb");
+  console.log(watchWetBulb);
   console.log("WatchList");
   console.log(watchList);
 
@@ -255,35 +269,35 @@ function WatchList(props) {
           <h1 className="text-center font-bold text-2xl">WatchList</h1>
           {/* map begins here */}
 
-          {watchListRegion.map((watchItem, i) => (
+          {watchList.map((watchItem, uuid) => (
             <div
-              key={i}
+              key={uuid}
               className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 my-5"
             >
               <div className="bg-blue-700 px-4 py-3 text-white rounded-lg">
                 <p className="text-center text-lg font-semibold">
-                  {watchItem.region}
+                  {watchItem.location}
                 </p>
               </div>
               <div className="grid grid-cols-5 gap-4 my-4">
                 <WatchListContainer
-                  watchListValue="0"
+                  watchListValue={watchItem.psi}
                   watchListLabel="24-hr PSI"
                 />
                 <WatchListContainer
-                  watchListValue="0"
+                  watchListValue={watchItem.pm25}
                   watchListLabel="1-hr PM2.5 (µg/m³)"
                 />
                 <WatchListContainer
-                  watchListValue="0"
+                  watchListValue={watchItem.weather}
                   watchListLabel="24-hr weather forecast"
                 />
                 <WatchListContainer
-                  watchListValue="0"
+                  watchListValue={watchWetBulb.wetBulbTemperature}
                   watchListLabel="wetbulb temperature"
                 />
                 <WatchListContainer
-                  watchListValue="0"
+                  watchListValue={watchItem.uvIndex}
                   watchListLabel="Ultraviolet Index"
                 />
               </div>
