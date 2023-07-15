@@ -1,45 +1,58 @@
 /* eslint-disable react/prop-types */
-//dependencies
+// dependencies
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 // components
 import NavSideBar from "../components/NavSideBar";
 import WatchListContainer from "../components/WatchListContainer";
 // data
 import neaAPI from "../api/neaAPI";
 import { useEffect } from "react";
+import { preview } from "vite";
 
 function WatchList(props) {
   const { watchListRegion, region, ToastContainer } = props;
+  //////////////////////////////
   // State Management
+  //////////////////////////////
   const [watchList, setWatchList] = useState([]);
   const [watchPsi, setWatchPsi] = useState([]);
   const [watchPM25, setWatchPM25] = useState([]);
   const [watchUVIndex, setWatchUVIndex] = useState([]);
   const [watchWeather, setWatchWeather] = useState([]);
+  const [watchAirTemp, setWatchAirTemp] = useState([]);
+  const [watchHumidity, setWatchHumidity] = useState([]);
+  const [watchWetBulb, setWatchWetBulb] = useState();
 
-  /////////////
-  // API
-  // getPSI()
-  // getPM25()
-  /////////////
+  //////////////////////////////
+  // GET ALL API
+  //////////////////////////////
 
   useEffect(() => {
-    /////////////
-    // GET ALL API (Promise.all)
-    /////////////
     const getWeatherReadings = async () => {
       try {
-        const [response1, response2, response3, response4] = await Promise.all([
+        const [
+          response1,
+          response2,
+          response3,
+          response4,
+          response5,
+          response6,
+        ] = await Promise.all([
           neaAPI.get(`/psi`),
           neaAPI.get(`/pm25`),
           neaAPI.get(`/uv-index`),
           neaAPI.get(`/24-hour-weather-forecast`),
+          neaAPI.get(`/air-temperature`),
+          neaAPI.get(`/relative-humidity`),
         ]);
         setWatchPsi(response1.data);
         setWatchPM25(response2.data);
         setWatchUVIndex(response3.data);
         setWatchWeather(response4.data);
+        setWatchAirTemp(response5.data);
+        setWatchHumidity(response6.data);
         toast.promise("loading");
       } catch (error) {
         toast.error(error);
@@ -48,13 +61,13 @@ function WatchList(props) {
     getWeatherReadings();
   }, []);
 
-  /////////////
+  //////////////////////////////
   // Handlers
   // handlePsi()
   // handlePM25()
-  /////////////
+  //////////////////////////////
   // explaination provided below (only applies for handlePsi(), as once the watchList is updated, for subsequent handling I use the updated state)
-  /////////////
+  //////////////////////////////
   // region (state) passed as prop from App.jsx -> contains the data from regionalData.js
   // watchListRegion (state) passed as props from App.jsx is an array of objects containing all regions selected by the user to be in watchList
   // watchPsi (state), containing data from getPSI() api request and I store the entire response data
@@ -62,12 +75,12 @@ function WatchList(props) {
   // Primary Logic handling -> watchListRegion.region to check with region.name -> and if the watchListRegion.region matches with region.name, i want to get the respective regions from (state) region (region.label_location.region)
   // store the location and region in a new object and hold them in a temporary array (array of objects)
   // Secondary Logic handling -> once matched, to use that matched values (stored in an temp array of objects) and check against watchPsi. I need to match the region --> which the region in my api response, but the api response which contains the values is a object, whereas the value i want to match with is a single string, threfore i need to run a object loop in line 68 then run a match vice versa. if matched i create a new object, update the values, and update the state with the object variable. Take note that all this is being handled for every loop iteration.
-  /////////////
+  //////////////////////////////
 
   useEffect(() => {
-    /////////////
-    // handlePsi()
-    /////////////
+    //////////////////////////////
+    // handlePsi();
+    //////////////////////////////
     const handlePsi = () => {
       let matchedRegions = [];
       // execute for loop to the WatchListRegion array
@@ -77,6 +90,7 @@ function WatchList(props) {
           if (watchListRegion[i].region === region[j]?.name) {
             // if match create new object and push the values
             const newWatchList = {
+              uid: uuidv4(),
               location: watchListRegion[i].region,
               region: region[j].label_location.region,
             };
@@ -85,16 +99,20 @@ function WatchList(props) {
           }
         }
       }
+      console.log("matchedRegions");
+      console.log(matchedRegions);
+
       // execute another for loop with matchedRegions
       for (let k = 0; k < matchedRegions.length; k++) {
         // pass the readings which is a object to a variable
         const psiValue = watchPsi?.items?.[0]?.readings?.psi_twenty_four_hourly;
-        for (const regionKey in psiValue) {
-          if (matchedRegions[k].region === regionKey) {
+        console.log("psiValue");
+        console.log(psiValue);
+        for (const region in psiValue) {
+          if (matchedRegions[k].region === region) {
             const newWatchList = {
-              location: matchedRegions[k].location,
-              region: matchedRegions[k].region,
-              psi: psiValue[regionKey],
+              ...matchedRegions[k],
+              psi: psiValue[region],
             };
             // update state with the new object every iteration of [matchedRegions]
             setWatchList((prevState) => [...prevState, newWatchList]);
@@ -103,9 +121,9 @@ function WatchList(props) {
       }
     };
 
-    /////////////
-    // handlePM25()
-    /////////////
+    //////////////////////////////
+    // handlePM25();
+    //////////////////////////////
     const handlePM25 = () => {
       setWatchList((prevState) => {
         const updatedWatchList = prevState.map((item) => {
@@ -118,48 +136,97 @@ function WatchList(props) {
               };
             }
           }
+          // If no matching regionKey found, return the item
+          return item;
         });
         return updatedWatchList;
       });
     };
 
-    /////////////
+    //////////////////////////////
     // handleUVIndex()
-    /////////////
-    // const handleUVIndex = () => {
-    //   const uvIndexValue = watchUVIndex?.items?.[0]?.index[0]?.value;
-    //   const updatedWatchList = watchList.map((item) => ({
-    //     ...item,
-    //     uvIndex: uvIndexValue,
-    //   }));
-    //   setWatchList(updatedWatchList);
-    // };
+    //////////////////////////////
+    const handleUVIndex = () => {
+      setWatchList((prevState) => {
+        const updatedWatchList = prevState.map((item) => {
+          const uvIndexValue = watchUVIndex?.items?.[0]?.index[0]?.value;
+          return {
+            ...item,
+            uvIndex: uvIndexValue,
+          };
+        });
+        return updatedWatchList;
+      });
+    };
 
-    /////////////
+    //////////////////////////////
     // handleWeather()
-    /////////////
-    // const handleWeather = () => {
-    //   let updatedWatchList = [];
-    //   for (let i = 0; i < watchList.length; i++) {
-    //     const weatherForecast = watchWeather?.items?.[0]?.periods[0]?.regions;
-    //     for (const regionKey in weatherForecast) {
-    //       if (watchList[i].region === regionKey) {
-    //         const newWatchList = {
-    //           ...watchList[i],
-    //           weatherRegion: weatherForecast[regionKey],
-    //         };
-    //         updatedWatchList.push(newWatchList);
-    //       }
-    //     }
-    //   }
-    //   setWatchList(updatedWatchList);
-    // };
+    //////////////////////////////
+    const handleWeather = () => {
+      setWatchList((prevState) => {
+        const updatedWatchList = prevState.map((item) => {
+          const weatherValue = watchWeather?.items?.[0]?.periods[0]?.regions;
+          for (const regionKey in weatherValue) {
+            if (item.region === regionKey) {
+              return {
+                ...item,
+                weather: weatherValue[regionKey],
+              };
+            }
+          }
+          return item;
+        });
+        return updatedWatchList;
+      });
+    };
+
+    //////////////////////////////
+
+    //////////////////////////////
+    // 1. Create a new state and push the specific objects (watchAirTemp && watchHumidity) into a new state
+    // 2. Once that is done I need to take these values and match it against the watchlist.stationID to match the values
+    // 3. If there is a match I need to push these values to the watchlist state
+    // 4. once the watchlist state has been updated, i need to extract the values and run a Math function to determine the wetbulb output for each iteration
+    //////////////////////////////
+    //////////////////////////////
+    // avgTempHumidity()
+    //////////////////////////////
+    const avgTempHumidity = () => {
+      const airTempArr = watchAirTemp?.items?.[0]?.readings; // array of objects
+      const avgTemp =
+        airTempArr.reduce(
+          (accumulator, currentValue) => accumulator + currentValue.value,
+          0
+        ) / airTempArr.length;
+      console.log(avgTemp);
+      const humidityArr = watchHumidity?.items?.[0]?.readings;
+      const avgHumidity = humidityArr.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.value,
+        0
+      );
+      console.log(avgHumidity);
+      setWatchWetBulb((prevState) => ({
+        ...prevState,
+        avgAirTemp: Math.round(avgTemp * 100) / 100,
+        avgHumidity: Math.round(avgHumidity * 100) / 100,
+      }));
+    };
+
     handlePsi();
     handlePM25();
-
-    // handleUVIndex();
-    // handleWeather();
-  }, [watchListRegion, region, watchPsi, watchPM25]);
+    handleUVIndex();
+    handleWeather();
+    avgTempHumidity();
+  }, [
+    region,
+    watchListRegion,
+    watchPsi,
+    watchPM25,
+    watchUVIndex,
+    watchWeather,
+    watchAirTemp,
+    watchHumidity,
+  ]);
 
   /////////////
   // debug
@@ -172,6 +239,10 @@ function WatchList(props) {
   console.log(watchUVIndex);
   console.log("weather");
   console.log(watchWeather);
+  console.log("watchAirTemp");
+  console.log(watchAirTemp);
+  console.log("watchHumidity");
+  console.log(watchHumidity);
   console.log("WatchList");
   console.log(watchList);
 

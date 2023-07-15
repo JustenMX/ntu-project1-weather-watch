@@ -50,7 +50,7 @@ const regionalData = [
       latitude: 1.277,
       longitude: 103.819,
       region: "south",
-      id: "S60",
+      id: "S116",
     },
   },
   {
@@ -68,7 +68,7 @@ const regionalData = [
       latitude: 1.325,
       longitude: 103.791,
       region: "south",
-      id: "S60",
+      id: "S50",
     },
   },
   {
@@ -104,7 +104,7 @@ const regionalData = [
       latitude: 1.315,
       longitude: 103.76,
       region: "west",
-      id: "S115",
+      id: "S50",
     },
   },
   {
@@ -113,7 +113,7 @@ const regionalData = [
       latitude: 1.292,
       longitude: 103.844,
       region: "south",
-      id: "S60",
+      id: "S111",
     },
   },
   {
@@ -158,7 +158,7 @@ const regionalData = [
       latitude: 1.266,
       longitude: 103.699,
       region: "west",
-      id: "S115",
+      id: "S117",
     },
   },
   {
@@ -310,8 +310,8 @@ const regionalData = [
     label_location: {
       latitude: 1.243,
       longitude: 103.832,
-      region: "central",
-      id: "S111",
+      region: "south",
+      id: "S116",
     },
   },
   {
@@ -329,7 +329,7 @@ const regionalData = [
       latitude: 1.208,
       longitude: 103.842,
       region: "south",
-      id: "S60",
+      id: "S116",
     },
   },
   {
@@ -338,7 +338,7 @@ const regionalData = [
       latitude: 1.413,
       longitude: 103.756,
       region: "west",
-      id: "S115",
+      id: "S104",
     },
   },
   {
@@ -365,7 +365,7 @@ const regionalData = [
       latitude: 1.374,
       longitude: 103.715,
       region: "west",
-      id: "S115",
+      id: "S104",
     },
   },
   {
