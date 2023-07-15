@@ -203,15 +203,22 @@ function WatchList(props) {
           0
         );
         // get wetbulb temperature
-        const arctan = Math.atan;
-        const sqrt = Math.sqrt;
         const wetBulbTemperature =
-          avgTemp * arctan(0.151977 * sqrt(avgHumidity + 8.313659)) +
-          arctan(avgTemp + avgHumidity) -
-          arctan(avgHumidity - 1.676331) +
+          avgTemp *
+            Math.atan(
+              0.151977 *
+                Math.pow(
+                  (Math.exp((17.27 * avgHumidity) / (237.7 + avgHumidity)) +
+                    8.313659) /
+                    100,
+                  0.5
+                )
+            ) +
+          Math.atan(avgTemp + avgHumidity * 0.1) -
+          Math.atan(avgHumidity * 0.1 - 1.676331) +
           0.00391838 *
-            Math.pow(avgHumidity, 1.5) *
-            arctan(0.023101 * avgHumidity) -
+            Math.pow(avgHumidity * 0.1, 1.5) *
+            Math.atan(0.023101 * (avgHumidity * 0.1)) -
           4.686035;
 
         setWatchWetBulb({
@@ -281,10 +288,12 @@ function WatchList(props) {
               </div>
               <div className="grid grid-cols-5 gap-4 my-4">
                 <WatchListContainer
+                  watchListText="Today's air quality"
                   watchListValue={watchItem.psi}
                   watchListLabel="24-hr PSI"
                 />
                 <WatchListContainer
+                  watchListText="Today's air quality"
                   watchListValue={watchItem.pm25}
                   watchListLabel="1-hr PM2.5 (µg/m³)"
                 />
