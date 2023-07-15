@@ -105,7 +105,7 @@ function NavSideBar() {
                   <span className="flex-1 ml-3 whitespace-nowrap">Tools</span>
                 </div>
               </Link>
-            </li>
+            </li> 
           </ul>
         </div>
       </aside>
