@@ -12,10 +12,11 @@ import { useEffect } from "react";
 function WatchList(props) {
   const { watchListRegion, region, ToastContainer } = props;
   // State Management
+  const [watchList, setWatchList] = useState([]);
   const [watchPsi, setWatchPsi] = useState([]);
   const [watchPM25, setWatchPM25] = useState([]);
-  const [watchList, setWatchList] = useState([]);
   const [watchUVIndex, setWatchUVIndex] = useState([]);
+  const [watchWeather, setWatchWeather] = useState([]);
 
   /////////////
   // API
@@ -27,45 +28,24 @@ function WatchList(props) {
     /////////////
     // GET PSI
     /////////////
-    const getPSI = async () => {
+    const getWeatherReadings = async () => {
       try {
-        const response = await neaAPI.get(`/psi`);
-        setWatchPsi(response.data);
+        const [response1, response2, response3, response4] = await Promise.all([
+          neaAPI.get(`/psi`),
+          neaAPI.get(`/pm25`),
+          neaAPI.get(`/uv-index`),
+          neaAPI.get(`/24-hour-weather-forecast`),
+        ]);
+        setWatchPsi(response1.data);
+        setWatchPM25(response2.data);
+        setWatchUVIndex(response3.data);
+        setWatchWeather(response4.data);
         toast.promise("loading");
       } catch (error) {
         toast.error(error);
       }
     };
-
-    /////////////
-    // GET PM2.5
-    /////////////
-    const getPM25 = async () => {
-      try {
-        const response = await neaAPI.get(`/pm25`);
-        setWatchPM25(response.data);
-        toast.promise("loading");
-      } catch (error) {
-        toast.error(error);
-      }
-    };
-
-    /////////////
-    // GET UV Index
-    /////////////
-    const getUVIndex = async () => {
-      try {
-        const response = await neaAPI.get("/uv-index");
-        setWatchUVIndex(response.data);
-        toast.promise("loading");
-      } catch (error) {
-        toast.error(error);
-      }
-    };
-
-    getPSI();
-    getPM25();
-    getUVIndex();
+    getWeatherReadings();
   }, []);
 
   /////////////
@@ -109,8 +89,6 @@ function WatchList(props) {
       for (let k = 0; k < matchedRegions.length; k++) {
         // pass the readings which is a object to a variable
         const psiValue = watchPsi?.items?.[0]?.readings?.psi_twenty_four_hourly;
-        console.log("psiValue");
-        console.log(psiValue);
         for (const regionKey in psiValue) {
           if (matchedRegions[k].region === regionKey) {
             const newWatchList = {
@@ -150,27 +128,54 @@ function WatchList(props) {
     /////////////
     // handleUVIndex()
     /////////////
-    const handleUVIndex = () => {
-      const uvIndexValue = watchUVIndex?.items?.[0]?.index[0]?.value;
-      const updatedWatchList = watchList.map((item) => ({
-        ...item,
-        uvIndex: uvIndexValue,
-      }));
-      setWatchList(updatedWatchList);
-    };
+    // const handleUVIndex = () => {
+    //   const uvIndexValue = watchUVIndex?.items?.[0]?.index[0]?.value;
+    //   const updatedWatchList = watchList.map((item) => ({
+    //     ...item,
+    //     uvIndex: uvIndexValue,
+    //   }));
+    //   setWatchList(updatedWatchList);
+    // };
 
-    handlePM25();
+    /////////////
+    // handleWeather()
+    /////////////
+    // const handleWeather = () => {
+    //   let updatedWatchList = [];
+    //   for (let i = 0; i < watchList.length; i++) {
+    //     const weatherForecast = watchWeather?.items?.[0]?.periods[0]?.regions;
+    //     for (const regionKey in weatherForecast) {
+    //       if (watchList[i].region === regionKey) {
+    //         const newWatchList = {
+    //           ...watchList[i],
+    //           weatherRegion: weatherForecast[regionKey],
+    //         };
+    //         updatedWatchList.push(newWatchList);
+    //       }
+    //     }
+    //   }
+    //   setWatchList(updatedWatchList);
+    // };
     handlePsi();
-    handleUVIndex();
-  }, [watchListRegion, region, watchPsi, watchPM25, watchUVIndex]);
+    handlePM25();
+
+    // handleUVIndex();
+    // handleWeather();
+  }, [watchListRegion, region, watchPsi, watchPM25]);
 
   /////////////
   // debug
   /////////////
+  console.log("psi");
+  console.log(watchPsi);
+  console.log("pm25");
+  console.log(watchPM25);
+  console.log("uv");
+  console.log(watchUVIndex);
+  console.log("weather");
+  console.log(watchWeather);
   console.log("WatchList");
   console.log(watchList);
-  console.log("watchUVIndex");
-  console.log(watchUVIndex);
 
   return (
     <div>

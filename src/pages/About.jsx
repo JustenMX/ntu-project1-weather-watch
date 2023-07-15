@@ -49,7 +49,7 @@ function About(props) {
             <DevCards
               devName="Farrhan"
               devTitle="Software Engineering Student"
-              devImg="https://media.licdn.com/dms/image/D4D35AQFGHIYz0XO3YQ/profile-framedphoto-shrink_400_400/0/1687443461859?e=1689656400&v=beta&t=gVFBWjAQC_RE-duXdYV3oxTX3bRi78_pyB1Y3Pjz3ys"
+              devImg="https://media.licdn.com/dms/image/C5103AQGJlb8_FscQlg/profile-displayphoto-shrink_400_400/0/1558292630805?e=1694649600&v=beta&t=ikRBKwD-nl2weTOotKQmCv7Ca9YBx7F6HYuNnT4U3GE"
               linkedin="https://www.linkedin.com/in/farrhan/"
               github="https://github.com/farrhanng"
             />
