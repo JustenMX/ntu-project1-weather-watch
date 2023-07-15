@@ -85,7 +85,7 @@ function App() {
             />
           }
         >
-          <Route path="psi" element={<PsiNeaContainer />} />
+          <Route path="psi" element={<PsiNeaContainer selectRegion={selectRegion}/>} />
           <Route path="pm25" element={<Pm25NeaContainer />} />
           <Route path="weather2hr" element={<Weather2HrsContainer />} />
           <Route path="wetbulb" element={<WetbulbTempController />} />

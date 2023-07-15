@@ -13,8 +13,7 @@ import SingaporeMap from "../components/SingaporeMap";
 
 //psi 
 import { useState,useEffect } from 'react';  
-import neaAPI from '../api/neaAPI';
-import regionalData from '../data/regionalData';
+import neaAPI from '../api/neaAPI'; 
 
 function Dashboard(props) {
   const {
@@ -73,7 +72,7 @@ function Dashboard(props) {
         </div>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
           <h1 className="text-center font-bold text-2xl mb-5">Read More</h1>
-          <Outlet />
+          <Outlet psiObject={psiObject} />
         </div>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
           <h1 className="text-center font-bold text-2xl mb-5">Singapore Map</h1>

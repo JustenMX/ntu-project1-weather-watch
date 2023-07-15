@@ -1,27 +1,27 @@
 const psiInfo = [
     {
-        psiLowerBound: 0,
-        psiUpperBound: 50,
+        psiLowerBound: 0, 
+        psiRange: "0-50",
         descriptor: "good",
         health_advisory: {
-            healthy_persons: "normal activities",
-            elderly_pregnant_children: "normal activities",
-            lung_heart_disease: "normal activities", 
+            healthy_persons: "Normal activities",
+            elderly_pregnant_children: "Normal activities",
+            lung_heart_disease: "Normal activities", 
         },
     },
     {
-        psiLowerBound: 51,
-        psiUpperBound: 100,
+        psiLowerBound: 51, 
+        psiRange: "51-100",
         descriptor: "moderate",
         health_advisory: {
-          healthy_persons: "normal activities",
-          elderly_pregnant_children: "normal activities",
-          lung_heart_disease: "normal activities", 
+          healthy_persons: "Normal activities",
+          elderly_pregnant_children: "Normal activities",
+          lung_heart_disease: "Normal activities", 
         },
     },
     {
         psiLowerBound: 101,
-        psiUpperBound: 200,
+        psiRange: "101-200",
         descriptor: "unhealthy",
         health_advisory: {
           healthy_persons: "Reduce prolonged or strenuous outdoor physical exertion",
@@ -31,7 +31,7 @@ const psiInfo = [
     },
     {
         psiLowerBound: 201,
-        psiUpperBound: 300,
+        psiRange: "201-300",
         descriptor: "very unhealthy",
         health_advisory: {
           healthy_persons: "Avoid prolonged or strenuous outdoor physical exertion",
@@ -41,6 +41,7 @@ const psiInfo = [
     },
     {
         psiLowerBound: 300,
+        psiRange: ">300",
         descriptor: "hazardous",
         health_advisory: {
           healthy_persons: "Minimise outdoor activity",
