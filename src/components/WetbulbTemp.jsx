@@ -1,8 +1,36 @@
 // dependencies
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+
 // components
 import Button from "./Button";
+
+// function calculateWetBulbTemperature(Td, RH) {
+//   const arctan = Math.atan;
+//   const sqrt = Math.sqrt;
+
+
+//   const Tw =
+//     Td * arctan(0.151977 * sqrt(RH + 8.313659)) + arctan(Td + RH) - arctan(RH - 1.676331) + 0.00391838 * Math.pow(RH, 1.5) * arctan(0.023101 * RH) - 4.686035;
+
+//   return Tw;
+// }
+
+// function getTemperatureColor(Tw) {
+//   if (Tw <= 29.9) {
+//     return 'bg-white';
+//   } else if (Tw <= 30.9) {
+//     return 'bg-green-500';
+//   } else if (Tw <= 31.9) {
+//     return 'bg-yellow-500';
+//   } else if (Tw <= 32.9) {
+//     return 'bg-red-500';
+//   } else {
+//     return 'bg-black';
+//   }
+// }
+
 function WetbulbTemp() {
   return (
     <>

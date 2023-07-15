@@ -2,7 +2,7 @@
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 // dependencies
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 // pages
@@ -19,6 +19,7 @@ import WetbulbTempController from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
 // data
 import regionalData from "./data/regionalData";
+import neaAPI from "./api/neaAPI";
 
 function App() {
   // state management
@@ -26,6 +27,30 @@ function App() {
   const [selectRegion, setSelectRegion] = useState("");
   const [watchList, setWatchList] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
+  const [dryTemp, setDryTemp] = useState([]);
+  const [humidity, setHumidity] = useState([]);
+
+  // Get Dry Temp
+  const fetchDryTemp = async () => {
+    try {
+      const response = await neaAPI.get('/air-temperature');
+      console.log (response.data);
+      setDryTemp(response.data);
+    } catch (error) {
+      console.error('Error fetching Air Temp:', error);
+    }
+  }
+
+  // Get Humidity
+  const fetchHumidity = async () => {
+    try {
+      const response = await neaAPI.get('/relative-humidity');
+      console.log (response.data);
+      setHumidity(response.data);
+    } catch (error) {
+      console.error('Error fetching Humidity:', error);
+    }
+  }
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -66,6 +91,16 @@ function App() {
   console.log(region);
   console.log(selectRegion);
   console.log(watchList);
+  console.log(dryTemp);
+  console.log(humidity)
+
+  useEffect(() => {
+    fetchDryTemp();
+  }, [] ) 
+
+  useEffect(() => {
+    fetchHumidity();
+  }, [] ) 
 
   return (
     <BrowserRouter>
