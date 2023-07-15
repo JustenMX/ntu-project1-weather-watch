@@ -26,7 +26,7 @@ function WatchList(props) {
 
   useEffect(() => {
     /////////////
-    // GET PSI
+    // GET ALL API (Promise.all)
     /////////////
     const getWeatherReadings = async () => {
       try {
@@ -107,22 +107,20 @@ function WatchList(props) {
     // handlePM25()
     /////////////
     const handlePM25 = () => {
-      const updatedWatchList = [];
-      for (let i = 0; i < watchList.length; i++) {
-        const pm25Value = watchPM25?.items?.[0]?.readings?.pm25_one_hourly;
-        for (const regionKey in pm25Value) {
-          if (watchList[i].region === regionKey) {
-            const newWatchList = {
-              ...watchList[i],
-              pm25: pm25Value[regionKey],
-            };
-            // push all the updated values in an array first
-            updatedWatchList.push(newWatchList);
+      setWatchList((prevState) => {
+        const updatedWatchList = prevState.map((item) => {
+          const pm25Value = watchPM25?.items?.[0]?.readings?.pm25_one_hourly;
+          for (const regionKey in pm25Value) {
+            if (item.region === regionKey) {
+              return {
+                ...item,
+                pm25: pm25Value[regionKey],
+              };
+            }
           }
-        }
-      }
-      // override the state with the new array
-      setWatchList(updatedWatchList);
+        });
+        return updatedWatchList;
+      });
     };
 
     /////////////
