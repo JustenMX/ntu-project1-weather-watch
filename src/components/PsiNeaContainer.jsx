@@ -1,16 +1,62 @@
 
 import psiInfo from '../data/psiInfo'; 
  
-import { useState,useEffect } from 'react';  
+import { useState,useEffect } from 'react'; 
 
-function PsiNeaContainer(props) {
-  console.log(PsiNeaContainer);
+import regionalData from '../data/regionalData';  
+
+function PsiNeaContainer(props) { 
   console.log("PsiNeaContainer selectRegion : " + props.selectRegion); 
   console.log("PsiNeaContainer psiObject : " + props.psiObject);
+  console.log("PsiNeaContainer nationalPsi : " + props.psiObject.national);
+
+  const [regionalDataList, setRegionalDataList ] = useState(regionalData);  
+  const [psiObject, setPsiObject] = useState(props.psiObject);
   const [psiAdvisory, setPsiAdvisory] = useState(psiInfo);  
-  let currentPsi = 31; 
+   
   let currentAdvisory = null;
+  let northSouthEastWestCentral = "";
+  let currentPsi = props.psiObject.national;
+ 
+  const handleNorthSouthEastWestCentral = (region) => {  
+    console.log("PsiNeaContainer > handleNorthSouthEastWestCentral");
+    for(let i = 0; i < regionalDataList.length; i++) {
+      let obj = regionalDataList[i];
+      if(obj.name == region){  
+        console.log(obj.label_location['region']); 
+        northSouthEastWestCentral = obj.label_location['region'].toUpperCase();
+        return northSouthEastWestCentral;
+      }
+    } 
+  }
   
+  const handleNorthSouthEastWestCentralPsi = (northSouthEastWestCentral) => { 
+    console.log("handleNorthSouthEastWestCentralPsi");
+    switch(northSouthEastWestCentral.toUpperCase()){
+      case 'NORTH': 
+        console.log(psiObject.north);   
+        return psiObject.north; 
+      case 'SOUTH': 
+        console.log(props.psiObject.south);  
+        return props.psiObject.south; 
+      case 'EAST': 
+        console.log(props.psiObject.east);   
+        return props.psiObject.east; 
+      case 'WEST': 
+        console.log(props.psiObject.west);  
+        return props.psiObject.west; 
+      case 'CENTRAL': 
+      console.log(props.psiObject.central);  
+      return props.psiObject.central; 
+    } 
+  }
+  
+  if(props.selectRegion != "undefined"){
+    console.log("PsiNeaContainer selectRegion > " + props.selectRegion);
+    northSouthEastWestCentral = handleNorthSouthEastWestCentral(props.selectRegion);
+    currentPsi = handleNorthSouthEastWestCentralPsi(northSouthEastWestCentral);
+  } 
+
   for(let i = 0; i < psiAdvisory.length; i++) {
     let obj = psiAdvisory[i];
     if(currentPsi < obj.psiLowerBound){

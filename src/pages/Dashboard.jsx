@@ -24,15 +24,13 @@ function Dashboard(props) {
     handlerAddWatchList,
     ToastContainer,
     watchList,
-    isOptionSelected,
+    isOptionSelected, 
+    psiObject,
   } = props;
-
-     
-  const [psiObject, setPsiObject] = useState([]);
-
+ 
   const [regionalDataList, setRegionalDataList ] = useState(regionalData);  
   let northSouthEastWestCentralPsi = "";
-
+ /*
   const handleNorthSouthEastWestCentral = (region) => {  
     console.log("handleNorthSouthEastWestCentral");
     for(let i = 0; i < regionalDataList.length; i++) {
@@ -65,26 +63,7 @@ function Dashboard(props) {
       return props.psiObject.central; 
     } 
   }
-
-  const apiGetPsi = async () => {
-    try { 
-      console.log("apiGetPsi");
-      const response = await neaAPI.get(`/psi`); 
-      setPsiObject(response.data.items[0]['readings']['psi_twenty_four_hourly']);
-
-      let northSouthEastWestCentral = handleNorthSouthEastWestCentral(props.selectRegion);
-      northSouthEastWestCentralPsi = handleNorthSouthEastWestCentralPsi(northSouthEastWestCentral);
-        
-    }catch (error) {
-      console.log(error.message);
-    }
- 
-  } 
-
-  useEffect(() => {
-    apiGetPsi();
-  }, [])
-
+ */
   return (
     <>
       <NavSideBar watchList={watchList} />

@@ -2,7 +2,7 @@
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 // dependencies
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 // pages
@@ -19,6 +19,8 @@ import WetbulbTempController from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
 // data
 import regionalData from "./data/regionalData";
+ 
+import neaAPI from './api/neaAPI';  
 
 function App() {
   // state management
@@ -61,6 +63,22 @@ function App() {
       }
     }
   };
+  //psi
+  const [psiObject, setPsiObject] = useState([]); 
+
+  const apiGetPsi = async () => {
+    try { 
+      console.log("App.jsx > apiGetPsi");
+      const response = await neaAPI.get(`/psi`); 
+      setPsiObject(response.data.items[0]['readings']['psi_twenty_four_hourly']);
+ 
+    }catch (error) {
+      console.log(error.message);
+    } 
+  } 
+  useEffect(() => {
+    apiGetPsi();
+  }, [])
 
   // debug
   console.log(region);
@@ -82,10 +100,11 @@ function App() {
               ToastContainer={ToastContainer}
               watchList={watchList}
               isOptionSelected={isOptionSelected}
+              psiObject={psiObject}
             />
           }
         >
-          <Route path="psi" element={<PsiNeaContainer selectRegion={selectRegion}/>} />
+          <Route path="psi" element={<PsiNeaContainer selectRegion={selectRegion} psiObject={psiObject}/>} />
           <Route path="pm25" element={<Pm25NeaContainer />} />
           <Route path="weather2hr" element={<Weather2HrsContainer />} />
           <Route path="wetbulb" element={<WetbulbTempController />} />
