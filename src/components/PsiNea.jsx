@@ -18,7 +18,9 @@ function PsiNea(props) {
   let regionBox = "";
   let northSouthEastWestCentral = ""; 
   let northSouthEastWestCentralPsi = "" ;
-  
+ 
+  let psiObject = props.psiObject;
+
   const handleBox = (psi) => {  
     console.log("handleBox");
     if(psi >= 300){
@@ -34,50 +36,56 @@ function PsiNea(props) {
      }
   };
 
-  if(props !== "undefined" && props.psiObject !== "undefined"){
+  const handleNorthSouthEastWestCentral = (region) => {  
+    console.log("PsiNeaContainer > handleNorthSouthEastWestCentral");
+    for(let i = 0; i < regionalDataList.length; i++) {
+      let obj = regionalDataList[i];
+      if(obj.name == region){  
+        console.log(obj.label_location['region']); 
+        northSouthEastWestCentral = obj.label_location['region'].toUpperCase();
+        return northSouthEastWestCentral;
+      }
+    } 
+  }
+  
+  const handleNorthSouthEastWestCentralPsi = (northSouthEastWestCentral) => { 
+    console.log("handleNorthSouthEastWestCentralPsi");
+    switch(northSouthEastWestCentral.toUpperCase()){
+      case 'NORTH': 
+        console.log(psiObject.north);   
+        return psiObject.north; 
+      case 'SOUTH': 
+        console.log(props.psiObject.south);  
+        return props.psiObject.south; 
+      case 'EAST': 
+        console.log(props.psiObject.east);   
+        return props.psiObject.east; 
+      case 'WEST': 
+        console.log(props.psiObject.west);  
+        return props.psiObject.west; 
+      case 'CENTRAL': 
+      console.log(props.psiObject.central);  
+      return props.psiObject.central; 
+    } 
+  }
+
+  if(props != "undefined"){
     console.log("props is not undefined");
-    console.log( props.psiObject );
-    if(props.selectRegion !== "undefined"){
+    console.log( psiObject );
+  
+    nationalPsi = psiObject.national;
+    console.log("national psi: " + nationalPsi);
+    nationalBox = handleBox(nationalPsi);
+    console.log("nationalBox" + nationalBox);
+
+    if(props.selectRegion != ""){
        
-      nationalPsi  = props.psiObject.national;
-      nationalBox = handleBox(nationalPsi);
-      console.log("nationalBox" + nationalBox);
       //check north south east west
       console.log("check north south east west");
        
-      for(let i = 0; i < regionalDataList.length; i++) {
-        let obj = regionalDataList[i];
-        if(obj.name == props.selectRegion){  
-          console.log(obj.label_location['region']); 
-          northSouthEastWestCentral = obj.label_location['region'].toUpperCase();
- 
-          //check north south east west psi  
-          switch(northSouthEastWestCentral){
-            case 'NORTH': 
-              console.log(props.psiObject.north);   
-              northSouthEastWestCentralPsi = props.psiObject.north;
-              break;
-            case 'SOUTH': 
-              console.log(props.psiObject.south);  
-              northSouthEastWestCentralPsi = props.psiObject.south;
-              break;
-            case 'EAST': 
-              console.log(props.psiObject.east);   
-              northSouthEastWestCentralPsi = props.psiObject.east;
-              break;
-            case 'WEST': 
-              console.log(props.psiObject.west);  
-              northSouthEastWestCentralPsi = props.psiObject.west;
-              break;
-            case 'CENTRAL': 
-            console.log(props.psiObject.central);  
-            northSouthEastWestCentralPsi = props.psiObject.central;
-            break;
-          } 
-          break; 
-        }
-        
-      }
+      northSouthEastWestCentral = handleNorthSouthEastWestCentral(props.selectRegion);
+      northSouthEastWestCentralPsi = handleNorthSouthEastWestCentralPsi(northSouthEastWestCentral);
+       
       if(northSouthEastWestCentral !== ""){
         console.log(northSouthEastWestCentral);
         regionBox = handleBox(northSouthEastWestCentralPsi); 

@@ -16,7 +16,7 @@ function PsiNeaContainer(props) {
    
   let currentAdvisory = null;
   let northSouthEastWestCentral = "";
-  let currentPsi = props.psiObject.national;
+  let currentPsi = psiObject.national;
  
   const handleNorthSouthEastWestCentral = (region) => {  
     console.log("PsiNeaContainer > handleNorthSouthEastWestCentral");
@@ -51,7 +51,7 @@ function PsiNeaContainer(props) {
     } 
   }
   
-  if(props.selectRegion != "undefined"){
+  if(props!= "undefined" && props.selectRegion != ""){
     console.log("PsiNeaContainer selectRegion > " + props.selectRegion);
     northSouthEastWestCentral = handleNorthSouthEastWestCentral(props.selectRegion);
     currentPsi = handleNorthSouthEastWestCentralPsi(northSouthEastWestCentral);
