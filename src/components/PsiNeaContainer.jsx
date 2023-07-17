@@ -2,15 +2,15 @@
 import psiInfo from '../data/psiInfo'; 
  
 import { useState,useEffect } from 'react'; 
-
-import regionalData from '../data/regionalData';  
+ 
 
 function PsiNeaContainer(props) { 
   console.log("PsiNeaContainer selectRegion : " + props.selectRegion); 
   console.log("PsiNeaContainer psiObject : " + props.psiObject);
   console.log("PsiNeaContainer nationalPsi : " + props.psiObject.national);
 
-  const [regionalDataList, setRegionalDataList ] = useState(regionalData);  
+  const [regionalDataList, setRegionalDataList ] = useState(props.region);  
+  console.log("psi nea container > " + props.regionalData);
   const [psiObject, setPsiObject] = useState(props.psiObject);
   const [psiAdvisory, setPsiAdvisory] = useState(psiInfo);  
    

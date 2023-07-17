@@ -6,12 +6,12 @@ import Button from "./Button";
  
 import { useState,useEffect } from 'react';  
 
-import regionalData from '../data/regionalData'; 
 
 function PsiNea(props) {
   console.log("PsiNea");  
-  const [regionalDataList, setRegionalDataList ] = useState(regionalData);  
- 
+  const [regionalDataList, setRegionalDataList ] = useState(props.region);  
+  console.log("psi nea > " + props.region);
+
   let nationalBox = "";
   let nationalPsi = "";
 

@@ -49,7 +49,7 @@ function Dashboard(props) {
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-            <PsiNea selectRegion={selectRegion} psiObject={psiObject} />
+            <PsiNea selectRegion={selectRegion} psiObject={psiObject} region={region}/>
             <Pm25Nea />
             <Weather2Hrs />
             <WetbulbTemp />
