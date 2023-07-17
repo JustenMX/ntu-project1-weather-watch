@@ -1,19 +1,26 @@
 // data
-import neaAPI from "../api/neaAPI";
 // dependencies
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
 // components
 import Button from "./Button";
 
-function Pm25Nea( props ) {
-  
-  const {
-    region,
-    selectRegion,
-    pm25Data
-  } = props;
+function Pm25Nea(props) {
+  const { region, selectRegion, pm25Data } = props;
+
+  // Find the matching region object based on the selectRegion
+  const selectedRegion = region.find((item) => item.name === selectRegion);
+  console.log(selectedRegion);
+
+  // Get the corresponding region string
+  const regionString = selectedRegion
+    ? selectedRegion.label_location.region
+    : "";
+  console.log(regionString);
+
+  // Get the reading for the selected region
+  const selectedReading = pm25Data[regionString];
+  console.log(selectedReading);
 
   return (
     <>

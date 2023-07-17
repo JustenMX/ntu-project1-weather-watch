@@ -2,7 +2,7 @@
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 // dependencies
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 // pages
@@ -105,7 +105,7 @@ function App() {
           }
         >
           <Route path="psi" element={<PsiNeaContainer />} />
-          <Route path="pm25" element={<Pm25NeaContainer />} />
+          <Route path="pm25" element={<Pm25NeaContainer pm25Data={pm25Data} />} />
           <Route path="weather2hr" element={<Weather2HrsContainer />} />
           <Route path="wetbulb" element={<WetbulbTempController />} />
           <Route path="uv" element={<UvNeaContainer />} />
