@@ -229,13 +229,24 @@ function WatchList(props) {
       }
     };
 
-    // calculate wetbulb temperature
+    //////////////////////////////
+    // handleColorCode
+    //////////////////////////////
+    // At this stage the states are already updated with the relevent data
+    // to apply color code matrix to all the readings in both states ()
+    //////////////////////////////
 
+    //////////////////////////////
+    // function calls
+    //////////////////////////////
     handlePsi();
     handlePM25();
     handleUVIndex();
     handleWeather();
     handleWetBulbTemperature();
+    //////////////////////////////
+    // useEffect dependecies
+    //////////////////////////////
   }, [
     region,
     watchListRegion,
@@ -267,6 +278,67 @@ function WatchList(props) {
   console.log("WatchList");
   console.log(watchList);
 
+  /////////////
+  // Colour Matrix
+  /////////////
+  const colourMatrixPsi = (psi) => {
+    if (psi > 300) {
+      return "bg-red-500";
+    } else if (psi > 200 && psi <= 300) {
+      return "bg-orange-500";
+    } else if (psi > 100 && psi <= 200) {
+      return "bg-yellow-500";
+    } else if (psi > 50 && psi <= 100) {
+      return "bg-blue-500";
+    } else if (psi > 0 && psi <= 55) {
+      return "bg-green-500";
+    } else {
+      return "bg-white";
+    }
+  };
+
+  const colourMatrixPm25 = (pm25) => {
+    if (pm25 > 250) {
+      return "bg-red-500";
+    } else if (pm25 > 150 && pm25 <= 250) {
+      return "bg-yellow-500";
+    } else if (pm25 > 55 && pm25 <= 150) {
+      return "bg-blue-500";
+    } else if (pm25 > 0 && pm25 <= 55) {
+      return "bg-green-500";
+    } else {
+      return "bg-white";
+    }
+  };
+
+  const colourMatrixUvIndex = (uvIndex) => {
+    if (uvIndex > 11) {
+      return "bg-red=500";
+    } else if (uvIndex > 7 && uvIndex <= 10) {
+      return "bg-orange-500";
+    } else if (uvIndex > 5 && uvIndex <= 7) {
+      return "bg-yellow-500";
+    } else if (uvIndex > 2 && uvIndex <= 5) {
+      return "bg-blue-500";
+    } else if (uvIndex > 0 && uvIndex <= 2) {
+      return "bg-green-500";
+    } else {
+      return "bg-white";
+    }
+  };
+
+  const colourMatrixWetBulb = (wetBulbTemperature) => {
+    if (wetBulbTemperature > 32) {
+      return "bg-red-500";
+    } else if (wetBulbTemperature > 30 && wetBulbTemperature <= 31.9) {
+      return "bg-yellow-500";
+    } else if (wetBulbTemperature < 31) {
+      return "bg-green-500";
+    } else {
+      return "bg-white";
+    }
+  };
+
   return (
     <div>
       <NavSideBar watchListRegion={watchListRegion} />
@@ -291,23 +363,32 @@ function WatchList(props) {
                   watchListText="Today's air quality"
                   watchListValue={watchItem.psi}
                   watchListLabel="24-hr PSI"
+                  bgColour={colourMatrixPsi(watchItem.psi)}
                 />
+
                 <WatchListContainer
                   watchListText="Today's air quality"
                   watchListValue={watchItem.pm25}
                   watchListLabel="1-hr PM2.5 (µg/m³)"
+                  bgColour={colourMatrixPm25(watchItem.pm25)}
                 />
+
                 <WatchListContainer
                   watchListValue={watchItem.weather}
                   watchListLabel="24-hr weather forecast"
                 />
+
                 <WatchListContainer
                   watchListValue={watchWetBulb.wetBulbTemperature}
-                  watchListLabel="wetbulb temperature"
+                  watchListLabel="Wetbulb Temperature"
+                  bgColour={colourMatrixWetBulb(
+                    watchWetBulb.wetBulbTemperature
+                  )}
                 />
                 <WatchListContainer
                   watchListValue={watchItem.uvIndex}
                   watchListLabel="Ultraviolet Index"
+                  bgColour={colourMatrixUvIndex(watchItem.uvIndex)}
                 />
               </div>
             </div>

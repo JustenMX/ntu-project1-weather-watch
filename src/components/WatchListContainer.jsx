@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 function WatchListContainer(props) {
-  const { watchListValue, watchListLabel, watchListText } = props;
+  const { watchListValue, watchListLabel, watchListText, bgColour } = props;
   return (
     <>
-      <div className="flex flex-col items-center mx-auto bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <div
+        className={`flex flex-col items-center mx-auto ${bgColour} border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700`}
+      >
         <div className="flex flex-col justify-between p-4 leading-normal">
           <p className="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white text-center">
             {watchListText}
