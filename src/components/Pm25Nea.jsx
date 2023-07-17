@@ -1,42 +1,31 @@
+// data
+import neaAPI from "../api/neaAPI";
 // dependencies
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
 // components
 import Button from "./Button";
-import { useState, useEffect } from "react";
 
-import neaAPI from "../api/neaAPI";
-import regionalData from "../data/regionalData";
-
-function Pm25Nea() {
-  const [pm25Data, setPm25Data] = useState(null); // State to hold the API data
-  const [selectedLocation, setSelectedLocation] = useState(null); // State to hold the selected location
+function Pm25Nea({ selectRegion }) {
+  // state to hold data
+  const [pm25Data, setPm25Data] = useState({});
 
   useEffect(() => {
-    // Fetch API data when the component mounts
-    neaAPI
-      .get()
-      .then((response) => {
-        setPm25Data(response.data.items[0].readings.pm25_one_hourly); // Store the PM2.5 data in the state
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const fetchPm25Data = async () => {
+      try {
+        const response = await neaAPI.get("/");
+        const data = response.data.items[0]?.readings?.pm25_one_hourly;
+        setPm25Data(data);
+      } catch (error) {
+        console.log("Error fetching PM2.5 data:", error);
+      }
+    };
+
+    fetchPm25Data();
   }, []);
 
-  const handleLocationChange = (event) => {
-    const selectedLocationName = event.target.value;
-    const selectedLocationData = regionalData.find(
-      (location) => location.name === selectedLocationName
-    );
-    setSelectedLocation(selectedLocationData);
-  };
-
-  let filteredPm25Data = null;
-  if (pm25Data && selectedLocation) {
-    const region = selectedLocation.label_location.region;
-    filteredPm25Data = pm25Data[region];
-  }
+  const selectedReading = pm25Data[selectRegion];
 
   return (
     <>
@@ -54,12 +43,12 @@ function Pm25Nea() {
               PM2.5 READINGS
             </h5>
           </a>
-          {filteredPm25Data ? (
+          {selectedReading ? (
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              {selectedLocation.label_location.region}: {filteredPm25Data}μg/m³
+              Reading: {selectedReading} µg/m³
             </p>
           ) : (
-            <p>No PM2.5 data available for the selected location.</p>
+            <p>No data found.</p>
           )}
           <Button
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

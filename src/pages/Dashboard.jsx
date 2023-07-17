@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+//data
+import regionalData from "../data/regionalData";
 // dependencies
 import { Outlet } from "react-router-dom";
 // components
@@ -39,7 +41,7 @@ function Dashboard(props) {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
             <PsiNea />
-            <Pm25Nea />
+            <Pm25Nea selectRegion={regionalData}/>
             <Weather2Hrs />
             <WetbulbTemp />
             <UvNea />
