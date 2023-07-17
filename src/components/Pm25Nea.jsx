@@ -7,25 +7,13 @@ import { useState, useEffect } from "react";
 // components
 import Button from "./Button";
 
-function Pm25Nea({ selectRegion }) {
-  // state to hold data
-  const [pm25Data, setPm25Data] = useState({});
-
-  useEffect(() => {
-    const fetchPm25Data = async () => {
-      try {
-        const response = await neaAPI.get("/");
-        const data = response.data.items[0]?.readings?.pm25_one_hourly;
-        setPm25Data(data);
-      } catch (error) {
-        console.log("Error fetching PM2.5 data:", error);
-      }
-    };
-
-    fetchPm25Data();
-  }, []);
-
-  const selectedReading = pm25Data[selectRegion];
+function Pm25Nea( props ) {
+  
+  const {
+    region,
+    selectRegion,
+    pm25Data
+  } = props;
 
   return (
     <>

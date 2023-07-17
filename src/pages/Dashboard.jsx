@@ -22,6 +22,7 @@ function Dashboard(props) {
     ToastContainer,
     watchList,
     isOptionSelected,
+    pm25Data
   } = props;
   return (
     <>
@@ -41,7 +42,7 @@ function Dashboard(props) {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
             <PsiNea />
-            <Pm25Nea selectRegion={regionalData}/>
+            <Pm25Nea selectRegion={regionalData} region={region} pm25Data={pm25Data} />
             <Weather2Hrs />
             <WetbulbTemp />
             <UvNea />

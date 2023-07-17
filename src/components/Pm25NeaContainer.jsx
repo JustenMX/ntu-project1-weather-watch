@@ -7,22 +7,22 @@ function Pm25NeaContainer() {
   // state to hold data
   const [pm25Data, setPm25Data] = useState([]);
 
-  useEffect(() => {
-    const fetchPm25Data = async () => {
-      try {
-        const response = await neaAPI.get("/");
-        const data = response.data.items[0]?.readings?.pm25_one_hourly;
-        const sortedData = Object.entries(data).sort(([a], [b]) =>
-          a.localeCompare(b)
-        );
-        setPm25Data(sortedData);
-      } catch (error) {
-        console.log("Error fetching PM2.5 data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchPm25Data = async () => {
+  //     try {
+  //       const response = await neaAPI.get("/");
+  //       const data = response.data.items[0]?.readings?.pm25_one_hourly;
+  //       const sortedData = Object.entries(data).sort(([a], [b]) =>
+  //         a.localeCompare(b)
+  //       );
+  //       setPm25Data(sortedData);
+  //     } catch (error) {
+  //       console.log("Error fetching PM2.5 data:", error);
+  //     }
+  //   };
 
-    fetchPm25Data();
-  }, []);
+  //   fetchPm25Data();
+  // }, []);
 
   return (
     <>

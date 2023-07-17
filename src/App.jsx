@@ -19,6 +19,7 @@ import WetbulbTempController from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
 // data
 import regionalData from "./data/regionalData";
+import neaAPI from "./api/neaAPI";
 
 function App() {
   // state management
@@ -26,7 +27,8 @@ function App() {
   const [selectRegion, setSelectRegion] = useState("");
   const [watchList, setWatchList] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
-  
+  const [pm25Data, setPm25Data] = useState({});
+
   // handler Selected Option
   const handlerSelectOption = (value) => {
     if (value === "" || value === "Choose your location") {
@@ -62,10 +64,26 @@ function App() {
     }
   };
 
+  // fetch API PM2.5 
+  useEffect(() => {
+    const fetchPm25Data = async () => {
+      try {
+        const response = await neaAPI.get("/");
+        const data = response.data.items[0]?.readings?.pm25_one_hourly;
+        setPm25Data(data);
+      } catch (error) {
+        console.log("Error fetching PM2.5 data:", error);
+      }
+    };
+
+    fetchPm25Data();
+  }, []);
+
   // debug
   console.log(region);
   console.log(selectRegion);
   console.log(watchList);
+  console.log(pm25Data);
 
   return (
     <BrowserRouter>
@@ -82,6 +100,7 @@ function App() {
               ToastContainer={ToastContainer}
               watchList={watchList}
               isOptionSelected={isOptionSelected}
+              pm25Data={pm25Data}
             />
           }
         >
