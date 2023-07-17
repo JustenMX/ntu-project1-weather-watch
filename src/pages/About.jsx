@@ -43,8 +43,10 @@ function About(props) {
             />
             <DevCards
               devName="Jackson Loh"
-              devTitle="Software Engineer"
+              devTitle="Account Health Specialist"
               devImg="https://i.pravatar.cc"
+              linkedin="www.linkedin.com/in/jackson-loh-c-d"
+              github="https://github.com/Geekie-Jackie"
             />
             <DevCards
               devName="Farrhan"
@@ -56,7 +58,7 @@ function About(props) {
             <DevCards
               devName="Nelson Chua"
               devTitle="Marketing Executive - Operation"
-              devImg="https://media.licdn.com/dms/image/D5603AQG_btftC7r-1A/profile-displayphoto-shrink_400_400/0/1681983066561?e=1694649600&v=beta&t=RHk4xzmXA-koEo8e5pGY2uinHJMD5i00XfxmgCBrjgE"
+              devImg="https://media.licdn.com/dms/image/D5603AQGWVDYKFAFySQ/profile-displayphoto-shrink_400_400/0/1689345620001?e=1695254400&v=beta&t=HIflEOglhVJFi1964IKW7GhaF-g4d-1u438XGzkqdu4"
               linkedin="https://www.linkedin.com/in/chua-chee-fong-nelson6726/"
               github="https://github.com/nelson6726"
             />
