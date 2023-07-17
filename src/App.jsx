@@ -1,9 +1,12 @@
+// import neaAPI
+import neaAPI from "./api/neaAPI";
+
 // css
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 
 // dependencies
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -30,6 +33,7 @@ function App() {
   const [selectRegion, setSelectRegion] = useState("");
   const [watchList, setWatchList] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
+  const [weather2HrForecast, setWeather2HrForecast] = useState([]); // create forecast state with empty array
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -42,6 +46,22 @@ function App() {
     }
   };
 
+  // Fetch weather forecast data
+  const fetchWeather2HrForecast = async () => {
+    try {
+      const response = await neaAPI.get("/2-hour-weather-forecast");
+      const { forecasts } = response.data.items[0]; // forecasts here = response.data.item[0].forecasts
+      setWeather2HrForecast(forecasts);
+    } catch (error) {
+      console.error("Error fetching weather forecast:", error);
+    }
+  };
+  
+  // useEffect to fetch weather forecast data on component mount
+  useEffect(() => {
+    fetchWeather2HrForecast();
+  }, [selectRegion]);
+  
   //handler to Add WatchList
   const handlerAddWatchList = () => {
     // I do not need this but this adds as an additional safety barrier
@@ -86,6 +106,7 @@ function App() {
               ToastContainer={ToastContainer}
               watchList={watchList}
               isOptionSelected={isOptionSelected}
+              weather2HrForecast={weather2HrForecast}
             />
           }
         >
