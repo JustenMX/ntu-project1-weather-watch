@@ -20,6 +20,8 @@ function Dashboard(props) {
     ToastContainer,
     watchList,
     isOptionSelected,
+    dryTemp,
+    humidity,
   } = props;
   return (
     <>
@@ -42,7 +44,7 @@ function Dashboard(props) {
             <PsiNea />
             <Pm25Nea />
             <Weather2Hrs />
-            <WetbulbTemp />
+            <WetbulbTemp dryTemp={dryTemp} humidity={humidity}/>
             <UvNea />
           </div>
         </div>
