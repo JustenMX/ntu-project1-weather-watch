@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // dependencies
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 // components
@@ -8,7 +8,7 @@ import NavSideBar from "../components/NavSideBar";
 import WatchListContainer from "../components/WatchListContainer";
 // data
 import neaAPI from "../api/neaAPI";
-import { useEffect } from "react";
+import weatherIcons from "../data/weatherIcons";
 
 function WatchList(props) {
   const { watchListRegion, region, ToastContainer } = props;
@@ -198,27 +198,22 @@ function WatchList(props) {
             0
           ) / airTempArr.length;
         // get average humidity
-        const avgHumidity = humidityArr.reduce(
-          (accumulator, currentValue) => accumulator + currentValue.value,
-          0
-        );
+        const avgHumidity =
+          humidityArr.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.value,
+            0
+          ) / humidityArr.length;
+
+        // Stull Equation
+
         // get wetbulb temperature
         const wetBulbTemperature =
-          avgTemp *
-            Math.atan(
-              0.151977 *
-                Math.pow(
-                  (Math.exp((17.27 * avgHumidity) / (237.7 + avgHumidity)) +
-                    8.313659) /
-                    100,
-                  0.5
-                )
-            ) +
-          Math.atan(avgTemp + avgHumidity * 0.1) -
-          Math.atan(avgHumidity * 0.1 - 1.676331) +
+          avgTemp * Math.atan(0.151977 * Math.sqrt(avgHumidity + 8.313659)) +
+          Math.atan(avgTemp + avgHumidity) -
+          Math.atan(avgHumidity - 1.676331) +
           0.00391838 *
-            Math.pow(avgHumidity * 0.1, 1.5) *
-            Math.atan(0.023101 * (avgHumidity * 0.1)) -
+            Math.pow(avgHumidity, 1.5) *
+            Math.atan(0.023101 * avgHumidity) -
           4.686035;
 
         setWatchWetBulb({
@@ -320,7 +315,7 @@ function WatchList(props) {
       return "bg-yellow-500";
     } else if (uvIndex > 2 && uvIndex <= 5) {
       return "bg-blue-500";
-    } else if (uvIndex > 0 && uvIndex <= 2) {
+    } else if (uvIndex >= 0 && uvIndex <= 2) {
       return "bg-green-500";
     } else {
       return "bg-white";
@@ -336,6 +331,21 @@ function WatchList(props) {
       return "bg-green-500";
     } else {
       return "bg-white";
+    }
+  };
+
+  const weatherIconMatrix = () => {
+    const matchingItem = watchList.find((item) => {
+      return weatherIcons.some((weather) => weather.weather === item.weather);
+    });
+
+    if (matchingItem) {
+      const matchingIcon = weatherIcons.find(
+        (weather) => weather.weather === matchingItem.weather
+      );
+      return matchingIcon.icon;
+    } else {
+      return "wi-na"; // Default icon when no match is found
     }
   };
 
@@ -376,6 +386,7 @@ function WatchList(props) {
                 <WatchListContainer
                   watchListValue={watchItem.weather}
                   watchListLabel="24-hr weather forecast"
+                  icon={weatherIconMatrix()}
                 />
 
                 <WatchListContainer

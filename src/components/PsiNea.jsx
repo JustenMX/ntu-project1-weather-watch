@@ -7,13 +7,13 @@ function PsiNea() {
   return (
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
+        {/* <a href="#">
           <img
             className="rounded-t-lg"
             src="https://images.pexels.com/photos/7532428/pexels-photo-7532428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
             alt=""
           />
-        </a>
+        </a> */}
         <div className="p-5">
           <a href="#">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
