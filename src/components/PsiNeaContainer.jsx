@@ -60,6 +60,8 @@ function PsiNeaContainer(props) {
   for(let i = 0; i < psiAdvisory.length; i++) {
     let obj = psiAdvisory[i];
     if(currentPsi < obj.psiLowerBound){
+      console.log(currentPsi);
+      console.log(obj.psiLowerBound);
       currentAdvisory = psiAdvisory[i-1];
       console.log(currentAdvisory);
       

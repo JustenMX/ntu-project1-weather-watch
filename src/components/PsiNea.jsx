@@ -96,87 +96,24 @@ function PsiNea(props) {
   
   return (
     <>
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      {nationalBox === "green" ? 
-        <div className="max-w h-30 bg-green-200 rounded-lg">
+      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"> 
+        { nationalBox != ""? 
+          <div className={`max-w h-30 bg-${nationalBox}-200 rounded-lg`}>
             <div className="p-5"> 
-                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
+              <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
+              <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
             </div>
-          </div>
-        : null}
-        {nationalBox === "red" ? 
-        <div className="max-w h-30 bg-red-200 rounded-lg">
-            <div className="p-5"> 
-                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
-            </div>
-          </div>
-        : null}
-        {nationalBox === "orange" ? 
-        <div className="max-w h-30 bg-orange-200 rounded-lg">
-            <div className="p-5"> 
-                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
-            </div>
-          </div>
-        : null}
-        {nationalBox === "yellow" ? 
-        <div className="max-w h-30 bg-yellow-200 rounded-lg">
-            <div className="p-5"> 
-                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
-            </div>
-          </div>
-        : null}
-        {nationalBox === "blue" ? 
-        <div className="max-w h-30 bg-blue-200 rounded-lg">
-            <div className="p-5"> 
-                <dt class="text-base leading-7 text-gray-600">NATIONAL PSI</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{nationalPsi}</dd> 
-            </div>
-          </div>
-        : null}
-        {regionBox === "green"?   
-        <div className="max-w h-30 bg-green-200 rounded-lg">
+          </div> 
+          :null
+        }  
+        { regionBox != ""? 
+        <div className={`max-w h-30 bg-${regionBox}-200 rounded-lg`}>
           <div className="p-5"> 
             <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
             <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
           </div>
-        </div>
-        : null}
-        {regionBox === "red" ?   
-        <div className="max-w h-30 bg-red-200 rounded-lg">
-          <div className="p-5"> 
-            <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
-            <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
-          </div>
-        </div>
-        : null}
-        {regionBox === "yellow" ?   
-        <div className="max-w h-30 bg-yellow-200 rounded-lg">
-          <div className="p-5"> 
-            <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
-            <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
-          </div>
-        </div>
-        : null}
-        {regionBox === "orange" ?   
-        <div className="max-w h-30 bg-orange-200 rounded-lg">
-          <div className="p-5"> 
-            <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
-            <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
-          </div>
-        </div>
-        : null}
-        {regionBox === "blue" ?   
-        <div className="max-w h-30 bg-blue-200 rounded-lg">
-          <div className="p-5"> 
-            <dt class="text-base leading-7 text-gray-600">{northSouthEastWestCentral} PSI</dt>
-            <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{northSouthEastWestCentralPsi}</dd> 
-          </div>
-        </div>
-        : null}
+        </div>:null
+        }  
         <div className="p-5">
           <a href="#">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
