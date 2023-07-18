@@ -12,6 +12,7 @@ function WetbulbTemp() {
   const [humidity, setHumidity] = useState();
   const [wetbulbTemp, setWetbulbTemp] = useState(null);
 
+
  // Stull Equation
  const calculateWetBulbTemperature = (dryTemp, humidity) => {
   const wetBulbTemp = dryTemp * Math.atan(0.151977 * Math.sqrt(humidity + 8.313659)) + Math.atan(dryTemp + humidity) - Math.atan(humidity - 1.676331) + 0.00391838 * Math.pow(humidity, 1.5) * Math.atan(0.023101 * humidity) - 4.686035;
@@ -59,44 +60,53 @@ function WetbulbTemp() {
 
   const heatCategory = wetbulbTemp ? decideHeatCategory(wetbulbTemp) : null;
 
+   // Background color change
+   const colourMatrixWetBulb = (wetbulbTemp) => {
+    if (wetbulbTemp >= 33) {
+      return "bg-black";
+    } else if (wetbulbTemp >= 32) {
+      return "bg-red-500";
+    } else if (wetbulbTemp>= 31) {
+      return "bg-yellow-500";
+    } else if (wetbulbTemp >= 30) {
+      return "bg-green-500";
+    } else {
+      return "bg-white"; //Note as it defaults to white you won't see the difference, change the color to bg-red-500 to see if it works
+    }
+  };
+
+  const bgColor = wetbulbTemp ? colourMatrixWetBulb(wetbulbTemp) : "bg-white";
 
   return (
     <>
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <img
-            className="rounded-t-lg"
-            src="https://images.pexels.com/photos/7532428/pexels-photo-7532428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-          />
-        </a>
+       <div className={`max-w-sm ${bgColor} border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}>
         <div className="p-5">
           <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-black dark:text-white">
               WETBULB TEMP READINGS
             </h5>
           </a>
-          <table className="table-auto w-full text-left border-separate border-2 border-gray-500">
+          <table className="table-auto bg-white w-full text-left border-separate border-2 border-black">
           <tbody>
             <tr>
-              <th className="border px-4 py-2">Air Temp (°C)</th>
-              <td className="border px-4 py-2">{dryTemp ? dryTemp : 'Loading...'}</td>
+              <th className="border-2 border-black px-4 py-2">Air Temp (°C)</th>
+              <td className="border-2 border-black px-4 py-2">{dryTemp ? dryTemp : 'Loading...'}</td>
             </tr>
             <tr>
-              <th className="border px-4 py-2">Humidity (%)</th>
-              <td className="border px-4 py-2">{humidity ? humidity : 'Loading...'}</td>
+              <th className="border-2 border-black px-4 py-2">Humidity (%)</th>
+              <td className="border-2 border-black px-4 py-2">{humidity ? humidity : 'Loading...'}</td>
             </tr>
             <tr>
-              <th className="border px-4 py-2">Wetbulb Temp (°C)</th>
-              <td className="border px-4 py-2">{wetbulbTemp ? wetbulbTemp : 'Loading...'}</td>
+              <th className="border-2 border-black px-4 py-2">Wetbulb Temp (°C)</th>
+              <td className="border-2 border-black px-4 py-2">{wetbulbTemp ? wetbulbTemp : 'Loading...'}</td>
             </tr>
             <tr>
-              <th className="border px-4 py-2">Heat Category</th>
-              <td className="border px-4 py-2">{heatCategory ? heatCategory.category : 'Loading...'}</td>
+              <th className="border-2 border-black px-4 py-2">Heat Category</th>
+              <td className="border-2 border-black px-4 py-2">{heatCategory ? heatCategory.category : 'Loading...'}</td>
             </tr>
             <tr>
-              <th className="border px-4 py-2">Work : Rest (Min)</th>
-              <td className="border px-4 py-2">{heatCategory ? `${heatCategory.work} : ${heatCategory.rest}` : 'Loading...'}</td>
+              <th className="border-2 border-black px-4 py-2">Work : Rest (Min)</th>
+              <td className="border-2 border-black px-4 py-2">{heatCategory ? `${heatCategory.work} : ${heatCategory.rest}` : 'Loading...'}</td>
             </tr>
           </tbody>
         </table>
