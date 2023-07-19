@@ -2,7 +2,7 @@
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 // dependencies
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 // pages
@@ -19,13 +19,27 @@ import WetbulbTempController from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
 // data
 import regionalData from "./data/regionalData";
-
+import neaAPI from './api/neaAPI';
 function App() {
   // state management
   const [region, setRegion] = useState(regionalData);
   const [selectRegion, setSelectRegion] = useState("");
   const [watchList, setWatchList] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
+  const [uvIndex, setUvIndex] = useState(null);
+
+  //Get uvIndex
+  const fetchUvIndex = async (data) => {
+    try {
+      const response = await neaAPI.get(`/uv-index`);
+      // console.log(response.data);
+      setUvIndex(response.data);
+      const uvIndexData = response.data.items[0].index[0].value;
+        setUvIndex(uvIndexData);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -66,6 +80,11 @@ function App() {
   console.log(region);
   console.log(selectRegion);
   console.log(watchList);
+  console.log(uvIndex)
+
+  useEffect(() => {
+    fetchUvIndex();
+  }, [selectRegion])
 
   return (
     <BrowserRouter>
@@ -82,6 +101,7 @@ function App() {
               ToastContainer={ToastContainer}
               watchList={watchList}
               isOptionSelected={isOptionSelected}
+              uvIndex={uvIndex}
             />
           }
         >
@@ -100,22 +120,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
