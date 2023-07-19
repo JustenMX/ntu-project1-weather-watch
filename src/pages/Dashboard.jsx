@@ -22,6 +22,7 @@ function Dashboard(props) {
     isOptionSelected,
     psiObject,
     pm25Data,
+    uvIndex,
   } = props;
 
   return (
@@ -53,7 +54,7 @@ function Dashboard(props) {
             />
             <Weather2Hrs />
             <WetbulbTemp />
-            <UvNea />
+            <UvNea uvIndex={uvIndex} selectRegion={selectRegion} />
           </div>
         </div>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">

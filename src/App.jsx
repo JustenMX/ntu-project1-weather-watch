@@ -29,6 +29,7 @@ function App() {
   const [isOptionSelected, setIsOptionSelected] = useState(false);
   const [psiObject, setPsiObject] = useState([]);
   const [pm25Data, setPm25Data] = useState({});
+  const [uvIndex, setUvIndex] = useState(null);
 
   //////////////////////////////
   // GET ALL API
@@ -55,9 +56,22 @@ function App() {
     }
   };
 
+  const fetchUvIndex = async () => {
+    try {
+      const response = await neaAPI.get(`/uv-index`);
+      // console.log(response.data);
+      setUvIndex(response.data);
+      const uvIndexData = response.data.items[0].index[0].value;
+      setUvIndex(uvIndexData);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     apiGetPsi();
     fetchPm25Data();
+    fetchUvIndex();
   }, []);
 
   // handler Selected Option
@@ -126,6 +140,7 @@ function App() {
               isOptionSelected={isOptionSelected}
               psiObject={psiObject}
               pm25Data={pm25Data}
+              uvIndex={uvIndex}
             />
           }
         >
