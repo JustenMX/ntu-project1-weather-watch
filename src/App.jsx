@@ -30,6 +30,36 @@ function App() {
   const [psiObject, setPsiObject] = useState([]);
   const [pm25Data, setPm25Data] = useState({});
 
+  //////////////////////////////
+  // GET ALL API
+  //////////////////////////////
+
+  const apiGetPsi = async () => {
+    try {
+      const response = await neaAPI.get(`/psi`);
+      setPsiObject(
+        response.data.items[0]["readings"]["psi_twenty_four_hourly"]
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const fetchPm25Data = async () => {
+    try {
+      const response = await neaAPI.get(`/pm25`);
+      const data = response.data.items[0]?.readings?.pm25_one_hourly;
+      setPm25Data(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    apiGetPsi();
+    fetchPm25Data();
+  }, []);
+
   // handler Selected Option
   const handlerSelectOption = (value) => {
     if (value === "" || value === "Choose your location") {
@@ -40,6 +70,10 @@ function App() {
       setSelectRegion(value);
     }
   };
+
+  //////////////////////////////
+  // Handlers
+  //////////////////////////////
 
   //handler to Add WatchList
   const handlerAddWatchList = () => {
@@ -65,41 +99,14 @@ function App() {
     }
   };
 
-  //psi
-  useEffect(() => {
-    const apiGetPsi = async () => {
-      try {
-        console.log("App.jsx > apiGetPsi");
-        const response = await neaAPI.get(`/psi`);
-        setPsiObject(
-          response.data.items[0]["readings"]["psi_twenty_four_hourly"]
-        );
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    apiGetPsi();
-  }, []);
-
-  // fetch API PM2.5
-  useEffect(() => {
-    const fetchPm25Data = async () => {
-      try {
-        const response = await neaAPI.get("/");
-        const data = response.data.items[0]?.readings?.pm25_one_hourly;
-        setPm25Data(data);
-      } catch (error) {
-        console.log("Error fetching PM2.5 data:", error);
-      }
-    };
-
-    fetchPm25Data();
-  }, []);
-
+  //////////////////////////////
   // debug
+  //////////////////////////////
+
   console.log(region);
   console.log(selectRegion);
-  console.log(watchList);
+  console.log(psiObject);
+  console.log("pm25Data App.jsx");
   console.log(pm25Data);
 
   return (
@@ -118,6 +125,7 @@ function App() {
               watchList={watchList}
               isOptionSelected={isOptionSelected}
               psiObject={psiObject}
+              pm25Data={pm25Data}
             />
           }
         >

@@ -1,9 +1,4 @@
 /* eslint-disable react/prop-types */
-<<<<<<< HEAD
-=======
-//data
-import regionalData from "../data/regionalData";
->>>>>>> origin/feature-pm2.5-branch
 // dependencies
 import { Outlet } from "react-router-dom";
 // components
@@ -16,11 +11,6 @@ import UvNea from "../components/UvNea";
 import SelectionField from "../components/SelectionField";
 import SingaporeMap from "../components/SingaporeMap";
 
-//psi 
-import { useState,useEffect } from 'react';  
-import neaAPI from '../api/neaAPI';  
-import regionalData from '../data/regionalData'; 
-
 function Dashboard(props) {
   const {
     region,
@@ -29,20 +19,11 @@ function Dashboard(props) {
     handlerAddWatchList,
     ToastContainer,
     watchList,
-<<<<<<< HEAD
-    isOptionSelected, 
-    psiObject,
-  } = props;
- 
-  const [regionalDataList, setRegionalDataList ] = useState(regionalData);  
-  let northSouthEastWestCentralPsi = "";
-  
-=======
     isOptionSelected,
+    psiObject,
     pm25Data,
   } = props;
 
->>>>>>> origin/feature-pm2.5-branch
   return (
     <>
       <NavSideBar watchList={watchList} />
@@ -60,17 +41,16 @@ function Dashboard(props) {
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-<<<<<<< HEAD
-            <PsiNea selectRegion={selectRegion} psiObject={psiObject} region={region}/>
-            <Pm25Nea />
-=======
-            <PsiNea />
+            <PsiNea
+              selectRegion={selectRegion}
+              psiObject={psiObject}
+              region={region}
+            />
             <Pm25Nea
               selectRegion={selectRegion}
               region={region}
               pm25Data={pm25Data}
             />
->>>>>>> origin/feature-pm2.5-branch
             <Weather2Hrs />
             <WetbulbTemp />
             <UvNea />

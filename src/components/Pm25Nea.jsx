@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // data
 // dependencies
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +18,7 @@ function Pm25Nea(props) {
     ? selectedRegion.label_location.region
     : "";
   console.log(regionString);
+  console.log(pm25Data);
 
   // Get the reading for the selected region
   const selectedReading = pm25Data[regionString];
@@ -25,19 +27,10 @@ function Pm25Nea(props) {
   return (
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <img
-            className="rounded-t-lg"
-            src="https://images.pexels.com/photos/7532428/pexels-photo-7532428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-          />
-        </a>
         <div className="p-5">
-          <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              PM2.5 READINGS
-            </h5>
-          </a>
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            PM2.5 READINGS
+          </h5>
           {selectedReading ? (
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
               Reading: {selectedReading} µg/m³

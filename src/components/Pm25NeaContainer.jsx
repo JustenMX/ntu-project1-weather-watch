@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 
 function Pm25NeaContainer({ pm25Data }) {
   console.log(pm25Data);
