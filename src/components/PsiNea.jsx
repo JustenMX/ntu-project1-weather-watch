@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 // dependencies
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 // components
 import Button from "./Button";
-
-import { useState, useEffect } from "react";
 
 function PsiNea(props) {
   console.log("PsiNea");
