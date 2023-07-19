@@ -3,15 +3,24 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 // components
 import NavSideBar from "../components/NavSideBar";
 import WatchListContainer from "../components/WatchListContainer";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 // data
 import neaAPI from "../api/neaAPI";
 import weatherIcons from "../data/weatherIcons";
 
 function WatchList(props) {
-  const { watchListRegion, region, ToastContainer } = props;
+  const {
+    watchListRegion,
+    region,
+    ToastContainer,
+    watchListCount,
+    updateWatchListCount,
+  } = props;
   //////////////////////////////
   // State Management
   //////////////////////////////
@@ -42,7 +51,7 @@ function WatchList(props) {
           neaAPI.get(`/psi`),
           neaAPI.get(`/pm25`),
           neaAPI.get(`/uv-index`),
-          neaAPI.get(`/24-hour-weather-forecast`),
+          neaAPI.get(`/2-hour-weather-forecast`),
           neaAPI.get(`/air-temperature`),
           neaAPI.get(`/relative-humidity`),
         ]);
@@ -164,17 +173,21 @@ function WatchList(props) {
     const handleWeather = () => {
       setWatchList((prevState) => {
         const updatedWatchList = prevState.map((item) => {
-          const weatherValue = watchWeather?.items?.[0]?.periods[0]?.regions;
-          for (const regionKey in weatherValue) {
-            if (item.region === regionKey) {
-              return {
-                ...item,
-                weather: weatherValue[regionKey],
-              };
-            }
+          const weatherValue = watchWeather?.items?.[0]?.forecasts;
+          const matchingWeather = weatherValue.find(
+            (weather) => weather.area === item.location
+          );
+
+          if (matchingWeather) {
+            return {
+              ...item,
+              weather: matchingWeather.forecast,
+            };
+          } else {
+            return item;
           }
-          return item;
         });
+
         return updatedWatchList;
       });
     };
@@ -349,9 +362,22 @@ function WatchList(props) {
     }
   };
 
+  /////////////
+  // handle delete WatchList list
+  /////////////
+
+  const handlerDeleteWatchList = (uid) => {
+    const updatedWatchList = watchList.filter((item) => item.uid !== uid);
+    setWatchList(updatedWatchList);
+
+    // Update the watchListCount state in the App.jsx
+    const updatedCount = updatedWatchList.length;
+    updateWatchListCount(updatedCount);
+  };
+
   return (
     <div>
-      <NavSideBar watchListRegion={watchListRegion} />
+      <NavSideBar watchListCount={watchListCount} />
       <div className="p-4 sm:ml-64">
         <ToastContainer />
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
@@ -363,10 +389,17 @@ function WatchList(props) {
               key={uuid}
               className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 my-5"
             >
-              <div className="bg-blue-700 px-4 py-3 text-white rounded-lg">
+              <div className="bg-slate-950 px-4 py-3 text-white rounded-lg flex items-center justify-between">
                 <p className="text-center text-lg font-semibold">
                   {watchItem.location}
                 </p>
+                <button
+                  className="text-white hover:text-red-500 transition-colors duration-300 focus:outline-none hover:animate-pulse"
+                  onClick={() => handlerDeleteWatchList(watchItem.uid)}
+                >
+                  <FontAwesomeIcon icon={faTrash} className="mr-1" />
+                  <span className="hidden sm:inline">Delete</span>
+                </button>
               </div>
               <div className="grid grid-cols-5 gap-4 my-4">
                 <WatchListContainer
@@ -385,8 +418,9 @@ function WatchList(props) {
 
                 <WatchListContainer
                   watchListValue={watchItem.weather}
-                  watchListLabel="24-hr weather forecast"
+                  watchListLabel="2-hr weather forecast"
                   icon={weatherIconMatrix()}
+                  bgColour="bg-yellow-300"
                 />
 
                 <WatchListContainer

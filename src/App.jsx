@@ -26,6 +26,7 @@ function App() {
   const [selectRegion, setSelectRegion] = useState("");
   const [watchListRegion, setWatchListRegion] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
+  const [watchListCount, setWatchListCount] = useState(0);
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -57,9 +58,15 @@ function App() {
         toast.error("You already have this location in your watch list");
       } else {
         setWatchListRegion((prevState) => [...prevState, newWatchList]);
+        setWatchListCount((prevState) => prevState + 1);
         toast.success(`You have added ${selectRegion} to your watch list`);
       }
     }
+  };
+
+  // handler to update watchListCount
+  const updateWatchListCount = (count) => {
+    setWatchListCount(count);
   };
 
   // debug
@@ -80,7 +87,7 @@ function App() {
               handlerSelectOption={handlerSelectOption}
               handlerAddWatchListRegion={handlerAddWatchListRegion}
               ToastContainer={ToastContainer}
-              watchListRegion={watchListRegion}
+              watchListCount={watchListCount}
               isOptionSelected={isOptionSelected}
             />
           }
@@ -96,14 +103,16 @@ function App() {
           element={
             <WatchList
               watchListRegion={watchListRegion}
+              watchListCount={watchListCount}
               region={region}
               ToastContainer={ToastContainer}
+              updateWatchListCount={updateWatchListCount}
             />
           }
         />
         <Route
           path="about"
-          element={<About watchListRegion={watchListRegion} />}
+          element={<About watchListCount={watchListCount} />}
         />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

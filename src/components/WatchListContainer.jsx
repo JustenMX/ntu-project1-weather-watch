@@ -11,9 +11,11 @@ function WatchListContainer(props) {
         className={`flex flex-col items-center justify-center mx-auto ${bgColour} border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700`}
       >
         <div className="flex flex-col items-center justify-center p-4">
-          <i className={icon} />
           <div className="mt-2">
-            <h5 className="mb-2 text-4xl font-normal tracking-tight text-gray-900 dark:text-white text-center">
+            <i className={icon} />
+          </div>
+          <div className="mt-2">
+            <h5 className="mb-2 text-3xl font-normal tracking-tight text-gray-900 dark:text-white text-center">
               {watchListValue}
             </h5>
           </div>

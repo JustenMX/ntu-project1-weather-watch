@@ -45,6 +45,10 @@ const weatherIcons = [
     icon: "wi wi-day-showers text-4xl",
   },
   {
+    weather: "Light Showers",
+    icon: "wi wi-day-showers text-4xl",
+  },
+  {
     weather: "Showers",
     icon: "wi wi-day-showers text-4xl",
   },

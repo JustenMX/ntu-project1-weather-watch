@@ -18,12 +18,12 @@ function Dashboard(props) {
     handlerSelectOption,
     handlerAddWatchListRegion,
     ToastContainer,
-    watchListRegion,
+    watchListCount,
     isOptionSelected,
   } = props;
   return (
     <>
-      <NavSideBar watchListRegion={watchListRegion} />
+      <NavSideBar watchListCount={watchListCount} />
       <div className="p-4 sm:ml-64">
         <ToastContainer />
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
