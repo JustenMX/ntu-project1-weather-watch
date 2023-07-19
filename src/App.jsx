@@ -19,7 +19,6 @@ import WetbulbTempController from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
 // data
 import regionalData from "./data/regionalData";
-
 import neaAPI from "./api/neaAPI";
 
 function App() {
@@ -28,8 +27,8 @@ function App() {
   const [selectRegion, setSelectRegion] = useState("");
   const [watchList, setWatchList] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
-  // psi
   const [psiObject, setPsiObject] = useState([]);
+  const [pm25Data, setPm25Data] = useState({});
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -67,25 +66,41 @@ function App() {
   };
 
   //psi
-  const apiGetPsi = async () => {
-    try {
-      console.log("App.jsx > apiGetPsi");
-      const response = await neaAPI.get(`/psi`);
-      setPsiObject(
-        response.data.items[0]["readings"]["psi_twenty_four_hourly"]
-      );
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   useEffect(() => {
+    const apiGetPsi = async () => {
+      try {
+        console.log("App.jsx > apiGetPsi");
+        const response = await neaAPI.get(`/psi`);
+        setPsiObject(
+          response.data.items[0]["readings"]["psi_twenty_four_hourly"]
+        );
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
     apiGetPsi();
+  }, []);
+
+  // fetch API PM2.5
+  useEffect(() => {
+    const fetchPm25Data = async () => {
+      try {
+        const response = await neaAPI.get("/");
+        const data = response.data.items[0]?.readings?.pm25_one_hourly;
+        setPm25Data(data);
+      } catch (error) {
+        console.log("Error fetching PM2.5 data:", error);
+      }
+    };
+
+    fetchPm25Data();
   }, []);
 
   // debug
   console.log(region);
   console.log(selectRegion);
   console.log(watchList);
+  console.log(pm25Data);
 
   return (
     <BrowserRouter>
@@ -116,7 +131,10 @@ function App() {
               />
             }
           />
-          <Route path="pm25" element={<Pm25NeaContainer />} />
+          <Route
+            path="pm25"
+            element={<Pm25NeaContainer pm25Data={pm25Data} />}
+          />
           <Route path="weather2hr" element={<Weather2HrsContainer />} />
           <Route path="wetbulb" element={<WetbulbTempController />} />
           <Route path="uv" element={<UvNeaContainer />} />

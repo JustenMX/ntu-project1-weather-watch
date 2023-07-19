@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import axios from 'axios';
 
 const neaAPI = axios.create({
@@ -10,3 +11,14 @@ const neaAPI = axios.create({
   });
   
 export default neaAPI;
+=======
+import axios from "axios";
+
+const neaAPI = axios.create({
+    baseURL: "https://api.data.gov.sg/v1/environment/pm25",
+    timeout: 8000,
+  });
+  
+  export default neaAPI;
+  
+>>>>>>> origin/feature-pm2.5-branch
