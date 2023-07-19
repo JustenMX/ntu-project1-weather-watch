@@ -33,7 +33,9 @@ function App() {
   const [selectRegion, setSelectRegion] = useState("");
   const [watchList, setWatchList] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
-  const [weather2HrForecast, setWeather2HrForecast] = useState([]); // create forecast state with empty array
+  const [weather2HrForecast, setWeather2HrForecast] = useState([]); // forecast state with empty array to store API array
+  const [weather2HrSelectedRegionForcast, setWeather2HrSelectedRegionForecast] =
+    useState(""); // state with empty string to store selectedAreaForecast.forecast from Weather2Hrs.jsx
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -51,17 +53,24 @@ function App() {
     try {
       const response = await neaAPI.get("/2-hour-weather-forecast");
       const { forecasts } = response.data.items[0]; // forecasts here = response.data.item[0].forecasts
-      setWeather2HrForecast(forecasts);
+      console.log(forecasts);
+      setWeather2HrForecast(forecasts); // update state with latest item[0].forecasts array
     } catch (error) {
       console.error("Error fetching weather forecast:", error);
     }
   };
-  
-  // useEffect to fetch weather forecast data on component mount
+
+  // useEffect to fetch weather forecast data on component mount and whenever selectRegion changes
   useEffect(() => {
     fetchWeather2HrForecast();
   }, [selectRegion]);
-  
+
+  // callback function to get selectedAreaForecast.forecast weather condition from Weather2Hrs.jsx
+  const handlerSelectedRegionForecast = (selectedRegionForecast) => {
+    console.log("Selected Forecast:", selectedRegionForecast);
+    setWeather2HrSelectedRegionForecast(selectedRegionForecast);
+  };
+
   //handler to Add WatchList
   const handlerAddWatchList = () => {
     // I do not need this but this adds as an additional safety barrier
@@ -107,12 +116,20 @@ function App() {
               watchList={watchList}
               isOptionSelected={isOptionSelected}
               weather2HrForecast={weather2HrForecast}
+              handlerSelectedRegionForecast={handlerSelectedRegionForecast}
             />
           }
         >
           <Route path="psi" element={<PsiNeaContainer />} />
           <Route path="pm25" element={<Pm25NeaContainer />} />
-          <Route path="weather2hr" element={<Weather2HrsContainer />} />
+          <Route
+            path="weather2hr"
+            element={
+              <Weather2HrsContainer
+                selectedRegionForecast={weather2HrSelectedRegionForcast}
+              />
+            }
+          />
           <Route path="wetbulb" element={<WetbulbTempController />} />
           <Route path="uv" element={<UvNeaContainer />} />
         </Route>
@@ -125,4 +142,3 @@ function App() {
 }
 
 export default App;
-
