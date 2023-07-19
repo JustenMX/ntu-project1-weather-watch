@@ -37,6 +37,8 @@ function App() {
   const [weather2HrForecast, setWeather2HrForecast] = useState([]); // forecast state with empty array to store API array
   const [weather2HrSelectedRegionForcast, setWeather2HrSelectedRegionForecast] =
     useState(""); // state with empty string to store selectedAreaForecast.forecast from Weather2Hrs.jsx
+  const [dryTemp, setDryTemp] = useState([]);
+  const [humidity, setHumidity] = useState([]);
 
   //////////////////////////////
   // GET ALL API
@@ -87,11 +89,31 @@ function App() {
     }
   };
 
+  const fetchDryTemp = async () => {
+    try {
+      const response = await neaAPI.get(`/air-temperature`);
+      setDryTemp(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const fetchHumidity = async () => {
+    try {
+      const response = await neaAPI.get(`/relative-humidity`);
+      setHumidity(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     apiGetPsi();
     fetchPm25Data();
     fetchUvIndex();
     fetchWeather2HrForecast();
+    fetchDryTemp();
+    fetchHumidity();
   }, [selectRegion]);
 
   //////////////////////////////
@@ -169,6 +191,8 @@ function App() {
               uvIndex={uvIndex}
               weather2HrForecast={weather2HrForecast}
               handlerSelectedRegionForecast={handlerSelectedRegionForecast}
+              dryTemp={dryTemp}
+              humidity={humidity}
             />
           }
         >
