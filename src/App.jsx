@@ -2,7 +2,7 @@
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 // dependencies
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 // pages
@@ -19,8 +19,8 @@ import WetbulbTempController from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
 // data
 import regionalData from "./data/regionalData";
- 
-import neaAPI from './api/neaAPI';  
+
+import neaAPI from "./api/neaAPI";
 
 function App() {
   // state management
@@ -28,6 +28,8 @@ function App() {
   const [selectRegion, setSelectRegion] = useState("");
   const [watchList, setWatchList] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
+  // psi
+  const [psiObject, setPsiObject] = useState([]);
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -63,22 +65,22 @@ function App() {
       }
     }
   };
-  //psi
-  const [psiObject, setPsiObject] = useState([]); 
 
+  //psi
   const apiGetPsi = async () => {
-    try { 
+    try {
       console.log("App.jsx > apiGetPsi");
-      const response = await neaAPI.get(`/psi`); 
-      setPsiObject(response.data.items[0]['readings']['psi_twenty_four_hourly']);
- 
-    }catch (error) {
+      const response = await neaAPI.get(`/psi`);
+      setPsiObject(
+        response.data.items[0]["readings"]["psi_twenty_four_hourly"]
+      );
+    } catch (error) {
       console.log(error.message);
-    } 
-  } 
+    }
+  };
   useEffect(() => {
     apiGetPsi();
-  }, [])
+  }, []);
 
   // debug
   console.log(region);
@@ -104,7 +106,16 @@ function App() {
             />
           }
         >
-          <Route path="psi" element={<PsiNeaContainer selectRegion={selectRegion} psiObject={psiObject} region={region}/>} />
+          <Route
+            path="psi"
+            element={
+              <PsiNeaContainer
+                selectRegion={selectRegion}
+                psiObject={psiObject}
+                region={region}
+              />
+            }
+          />
           <Route path="pm25" element={<Pm25NeaContainer />} />
           <Route path="weather2hr" element={<Weather2HrsContainer />} />
           <Route path="wetbulb" element={<WetbulbTempController />} />
