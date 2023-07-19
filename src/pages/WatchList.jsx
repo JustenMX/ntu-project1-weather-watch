@@ -366,9 +366,10 @@ function WatchList(props) {
   // handle delete WatchList list
   /////////////
 
-  const handlerDeleteWatchList = (uid) => {
+  const handlerDeleteWatchList = (uid, location) => {
     const updatedWatchList = watchList.filter((item) => item.uid !== uid);
     setWatchList(updatedWatchList);
+    toast.success(`You have sucessfully deleted ${location}`);
 
     // Update the watchListCount state in the App.jsx
     const updatedCount = updatedWatchList.length;
@@ -395,7 +396,9 @@ function WatchList(props) {
                 </p>
                 <button
                   className="text-white hover:text-red-500 transition-colors duration-300 focus:outline-none hover:animate-pulse"
-                  onClick={() => handlerDeleteWatchList(watchItem.uid)}
+                  onClick={() =>
+                    handlerDeleteWatchList(watchItem.uid, watchItem.location)
+                  }
                 >
                   <FontAwesomeIcon icon={faTrash} className="mr-1" />
                   <span className="hidden sm:inline">Delete</span>
