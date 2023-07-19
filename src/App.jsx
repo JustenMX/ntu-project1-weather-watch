@@ -1,22 +1,26 @@
 // css
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
+
 // dependencies
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+
 // pages
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import WatchList from "./pages/WatchList";
 import About from "./pages/About";
 import ErrorPage from "./pages/ErrorPage";
+
 // components
 import PsiNeaContainer from "./components/PsiNeaContainer";
 import Pm25NeaContainer from "./components/Pm25NeaContainer";
 import Weather2HrsContainer from "./components/Weather2HrsContainer";
 import WetbulbTempController from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
+
 // data
 import regionalData from "./data/regionalData";
 import neaAPI from "./api/neaAPI";
@@ -74,7 +78,7 @@ function App() {
   // Fetch weather forecast data
   const fetchWeather2HrForecast = async () => {
     try {
-      const response = await neaAPI.get("/2-hour-weather-forecast");
+      const response = await neaAPI.get(`/2-hour-weather-forecast`);
       const { forecasts } = response.data.items[0]; // forecasts here = response.data.item[0].forecasts
       console.log(forecasts);
       setWeather2HrForecast(forecasts); // update state with latest item[0].forecasts array

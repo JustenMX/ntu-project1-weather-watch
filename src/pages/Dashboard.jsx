@@ -23,6 +23,8 @@ function Dashboard(props) {
     psiObject,
     pm25Data,
     uvIndex,
+    weather2HrForecast,
+    handlerSelectedRegionForecast,
   } = props;
 
   return (
@@ -52,7 +54,11 @@ function Dashboard(props) {
               region={region}
               pm25Data={pm25Data}
             />
-            <Weather2Hrs />
+            <Weather2Hrs
+              weather2HrForecast={weather2HrForecast}
+              selectedRegion={selectRegion}
+              handlerSelectedRegionForecast={handlerSelectedRegionForecast}
+            />
             <WetbulbTemp />
             <UvNea uvIndex={uvIndex} selectRegion={selectRegion} />
           </div>
