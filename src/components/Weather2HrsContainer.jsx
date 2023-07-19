@@ -52,7 +52,7 @@ function Weather2HrsContainer({ selectedRegionForecast }) {
       <div className="flex flex-col items-center mx-auto bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div className="flex flex-col justify-between p-4 leading-normal">
           <h5 className="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-            2-Hour Weather Condition
+            Weather Advisory
           </h5>
           <p className="mb-3 text-3xl font-mono font-bold text-gray-900 dark:text-gray-400 bg-yellow-100">
             {displayWeather2HrAdvisory}
