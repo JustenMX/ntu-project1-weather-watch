@@ -17,6 +17,7 @@ import Pm25NeaContainer from "./components/Pm25NeaContainer";
 import Weather2HrsContainer from "./components/Weather2HrsContainer";
 import WetbulbTempContainer from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
+import WetbulbTemp from "./components/WetbulbTemp";
 // data
 import regionalData from "./data/regionalData";
 import neaAPI from "./api/neaAPI";
@@ -31,31 +32,31 @@ function App() {
   const [humidity, setHumidity] = useState([]);
 
 
-useEffect(() => {
-// Get Dry Temp
-const fetchDryTemp = async () => {
-  try {
-    const response = await neaAPI.get('/air-temperature');
-    setDryTemp(response.data)
-    toast.promise("loading")
-  } catch (error) {
-    toast.error(error);
-  }
-}
+  //API Call to fetch Air Temp and Humidity 
+  useEffect(() => {
+    const calculateAverage = (data) => {
+      const readings = data.items[0].readings;
+      const sum = readings.reduce((accum, reading) => accum + reading.value, 0);
+      return parseFloat((sum / readings.length).toFixed(2));
+    }
 
-// Get Humidity
-const fetchHumidity = async () => {
-  try {
-    const response = await neaAPI.get('/relative-humidity');
-    setHumidity(response.data)
-    toast.promise("loading")
-  } catch (error) {
-    toast.error(error);
-  }
-}
-fetchDryTemp()
-fetchHumidity()
-}, [])
+    const fetchData = async () => {
+      try {
+        const [responseTemp, responseHumidity] = await Promise.all([
+          neaAPI.get('/air-temperature'),
+          neaAPI.get('/relative-humidity'),
+        ]);
+        const averageDryTemp = calculateAverage(responseTemp.data);
+        const averageHumidity = calculateAverage(responseHumidity.data);
+        setDryTemp(averageDryTemp);
+        setHumidity(averageHumidity);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+  }, []);
 
 
   // handler Selected Option
@@ -120,6 +121,7 @@ fetchHumidity()
           <Route path="weather2hr" element={<Weather2HrsContainer />} />
           <Route path="wetbulb" element={<WetbulbTempContainer />} />
           <Route path="uv" element={<UvNeaContainer />} />
+          <Route path="wetbulb" element={<WetbulbTemp dryTemp={dryTemp} humidity={humidity} />} />
         </Route>
         <Route
           path="watchlist"

@@ -4,46 +4,21 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from 'react';
 // components
 import Button from "./Button";
-// data
-import neaAPI from '../api/neaAPI';
 
-function WetbulbTemp() {
-  const [dryTemp, setDryTemp] = useState();
-  const [humidity, setHumidity] = useState();
+
+function WetbulbTemp({ dryTemp, humidity }) {
   const [wetbulbTemp, setWetbulbTemp] = useState(null);
 
-
- // Stull Equation
- const calculateWetBulbTemperature = (dryTemp, humidity) => {
-  const wetBulbTemp = dryTemp * Math.atan(0.151977 * Math.sqrt(humidity + 8.313659)) + Math.atan(dryTemp + humidity) - Math.atan(humidity - 1.676331) + 0.00391838 * Math.pow(humidity, 1.5) * Math.atan(0.023101 * humidity) - 4.686035;
-  return wetBulbTemp.toFixed(2);
-}
+  const calculateWetBulbTemperature = (dryTemp, humidity) => {
+    const wetBulbTemp = dryTemp * Math.atan(0.151977 * Math.sqrt(humidity + 8.313659)) + Math.atan(dryTemp + humidity) - Math.atan(humidity - 1.676331) + 0.00391838 * Math.pow(humidity, 1.5) * Math.atan(0.023101 * humidity) - 4.686035;
+    return wetBulbTemp.toFixed(2);
+  }
 
   useEffect(() => {
-    const calculateAverage = (data) => {
-      const readings = data.items[0].readings;
-      const sum = readings.reduce((accum, reading) => accum + reading.value, 0);
-      return parseFloat((sum / readings.length).toFixed(2));
+    if (dryTemp && humidity) {
+      setWetbulbTemp(calculateWetBulbTemperature(dryTemp, humidity));
     }
-
-    const fetchData = async () => {
-      try {
-        const [responseTemp, responseHumidity] = await Promise.all([
-          neaAPI.get('/air-temperature'),
-          neaAPI.get('/relative-humidity'),
-        ]);
-        const averageDryTemp = calculateAverage(responseTemp.data);
-        const averageHumidity = calculateAverage(responseHumidity.data);
-        setDryTemp(averageDryTemp);
-        setHumidity(averageHumidity);
-        setWetbulbTemp(calculateWetBulbTemperature(averageDryTemp, averageHumidity));
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchData();
-  }, []);
+  }, [dryTemp, humidity]);
 
   console.log("Average dryTemp:", dryTemp);
   console.log("Average humidity:", humidity);
@@ -62,20 +37,18 @@ function WetbulbTemp() {
 
    // Background color change
    const colourMatrixWetBulb = (wetbulbTemp) => {
-    if (wetbulbTemp >= 33) {
-      return "bg-black";
-    } else if (wetbulbTemp >= 32) {
+    if (wetbulbTemp >= 32) {
       return "bg-red-500";
+    } else if (wetbulbTemp >= 31) {
+      return "bg-yellow-500";
     } else if (wetbulbTemp>= 31) {
       return "bg-yellow-500";
-    } else if (wetbulbTemp >= 30) {
-      return "bg-green-500";
     } else {
-      return "bg-white"; //Note as it defaults to white you won't see the difference, change the color to bg-red-500 to see if it works
+      return "bg-green-500"; //Note as it defaults to white you won't see the difference, change the color to bg-red-500 to see if it works
     }
   };
 
-  const bgColor = wetbulbTemp ? colourMatrixWetBulb(wetbulbTemp) : "bg-white";
+  const bgColor = wetbulbTemp ? colourMatrixWetBulb(wetbulbTemp) : "bg-green-500";
 
   return (
     <>
