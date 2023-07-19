@@ -30,6 +30,9 @@ function App() {
   const [psiObject, setPsiObject] = useState([]);
   const [pm25Data, setPm25Data] = useState({});
   const [uvIndex, setUvIndex] = useState(null);
+  const [weather2HrForecast, setWeather2HrForecast] = useState([]); // forecast state with empty array to store API array
+  const [weather2HrSelectedRegionForcast, setWeather2HrSelectedRegionForecast] =
+    useState(""); // state with empty string to store selectedAreaForecast.forecast from Weather2Hrs.jsx
 
   //////////////////////////////
   // GET ALL API
@@ -68,11 +71,28 @@ function App() {
     }
   };
 
+  // Fetch weather forecast data
+  const fetchWeather2HrForecast = async () => {
+    try {
+      const response = await neaAPI.get("/2-hour-weather-forecast");
+      const { forecasts } = response.data.items[0]; // forecasts here = response.data.item[0].forecasts
+      console.log(forecasts);
+      setWeather2HrForecast(forecasts); // update state with latest item[0].forecasts array
+    } catch (error) {
+      console.error("Error fetching weather forecast:", error);
+    }
+  };
+
   useEffect(() => {
     apiGetPsi();
     fetchPm25Data();
     fetchUvIndex();
-  }, []);
+    fetchWeather2HrForecast();
+  }, [selectRegion]);
+
+  //////////////////////////////
+  // Handlers
+  //////////////////////////////
 
   // handler Selected Option
   const handlerSelectOption = (value) => {
@@ -84,10 +104,6 @@ function App() {
       setSelectRegion(value);
     }
   };
-
-  //////////////////////////////
-  // Handlers
-  //////////////////////////////
 
   //handler to Add WatchList
   const handlerAddWatchList = () => {
@@ -111,6 +127,12 @@ function App() {
         toast.success(`You have added ${selectRegion} to your watch list`);
       }
     }
+  };
+
+  // callback function to get selectedAreaForecast.forecast weather condition from Weather2Hrs.jsx
+  const handlerSelectedRegionForecast = (selectedRegionForecast) => {
+    console.log("Selected Forecast:", selectedRegionForecast);
+    setWeather2HrSelectedRegionForecast(selectedRegionForecast);
   };
 
   //////////////////////////////
@@ -141,6 +163,8 @@ function App() {
               psiObject={psiObject}
               pm25Data={pm25Data}
               uvIndex={uvIndex}
+              weather2HrForecast={weather2HrForecast}
+              handlerSelectedRegionForecast={handlerSelectedRegionForecast}
             />
           }
         >
@@ -158,7 +182,14 @@ function App() {
             path="pm25"
             element={<Pm25NeaContainer pm25Data={pm25Data} />}
           />
-          <Route path="weather2hr" element={<Weather2HrsContainer />} />
+          <Route
+            path="weather2hr"
+            element={
+              <Weather2HrsContainer
+                selectedRegionForecast={weather2HrSelectedRegionForcast}
+              />
+            }
+          />
           <Route path="wetbulb" element={<WetbulbTempController />} />
           <Route path="uv" element={<UvNeaContainer />} />
         </Route>
