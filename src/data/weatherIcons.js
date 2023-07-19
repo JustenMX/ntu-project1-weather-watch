@@ -1,64 +1,83 @@
 const weatherIcons = [
-  { weather: "Fair", icon: "wi wi-day-cloudy-high text-4xl" },
   {
-    weather: "Fair & Warm",
-    icon: "wi wi-day-sunny text-4xl",
+    weather: "Fair (Day)",
+    icon: "wi wi-day-sunny",
   },
   {
-    weather: "Partly Cloudy",
-    icon: "wi wi-day-cloudy text-4xl",
+    weather: "Fair (Night)",
+    icon: "wi wi-night-clear",
+  },
+  {
+    weather: "Fair & Warm",
+    icon: "wi wi-day-sunny",
+  },
+  {
+    weather: "Partly Cloudy (Day)",
+    icon: "wi wi-day-sunny-overcast",
+  },
+  {
+    weather: "Partly Cloudy (Night)",
+    icon: "wi wi-night-partly-cloudy",
   },
   {
     weather: "Cloudy",
-    icon: "wi wi wi-cloudy text-4xl",
+    icon: "wi wi-cloudy",
   },
   {
     weather: "Hazy",
-    icon: "wi wi-day-haze text-4xl",
+    icon: "wi wi-day-haze",
   },
   {
     weather: "Slightly Hazy",
-    icon: "wi wi-smoke text-4xl",
+    icon: "wi wi-dust",
   },
   {
     weather: "Windy",
-    icon: "wi wi-day-windy text-4xl",
+    icon: "wi wi-windy",
   },
   {
     weather: "Mist",
-    icon: "wi wi-day-fog text-4xl",
+    icon: "wi wi-fog",
   },
   {
     weather: "Light Rain",
-    icon: "wi wi-day-rain-mix text-4xl",
+    icon: "wi wi-rain-mix",
   },
   {
     weather: "Moderate Rain",
-    icon: "wi wi-day-rain-wind text-4xl",
+    icon: "wi wi-rain-wind",
   },
   {
     weather: "Heavy Rain",
-    icon: "wi wi-day-rain text-4xl",
+    icon: "wi wi-rain",
   },
   {
     weather: "Passing Showers",
-    icon: "wi wi-day-showers text-4xl",
+    icon: "wi wi-sprinkle",
   },
   {
     weather: "Light Showers",
-    icon: "wi wi-day-showers text-4xl",
+    icon: "wi wi-sleet",
   },
   {
     weather: "Showers",
-    icon: "wi wi-day-showers text-4xl",
+    icon: "wi wi-showers",
   },
   {
     weather: "Heavy Showers",
-    icon: "wi wi-day-rain text-4xl",
+    icon: "wi wi-rain-wind",
   },
   {
     weather: "Thundery Showers",
-    icon: "wi wi-day-thunderstorm text-4xl",
+    icon: "wi wi-storm-showers",
+  },
+  {
+    weather: "Heavy Thundery Showers",
+    icon: "wi wi-night-storm-showers",
+  },
+  {
+    weather: "Heavy Thundery Showers with Gusty Winds",
+    icon: "wi wi-thunderstorm",
   },
 ];
 
