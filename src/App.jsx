@@ -91,6 +91,7 @@ function App() {
     try {
       const response = await neaAPI.get(`/air-temperature`);
       setDryTemp(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -100,6 +101,7 @@ function App() {
     try {
       const response = await neaAPI.get(`/relative-humidity`);
       setHumidity(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -166,8 +168,10 @@ function App() {
   console.log(region);
   console.log(selectRegion);
   console.log(psiObject);
-  console.log("pm25Data App.jsx");
+  console.log("pm25Data");
   console.log(pm25Data);
+  console.log("dryTemp");
+  console.log(dryTemp);
 
   return (
     <BrowserRouter>

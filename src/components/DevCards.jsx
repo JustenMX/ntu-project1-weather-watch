@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Button from "./Button";
 function DevCards(props) {
   const { devName, devTitle, devImg } = props;

@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 
 function WetbulbTemp({ dryTemp, humidity }) {
-  const [wetbulbTemp, setWetbulbTemp] = useState(null);
+  const [wetbulbTemp, setWetbulbTemp] = useState();
+
+  console.log(dryTemp);
 
   useEffect(() => {
     const calculateWetBulbTemperature = (dryTemp, humidity) => {
@@ -15,11 +17,11 @@ function WetbulbTemp({ dryTemp, humidity }) {
       const humidityArray = humidity.items[0].readings;
 
       const dryTempSum = dryTempArray.reduce(
-        (accum, reading) => accum + reading,
+        (accum, dryTemp) => accum + dryTemp.value,
         0
       );
       const humiditySum = humidityArray.reduce(
-        (accum, reading) => accum + reading,
+        (accum, humidity) => accum + humidity.value,
         0
       );
 
@@ -47,7 +49,7 @@ function WetbulbTemp({ dryTemp, humidity }) {
       });
     };
     calculateWetBulbTemperature();
-  }, [dryTemp, humidity]);
+  }, []);
 
   console.log("Average dryTemp:", dryTemp);
   console.log("Average humidity:", humidity);
