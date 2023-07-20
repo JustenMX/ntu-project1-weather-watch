@@ -1,55 +1,50 @@
-/* eslint-disable react/prop-types */
 // dependencies
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // components
 import Button from "./Button";
 
-function WetbulbTemp({ dryTemp, humidity }) {
-  const [wetbulbTemp, setWetbulbTemp] = useState();
-
-  console.log(dryTemp);
+const WetbulbTemp = ({ dryTemperatureData, humidityData }) => {
+  const [wetbulbTemp, setWetbulbTemp] = useState(null);
+  const [dryTemp, setDryTemp] = useState(null);
+  const [humidity, setHumidity] = useState(null);
 
   useEffect(() => {
-    const calculateWetBulbTemperature = (dryTemp, humidity) => {
-      const dryTempArray = dryTemp.items[0].readings;
-      const humidityArray = humidity.items[0].readings;
-
-      const dryTempSum = dryTempArray.reduce(
-        (accum, dryTemp) => accum + dryTemp.value,
-        0
+    if (
+      dryTemperatureData &&
+      dryTemperatureData.items &&
+      dryTemperatureData.items.length > 0
+    ) {
+      const readings = dryTemperatureData.items[0].readings;
+      setDryTemp(
+        readings.reduce((acc, curr) => acc + curr.value, 0) / readings.length
       );
-      const humiditySum = humidityArray.reduce(
-        (accum, humidity) => accum + humidity.value,
-        0
-      );
+    }
 
-      const dryTempAverage = parseFloat(
-        (dryTempSum / dryTempArray.length).toFixed(2)
+    if (humidityData && humidityData.items && humidityData.items.length > 0) {
+      const readings = humidityData.items[0].readings;
+      setHumidity(
+        readings.reduce((acc, curr) => acc + curr.value, 0) / readings.length
       );
-      const humidityAverage = parseFloat(
-        (humiditySum / humidityArray.length).toFixed(2)
-      );
+    }
+  }, [dryTemperatureData, humidityData]);
 
-      const wetBulbTemp =
-        dryTempAverage *
-          Math.atan(0.151977 * Math.sqrt(humidityAverage + 8.313659)) +
-        Math.atan(dryTempAverage + humidityAverage) -
-        Math.atan(humidityAverage - 1.676331) +
-        0.00391838 *
-          Math.pow(humidityAverage, 1.5) *
-          Math.atan(0.023101 * humidityAverage) -
-        4.686035;
+  const calculateWetBulbTemperature = (dryTemp, humidity) => {
+    const wetBulbTemp =
+      dryTemp * Math.atan(0.151977 * Math.sqrt(humidity + 8.313659)) +
+      Math.atan(dryTemp + humidity) -
+      Math.atan(humidity - 1.676331) +
+      0.00391838 * Math.pow(humidity, 1.5) * Math.atan(0.023101 * humidity) -
+      4.686035;
+    return wetBulbTemp.toFixed(2);
+  };
 
-      setWetbulbTemp({
-        avgTemp: dryTempAverage,
-        avgHumidity: humidityAverage,
-        wetBulbTemperature: wetBulbTemp.toFixed(2),
-      });
-    };
-    calculateWetBulbTemperature();
-  }, []);
+  useEffect(() => {
+    if (dryTemp && humidity) {
+      setWetbulbTemp(calculateWetBulbTemperature(dryTemp, humidity));
+    }
+  }, [dryTemp, humidity]);
 
   console.log("Average dryTemp:", dryTemp);
   console.log("Average humidity:", humidity);
@@ -102,7 +97,7 @@ function WetbulbTemp({ dryTemp, humidity }) {
                   Air Temp (°C)
                 </th>
                 <td className="border-2 border-black px-4 py-2">
-                  {/* {dryTemp ? dryTemp : "Loading..."} */}
+                  {dryTemp ? dryTemp.toFixed(2) : "Loading..."}
                 </td>
               </tr>
               <tr>
@@ -110,7 +105,7 @@ function WetbulbTemp({ dryTemp, humidity }) {
                   Humidity (%)
                 </th>
                 <td className="border-2 border-black px-4 py-2">
-                  {/* {humidity ? humidity : "Loading..."} */}
+                  {humidity ? humidity.toFixed(2) : "Loading..."}
                 </td>
               </tr>
               <tr>
@@ -118,7 +113,7 @@ function WetbulbTemp({ dryTemp, humidity }) {
                   Wetbulb Temp (°C)
                 </th>
                 <td className="border-2 border-black px-4 py-2">
-                  {/* {wetbulbTemp ? wetbulbTemp : "Loading..."} */}
+                  {wetbulbTemp ? wetbulbTemp : "Loading..."}
                 </td>
               </tr>
               <tr>
@@ -134,9 +129,9 @@ function WetbulbTemp({ dryTemp, humidity }) {
                   Work : Rest (Min)
                 </th>
                 <td className="border-2 border-black px-4 py-2">
-                  {/* {heatCategory
+                  {heatCategory
                     ? `${heatCategory.work} : ${heatCategory.rest}`
-                    : "Loading..."} */}
+                    : "Loading..."}
                 </td>
               </tr>
             </tbody>
@@ -158,6 +153,6 @@ function WetbulbTemp({ dryTemp, humidity }) {
       </div>
     </>
   );
-}
+};
 
 export default WetbulbTemp;

@@ -36,8 +36,8 @@ function App() {
   const [weather2HrForecast, setWeather2HrForecast] = useState([]); // forecast state with empty array to store API array
   const [weather2HrSelectedRegionForcast, setWeather2HrSelectedRegionForecast] =
     useState(""); // state with empty string to store selectedAreaForecast.forecast from Weather2Hrs.jsx
-  const [dryTemp, setDryTemp] = useState([]);
-  const [humidity, setHumidity] = useState([]);
+  const [dryTemperatureData, setDryTemperatureData] = useState(null);
+  const [humidityData, setHumidityData] = useState(null);
 
   //////////////////////////////
   // GET ALL API
@@ -87,33 +87,27 @@ function App() {
     }
   };
 
-  const fetchDryTempData = async () => {
-    try {
-      const response = await neaAPI.get(`/air-temperature`);
-      setDryTemp(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const fetchHumidityData = async () => {
-    try {
-      const response = await neaAPI.get(`/relative-humidity`);
-      setHumidity(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   useEffect(() => {
     fetchPsiData();
     fetchPm25Data();
     fetchUvIndexData();
     fetchWeather2HrForecastData();
-    fetchDryTempData();
-    fetchHumidityData();
+  }, []);
+
+  //API Call to fetch Air Temp and Humidity
+  // Fetching the data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dryTempResponse = await neaAPI.get(`/air-temperature`);
+        const humidityResponse = await neaAPI.get(`/relative-humidity`);
+        setDryTemperatureData(dryTempResponse.data);
+        setHumidityData(humidityResponse.data);
+      } catch (error) {
+        console.error(`Error fetching data: ${error}`);
+      }
+    };
+    fetchData();
   }, []);
 
   //////////////////////////////
@@ -170,8 +164,6 @@ function App() {
   console.log(psiObject);
   console.log("pm25Data");
   console.log(pm25Data);
-  console.log("dryTemp");
-  console.log(dryTemp);
 
   return (
     <BrowserRouter>
@@ -193,8 +185,8 @@ function App() {
               uvIndex={uvIndex}
               weather2HrForecast={weather2HrForecast}
               handlerSelectedRegionForecast={handlerSelectedRegionForecast}
-              dryTemp={dryTemp}
-              humidity={humidity}
+              dryTemperatureData={dryTemperatureData}
+              humidityData={humidityData}
             />
           }
         >

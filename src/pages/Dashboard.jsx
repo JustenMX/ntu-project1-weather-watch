@@ -25,8 +25,8 @@ function Dashboard(props) {
     uvIndex,
     weather2HrForecast,
     handlerSelectedRegionForecast,
-    dryTemp,
-    humidity,
+    dryTemperatureData,
+    humidityData,
   } = props;
 
   return (
@@ -61,7 +61,10 @@ function Dashboard(props) {
               selectedRegion={selectRegion}
               handlerSelectedRegionForecast={handlerSelectedRegionForecast}
             />
-            <WetbulbTemp dryTemp={dryTemp} humidity={humidity} />
+            <WetbulbTemp
+              dryTemperatureData={dryTemperatureData}
+              humidityData={humidityData}
+            />
             <UvNea uvIndex={uvIndex} selectRegion={selectRegion} />
           </div>
         </div>
