@@ -28,8 +28,6 @@ function App() {
   const [selectRegion, setSelectRegion] = useState("");
   const [watchListRegion, setWatchListRegion] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
-  const [dryTemp, setDryTemp] = useState([]);
-  const [humidity, setHumidity] = useState([]);
   const [dryTemperatureData, setDryTemperatureData] = useState(null);
   const [humidityData, setHumidityData] = useState(null);
 
@@ -49,33 +47,6 @@ function App() {
     fetchData();
   }, []);
   
-  
-  
-  
-  useEffect(() => {
-    const calculateAverage = (data) => {
-      const readings = data.items[0].readings;
-      const sum = readings.reduce((accum, reading) => accum + reading.value, 0);
-      return parseFloat((sum / readings.length).toFixed(2));
-    }
-
-    const fetchData = async () => {
-      try {
-        const [responseTemp, responseHumidity] = await Promise.all([
-          neaAPI.get('/air-temperature'),
-          neaAPI.get('/relative-humidity'),
-        ]);
-        const averageDryTemp = calculateAverage(responseTemp.data);
-        const averageHumidity = calculateAverage(responseHumidity.data);
-        setDryTemp(averageDryTemp);
-        setHumidity(averageHumidity);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchData();
-  }, []);
 
 
   // handler Selected Option
