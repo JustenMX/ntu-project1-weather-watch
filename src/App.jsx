@@ -28,12 +28,11 @@ function App() {
   const [psiObject, setPsiObject] = useState([]);
   const [pm25Data, setPm25Data] = useState({});
   const [uvIndex, setUvIndex] = useState(null);
-  const [weather2HrForecast, setWeather2HrForecast] = useState([]); // forecast state with empty array to store API array
+  const [weather2HrForecast, setWeather2HrForecast] = useState([]);
   const [weather2HrSelectedRegionForcast, setWeather2HrSelectedRegionForecast] =
-    useState(""); // state with empty string to store selectedAreaForecast.forecast from Weather2Hrs.jsx
+    useState("");
   const [dryTemperatureData, setDryTemperatureData] = useState(null);
   const [humidityData, setHumidityData] = useState(null);
-  // watchList
   const [watchListRegion, setWatchListRegion] = useState([]);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
   const [watchListCount, setWatchListCount] = useState(0);

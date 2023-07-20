@@ -291,15 +291,15 @@ function WatchList(props) {
   /////////////
   const colourMatrixPsi = (psi) => {
     if (psi > 300) {
-      return "bg-red-500";
+      return "bg-red-300";
     } else if (psi > 200 && psi <= 300) {
-      return "bg-orange-500";
+      return "bg-orange-300";
     } else if (psi > 100 && psi <= 200) {
-      return "bg-yellow-500";
+      return "bg-yellow-300";
     } else if (psi > 50 && psi <= 100) {
-      return "bg-blue-500";
+      return "bg-blue-300";
     } else if (psi > 0 && psi <= 55) {
-      return "bg-green-500";
+      return "bg-green-300";
     } else {
       return "bg-white";
     }
@@ -307,13 +307,13 @@ function WatchList(props) {
 
   const colourMatrixPm25 = (pm25) => {
     if (pm25 > 250) {
-      return "bg-red-500";
+      return "bg-red-300";
     } else if (pm25 > 150 && pm25 <= 250) {
-      return "bg-yellow-500";
+      return "bg-yellow-300";
     } else if (pm25 > 55 && pm25 <= 150) {
-      return "bg-blue-500";
+      return "bg-blue-300";
     } else if (pm25 > 0 && pm25 <= 55) {
-      return "bg-green-500";
+      return "bg-green-300";
     } else {
       return "bg-white";
     }
@@ -321,15 +321,15 @@ function WatchList(props) {
 
   const colourMatrixUvIndex = (uvIndex) => {
     if (uvIndex > 11) {
-      return "bg-red=500";
+      return "bg-red=300";
     } else if (uvIndex > 7 && uvIndex <= 10) {
-      return "bg-orange-500";
+      return "bg-orange-300";
     } else if (uvIndex > 5 && uvIndex <= 7) {
-      return "bg-yellow-500";
+      return "bg-yellow-300";
     } else if (uvIndex > 2 && uvIndex <= 5) {
-      return "bg-blue-500";
+      return "bg-blue-300";
     } else if (uvIndex >= 0 && uvIndex <= 2) {
-      return "bg-green-500";
+      return "bg-green-300";
     } else {
       return "bg-white";
     }
@@ -337,11 +337,11 @@ function WatchList(props) {
 
   const colourMatrixWetBulb = (wetBulbTemperature) => {
     if (wetBulbTemperature > 32) {
-      return "bg-red-500";
+      return "bg-red-300";
     } else if (wetBulbTemperature > 30 && wetBulbTemperature <= 31.9) {
-      return "bg-yellow-500";
+      return "bg-yellow-300";
     } else if (wetBulbTemperature < 31) {
-      return "bg-green-500";
+      return "bg-green-300";
     } else {
       return "bg-white";
     }

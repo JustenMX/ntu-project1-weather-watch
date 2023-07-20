@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
 // data
-import regionalData from "../data/regionalData";
 
-function SingaporeMap() {
+function SingaporeMap(props) {
+  const { region, handlerSelectOption } = props;
+  //
   return (
     <div className="px-20 pb-10">
       <MapContainer
@@ -14,13 +16,18 @@ function SingaporeMap() {
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-        {regionalData.map((data, i) => (
+        {region.map((data, i) => (
           <Marker
             key={i}
             position={[
               data.label_location.latitude,
               data.label_location.longitude,
             ]}
+            eventHandlers={{
+              click: () => {
+                handlerSelectOption(data.name);
+              },
+            }}
           >
             <Tooltip direction="top" offset={[0, -20]} opacity={1}>
               {data.name}
