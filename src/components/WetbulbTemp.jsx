@@ -55,8 +55,6 @@ const WetbulbTemp = ({ dryTemperatureData, humidityData }) => {
       return "bg-red-500";
     } else if (wetbulbTemp >= 31) {
       return "bg-yellow-500";
-    } else if (wetbulbTemp>= 31) {
-      return "bg-yellow-500";
     } else {
       return "bg-green-500"; //Note as it defaults to white you won't see the difference, change the color to bg-red-500 to see if it works
     }
