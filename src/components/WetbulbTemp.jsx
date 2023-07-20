@@ -6,8 +6,22 @@ import React, { useEffect, useState } from 'react';
 import Button from "./Button";
 
 
-function WetbulbTemp({ dryTemp, humidity }) {
+const WetbulbTemp = ({ dryTemperatureData, humidityData }) => {
   const [wetbulbTemp, setWetbulbTemp] = useState(null);
+  const [dryTemp, setDryTemp] = useState(null);
+  const [humidity, setHumidity] = useState(null);
+
+  useEffect(() => {
+    if (dryTemperatureData && dryTemperatureData.items && dryTemperatureData.items.length > 0) {
+      const readings = dryTemperatureData.items[0].readings;
+      setDryTemp(readings.reduce((acc, curr) => acc + curr.value, 0) / readings.length);
+    }
+
+    if (humidityData && humidityData.items && humidityData.items.length > 0) {
+      const readings = humidityData.items[0].readings;
+      setHumidity(readings.reduce((acc, curr) => acc + curr.value, 0) / readings.length);
+    }
+  }, [dryTemperatureData, humidityData]);
 
   const calculateWetBulbTemperature = (dryTemp, humidity) => {
     const wetBulbTemp = dryTemp * Math.atan(0.151977 * Math.sqrt(humidity + 8.313659)) + Math.atan(dryTemp + humidity) - Math.atan(humidity - 1.676331) + 0.00391838 * Math.pow(humidity, 1.5) * Math.atan(0.023101 * humidity) - 4.686035;
@@ -63,11 +77,11 @@ function WetbulbTemp({ dryTemp, humidity }) {
           <tbody>
             <tr>
               <th className="border-2 border-black px-4 py-2">Air Temp (°C)</th>
-              <td className="border-2 border-black px-4 py-2">{dryTemp ? dryTemp : 'Loading...'}</td>
+              <td className="border-2 border-black px-4 py-2">{dryTemp ? dryTemp.toFixed(2) : 'Loading...'}</td>
             </tr>
             <tr>
               <th className="border-2 border-black px-4 py-2">Humidity (%)</th>
-              <td className="border-2 border-black px-4 py-2">{humidity ? humidity : 'Loading...'}</td>
+              <td className="border-2 border-black px-4 py-2">{humidity ? humidity.toFixed(2) : 'Loading...'}</td>
             </tr>
             <tr>
               <th className="border-2 border-black px-4 py-2">Wetbulb Temp (°C)</th>

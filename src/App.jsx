@@ -30,9 +30,28 @@ function App() {
   const [isOptionSelected, setIsOptionSelected] = useState(false);
   const [dryTemp, setDryTemp] = useState([]);
   const [humidity, setHumidity] = useState([]);
-
+  const [dryTemperatureData, setDryTemperatureData] = useState(null);
+  const [humidityData, setHumidityData] = useState(null);
 
   //API Call to fetch Air Temp and Humidity 
+  // Fetching the data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dryTempResponse = await neaAPI.get('/air-temperature');
+        const humidityResponse = await neaAPI.get('/relative-humidity');
+        setDryTemperatureData(dryTempResponse.data);
+        setHumidityData(humidityResponse.data);
+      } catch (error) {
+        console.error(`Error fetching data: ${error}`);
+      }
+    };
+    fetchData();
+  }, []);
+  
+  
+  
+  
   useEffect(() => {
     const calculateAverage = (data) => {
       const readings = data.items[0].readings;
@@ -111,8 +130,8 @@ function App() {
               ToastContainer={ToastContainer}
               watchListRegion={watchListRegion}
               isOptionSelected={isOptionSelected}
-              dryTemp={dryTemp}
-              humidity={humidity}
+              dryTemperatureData={dryTemperatureData}
+              humidityData={humidityData}
             />
           }
         >
@@ -121,7 +140,7 @@ function App() {
           <Route path="weather2hr" element={<Weather2HrsContainer />} />
           <Route path="wetbulb" element={<WetbulbTempContainer />} />
           <Route path="uv" element={<UvNeaContainer />} />
-          <Route path="wetbulb" element={<WetbulbTemp dryTemp={dryTemp} humidity={humidity} />} />
+          
         </Route>
         <Route
           path="watchlist"
