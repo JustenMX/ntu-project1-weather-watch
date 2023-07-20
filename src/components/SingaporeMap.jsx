@@ -7,7 +7,7 @@ function SingaporeMap(props) {
   const { region, handlerSelectOption } = props;
   //
   return (
-    <div className="px-20 pb-10">
+    <div className="border border-solid border-gray-300 shadow">
       <MapContainer
         center={[1.3521, 103.8198]} // singapore
         zoom={11}

@@ -17,6 +17,7 @@ import Pm25NeaContainer from "./components/Pm25NeaContainer";
 import Weather2HrsContainer from "./components/Weather2HrsContainer";
 import WetbulbTempContainer from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
+import Legend from "./components/Legend";
 // data
 import regionalData from "./data/regionalData";
 import neaAPI from "./api/neaAPI";
@@ -120,6 +121,7 @@ function App() {
     } else {
       setIsOptionSelected(true);
       setSelectRegion(value);
+      toast.success(`You have selected ${value}`);
     }
   };
 
@@ -194,6 +196,7 @@ function App() {
             />
           }
         >
+          <Route index element={<Legend />} />
           <Route
             path="psi"
             element={

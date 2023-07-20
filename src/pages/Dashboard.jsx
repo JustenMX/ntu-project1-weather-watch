@@ -70,16 +70,26 @@ function Dashboard(props) {
             />
           </div>
         </div>
-        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
-          <h1 className="text-center font-bold text-2xl mb-5">Read More</h1>
-          <Outlet />
-        </div>
-        <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">
-          <h1 className="text-center font-bold text-2xl mb-5">Singapore Map</h1>
-          <SingaporeMap
-            handlerSelectOption={handlerSelectOption}
-            region={region}
-          />
+
+        <div className="flex flex-row justify-center">
+          <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5 mr-5 w-full">
+            <h1 className="text-center font-bold text-2xl">Read More</h1>
+            <p className="text-xs text-center mb-5">
+              Additional information and advisory
+            </p>
+            <Outlet />
+          </div>
+
+          <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5 w-full">
+            <h1 className="text-center font-bold text-2xl">Singapore Map</h1>
+            <p className="text-xs text-center mb-5">
+              Choose a location on the map
+            </p>
+            <SingaporeMap
+              handlerSelectOption={handlerSelectOption}
+              region={region}
+            />
+          </div>
         </div>
       </div>
     </>

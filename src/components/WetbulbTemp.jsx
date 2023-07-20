@@ -135,7 +135,7 @@ const WetbulbTemp = ({ dryTemperatureData, humidityData }) => {
               </tr>
             </tbody>
           </table>
-          <p>Based on National Average</p>
+          <p className="font-light text-xs my-2">Based on National Average</p>
           <Button
             className="inline-flex items-center px-3 py-2 mt-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             buttonLabel={[

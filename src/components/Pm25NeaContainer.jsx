@@ -12,7 +12,7 @@ function Pm25NeaContainer({ pm25Data }) {
     <div className="flex flex-col items-center mx-auto bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
       <div className="flex flex-col justify-between p-4 leading-normal">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          PM 2.5 Readings
+          PM2.5 ADVISORY
         </h5>
         {sortedData.map(([region, value]) => (
           <p
