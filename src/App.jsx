@@ -18,9 +18,8 @@ import ErrorPage from "./pages/ErrorPage";
 import PsiNeaContainer from "./components/PsiNeaContainer";
 import Pm25NeaContainer from "./components/Pm25NeaContainer";
 import Weather2HrsContainer from "./components/Weather2HrsContainer";
-import WetbulbTempController from "./components/WetbulbTempContainer";
+import WetbulbTempContainer from "./components/WetbulbTempContainer";
 import UvNeaContainer from "./components/UvNeaContainer";
-
 // data
 import regionalData from "./data/regionalData";
 import neaAPI from "./api/neaAPI";
@@ -44,7 +43,7 @@ function App() {
   // GET ALL API
   //////////////////////////////
 
-  const apiGetPsi = async () => {
+  const fetchPsiData = async () => {
     try {
       const response = await neaAPI.get(`/psi`);
       setPsiObject(
@@ -65,7 +64,7 @@ function App() {
     }
   };
 
-  const fetchUvIndex = async () => {
+  const fetchUvIndexData = async () => {
     try {
       const response = await neaAPI.get(`/uv-index`);
       // console.log(response.data);
@@ -77,8 +76,7 @@ function App() {
     }
   };
 
-  // Fetch weather forecast data
-  const fetchWeather2HrForecast = async () => {
+  const fetchWeather2HrForecastData = async () => {
     try {
       const response = await neaAPI.get(`/2-hour-weather-forecast`);
       const { forecasts } = response.data.items[0]; // forecasts here = response.data.item[0].forecasts
@@ -89,7 +87,7 @@ function App() {
     }
   };
 
-  const fetchDryTemp = async () => {
+  const fetchDryTempData = async () => {
     try {
       const response = await neaAPI.get(`/air-temperature`);
       setDryTemp(response.data);
@@ -98,7 +96,7 @@ function App() {
     }
   };
 
-  const fetchHumidity = async () => {
+  const fetchHumidityData = async () => {
     try {
       const response = await neaAPI.get(`/relative-humidity`);
       setHumidity(response.data);
@@ -108,13 +106,13 @@ function App() {
   };
 
   useEffect(() => {
-    apiGetPsi();
+    fetchPsiData();
     fetchPm25Data();
-    fetchUvIndex();
-    fetchWeather2HrForecast();
-    fetchDryTemp();
-    fetchHumidity();
-  }, [selectRegion]);
+    fetchUvIndexData();
+    fetchWeather2HrForecastData();
+    fetchDryTempData();
+    fetchHumidityData();
+  }, []);
 
   //////////////////////////////
   // Handlers
@@ -218,7 +216,7 @@ function App() {
               />
             }
           />
-          <Route path="wetbulb" element={<WetbulbTempController />} />
+          <Route path="wetbulb" element={<WetbulbTempContainer />} />
           <Route path="uv" element={<UvNeaContainer />} />
         </Route>
         <Route path="watchlist" element={<WatchList watchList={watchList} />} />
