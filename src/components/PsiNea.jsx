@@ -22,16 +22,18 @@ function PsiNea(props) {
 
   const handleBox = (psi) => {
     console.log("handleBox");
-    if (psi >= 300) {
-      return "red";
-    } else if (psi >= 201) {
-      return "orange";
-    } else if (psi >= 101) {
-      return "yellow";
-    } else if (psi >= 51) {
-      return "blue";
+    if (psi > 300) {
+      return "bg-red-500";
+    } else if (psi > 200 && psi <= 300) {
+      return "bg-orange-500";
+    } else if (psi > 100 && psi <= 200) {
+      return "bg-yellow-500";
+    } else if (psi > 50 && psi <= 100) {
+      return "bg-blue-500";
+    } else if (psi > 0 && psi <= 55) {
+      return "bg-green-500";
     } else {
-      return "green";
+      return "bg-white";
     }
   };
 
@@ -98,8 +100,12 @@ function PsiNea(props) {
   return (
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        {nationalBox != "" ? (
-          <div className={`max-w h-30 bg-${nationalBox}-200 rounded-lg`}>
+        {nationalBox !== "" ? (
+          <div
+            className={`max-w h-30 ${handleBox(
+              nationalPsi
+            )} border-gray-200 border rounded-lg`}
+          >
             <div className="p-5">
               <dt className="text-base leading-7 text-gray-600">
                 NATIONAL PSI
@@ -110,8 +116,12 @@ function PsiNea(props) {
             </div>
           </div>
         ) : null}
-        {regionBox != "" ? (
-          <div className={`max-w h-30 bg-${regionBox}-200 rounded-lg`}>
+        {regionBox !== "" ? (
+          <div
+            className={`max-w h-30 ${handleBox(
+              northSouthEastWestCentralPsi
+            )} border-gray-200 border rounded-lg`}
+          >
             <div className="p-5">
               <dt className="text-base leading-7 text-gray-600">
                 {northSouthEastWestCentral} PSI
@@ -131,7 +141,7 @@ function PsiNea(props) {
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
             The 24-hour Pollutant Standards Index (PSI) is computed based on six
             air pollutants - PM2.5, PM10, ozone, sulphur dioxide, nitrogen
-            dioxide and carbon monoxide.
+            dioxide, and carbon monoxide.
           </p>
           <Button
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

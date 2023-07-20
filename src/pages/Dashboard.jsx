@@ -31,7 +31,7 @@ function Dashboard(props) {
 
   return (
     <>
-      <NavSideBar watchList={watchListCount} />
+      <NavSideBar watchListCount={watchListCount} />
       <div className="p-4 sm:ml-64">
         <ToastContainer />
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
