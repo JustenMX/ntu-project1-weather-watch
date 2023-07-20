@@ -94,7 +94,7 @@ const regionalData = [
       latitude: 1.315,
       longitude: 103.76,
       region: "west",
-      id: "S115",
+      id: "S50",
     },
   },
   {

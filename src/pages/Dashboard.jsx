@@ -16,10 +16,7 @@ function Dashboard(props) {
     region,
     selectRegion,
     handlerSelectOption,
-    handlerAddWatchList,
     ToastContainer,
-    watchList,
-    isOptionSelected,
     psiObject,
     pm25Data,
     uvIndex,
@@ -27,11 +24,14 @@ function Dashboard(props) {
     handlerSelectedRegionForecast,
     dryTemperatureData,
     humidityData,
+    isOptionSelected,
+    handlerAddWatchListRegion,
+    watchListCount,
   } = props;
 
   return (
     <>
-      <NavSideBar watchList={watchList} />
+      <NavSideBar watchList={watchListCount} />
       <div className="p-4 sm:ml-64">
         <ToastContainer />
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
@@ -41,7 +41,7 @@ function Dashboard(props) {
               region={region}
               selectRegion={selectRegion}
               handlerSelectOption={handlerSelectOption}
-              handlerAddWatchList={handlerAddWatchList}
+              handlerAddWatchListRegion={handlerAddWatchListRegion}
               isOptionSelected={isOptionSelected}
             />
           </div>

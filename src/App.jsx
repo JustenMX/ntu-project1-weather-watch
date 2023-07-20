@@ -1,19 +1,16 @@
 // css
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
-
 // dependencies
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-
 // pages
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import WatchList from "./pages/WatchList";
 import About from "./pages/About";
 import ErrorPage from "./pages/ErrorPage";
-
 // components
 import PsiNeaContainer from "./components/PsiNeaContainer";
 import Pm25NeaContainer from "./components/Pm25NeaContainer";
@@ -28,8 +25,6 @@ function App() {
   // state management
   const [region, setRegion] = useState(regionalData);
   const [selectRegion, setSelectRegion] = useState("");
-  const [watchList, setWatchList] = useState([]);
-  const [isOptionSelected, setIsOptionSelected] = useState(false);
   const [psiObject, setPsiObject] = useState([]);
   const [pm25Data, setPm25Data] = useState({});
   const [uvIndex, setUvIndex] = useState(null);
@@ -38,6 +33,10 @@ function App() {
     useState(""); // state with empty string to store selectedAreaForecast.forecast from Weather2Hrs.jsx
   const [dryTemperatureData, setDryTemperatureData] = useState(null);
   const [humidityData, setHumidityData] = useState(null);
+  // watchList
+  const [watchListRegion, setWatchListRegion] = useState([]);
+  const [isOptionSelected, setIsOptionSelected] = useState(false);
+  const [watchListCount, setWatchListCount] = useState(0);
 
   //////////////////////////////
   // GET ALL API
@@ -126,7 +125,7 @@ function App() {
   };
 
   //handler to Add WatchList
-  const handlerAddWatchList = () => {
+  const handlerAddWatchListRegion = () => {
     // I do not need this but this adds as an additional safety barrier
     // will decide later if i need to remove the validation for the onclick
     if (selectRegion === "") {
@@ -137,16 +136,22 @@ function App() {
         region: selectRegion,
       };
       // Check if the same region is already in the watchlist
-      const checkDuplicates = watchList.some(
+      const checkDuplicates = watchListRegion.some(
         (watchItem) => watchItem.region === selectRegion
       );
       if (checkDuplicates) {
         toast.error("You already have this location in your watch list");
       } else {
-        setWatchList((prevState) => [...prevState, newWatchList]);
+        setWatchListRegion((prevState) => [...prevState, newWatchList]);
+        setWatchListCount((prevState) => prevState + 1);
         toast.success(`You have added ${selectRegion} to your watch list`);
       }
     }
+  };
+
+  // handler to update watchListCount
+  const updateWatchListCount = (count) => {
+    setWatchListCount(count);
   };
 
   // callback function to get selectedAreaForecast.forecast weather condition from Weather2Hrs.jsx
@@ -176,10 +181,7 @@ function App() {
               region={region}
               selectRegion={selectRegion}
               handlerSelectOption={handlerSelectOption}
-              handlerAddWatchList={handlerAddWatchList}
               ToastContainer={ToastContainer}
-              watchList={watchList}
-              isOptionSelected={isOptionSelected}
               psiObject={psiObject}
               pm25Data={pm25Data}
               uvIndex={uvIndex}
@@ -187,6 +189,9 @@ function App() {
               handlerSelectedRegionForecast={handlerSelectedRegionForecast}
               dryTemperatureData={dryTemperatureData}
               humidityData={humidityData}
+              isOptionSelected={isOptionSelected}
+              handlerAddWatchListRegion={handlerAddWatchListRegion}
+              watchListCount={watchListCount}
             />
           }
         >
@@ -215,8 +220,22 @@ function App() {
           <Route path="wetbulb" element={<WetbulbTempContainer />} />
           <Route path="uv" element={<UvNeaContainer />} />
         </Route>
-        <Route path="watchlist" element={<WatchList watchList={watchList} />} />
-        <Route path="about" element={<About watchList={watchList} />} />
+        <Route
+          path="watchlist"
+          element={
+            <WatchList
+              watchListRegion={watchListRegion}
+              watchListCount={watchListCount}
+              region={region}
+              ToastContainer={ToastContainer}
+              updateWatchListCount={updateWatchListCount}
+            />
+          }
+        />
+        <Route
+          path="about"
+          element={<About watchListCount={watchListCount} />}
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

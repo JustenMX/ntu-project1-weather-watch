@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 // dependencies
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // components
 import Button from "./Button";
 
