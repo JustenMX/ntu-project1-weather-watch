@@ -68,17 +68,17 @@ const WetbulbTemp = ({ dryTemperatureData, humidityData }) => {
   // Background color change
   const colourMatrixWetBulb = (wetbulbTemp) => {
     if (wetbulbTemp >= 32) {
-      return "bg-red-500";
+      return "bg-red-300";
     } else if (wetbulbTemp >= 31) {
-      return "bg-yellow-500";
+      return "bg-yellow-300";
     } else {
-      return "bg-green-500"; //Note as it defaults to white you won't see the difference, change the color to bg-red-500 to see if it works
+      return "bg-green-300"; //Note as it defaults to white you won't see the difference, change the color to bg-red-500 to see if it works
     }
   };
 
   const bgColor = wetbulbTemp
     ? colourMatrixWetBulb(wetbulbTemp)
-    : "bg-green-500";
+    : "bg-green-300";
 
   return (
     <>
@@ -86,11 +86,9 @@ const WetbulbTemp = ({ dryTemperatureData, humidityData }) => {
         className={`max-w-sm ${bgColor} border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
       >
         <div className="p-5">
-          <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-black dark:text-white">
-              WETBULB TEMP READINGS
-            </h5>
-          </a>
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-black dark:text-white">
+            WETBULB TEMP READINGS
+          </h5>
           <table className="table-auto bg-white w-full text-left border-separate border-2 border-black">
             <tbody>
               <tr>

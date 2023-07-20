@@ -23,15 +23,15 @@ function PsiNea(props) {
   const handleBox = (psi) => {
     console.log("handleBox");
     if (psi > 300) {
-      return "bg-red-500";
+      return "bg-red-300";
     } else if (psi > 200 && psi <= 300) {
-      return "bg-orange-500";
+      return "bg-orange-300";
     } else if (psi > 100 && psi <= 200) {
-      return "bg-yellow-500";
+      return "bg-yellow-300";
     } else if (psi > 50 && psi <= 100) {
-      return "bg-blue-500";
+      return "bg-blue-300";
     } else if (psi > 0 && psi <= 55) {
-      return "bg-green-500";
+      return "bg-green-300";
     } else {
       return "bg-white";
     }
@@ -107,9 +107,10 @@ function PsiNea(props) {
             )} border-gray-200 border rounded-lg`}
           >
             <div className="p-5">
-              <dt className="text-base leading-7 text-gray-600">
-                NATIONAL PSI
-              </dt>
+              <dt className="text-base leading-7 text-gray-900">NATIONWIDE</dt>
+              <p className="text-xs font-light mb-2 text-gray-900">
+                based on 24hrs reading
+              </p>
               <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
                 {nationalPsi}
               </dd>
@@ -123,9 +124,12 @@ function PsiNea(props) {
             )} border-gray-200 border rounded-lg`}
           >
             <div className="p-5">
-              <dt className="text-base leading-7 text-gray-600">
-                {northSouthEastWestCentral} PSI
+              <dt className="text-base leading-7 text-gray-900">
+                {northSouthEastWestCentral} REGION
               </dt>
+              <p className="text-xs font-light mb-2 text-gray-900">
+                based on 24hrs reading
+              </p>
               <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
                 {northSouthEastWestCentralPsi}
               </dd>
@@ -133,12 +137,11 @@ function PsiNea(props) {
           </div>
         ) : null}
         <div className="p-5">
-          <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              PSI READINGS
-            </h5>
-          </a>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            PSI READINGS
+          </h5>
+
+          <p className="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400">
             The 24-hour Pollutant Standards Index (PSI) is computed based on six
             air pollutants - PM2.5, PM10, ozone, sulphur dioxide, nitrogen
             dioxide, and carbon monoxide.

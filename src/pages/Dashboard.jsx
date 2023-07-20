@@ -51,11 +51,14 @@ function Dashboard(props) {
               psiObject={psiObject}
               region={region}
             />
-            <Pm25Nea
-              selectRegion={selectRegion}
-              region={region}
-              pm25Data={pm25Data}
-            />
+            <div className="flex flex-col justify-evenly max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <Pm25Nea
+                selectRegion={selectRegion}
+                region={region}
+                pm25Data={pm25Data}
+              />
+              <UvNea uvIndex={uvIndex} selectRegion={selectRegion} />
+            </div>
             <Weather2Hrs
               weather2HrForecast={weather2HrForecast}
               selectedRegion={selectRegion}
@@ -65,7 +68,6 @@ function Dashboard(props) {
               dryTemperatureData={dryTemperatureData}
               humidityData={humidityData}
             />
-            <UvNea uvIndex={uvIndex} selectRegion={selectRegion} />
           </div>
         </div>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-5">

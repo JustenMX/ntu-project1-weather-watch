@@ -43,7 +43,7 @@ function Weather2Hrs({
   return (
     <>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <div className="flex flex-col items-center justify-center p-4 bg-yellow-100 h-60 rounded-t-lg">
+        <div className="flex flex-col items-center justify-center p-4 bg-yellow-300 h-60 rounded-t-lg">
           <i className={`${iconClassName} text-9xl rounded-t-lg`} />
         </div>
         <div className="p-5">
