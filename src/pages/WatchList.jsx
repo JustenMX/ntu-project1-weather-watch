@@ -406,36 +406,40 @@ function WatchList(props) {
               </div>
               <div className="grid grid-cols-5 gap-4 my-4">
                 <WatchListContainer
-                  watchListText="Today's air quality"
+                  watchListText="Air Quality"
                   watchListValue={watchItem.psi}
-                  watchListLabel="24-hr PSI"
+                  watchListLabel="based on 24hr PSI readings"
                   bgColour={colourMatrixPsi(watchItem.psi)}
                 />
 
                 <WatchListContainer
-                  watchListText="Today's air quality"
+                  watchListText="Air Quality"
                   watchListValue={watchItem.pm25}
-                  watchListLabel="1-hr PM2.5 (µg/m³)"
+                  symbol={"µg/m³"}
+                  watchListLabel="based on 1hr PM2.5 readings"
                   bgColour={colourMatrixPm25(watchItem.pm25)}
                 />
 
                 <WatchListContainer
                   watchListValue={watchItem.weather}
-                  watchListLabel="2-hr weather forecast"
+                  watchListLabel="based on 2hr weather forecast"
                   icon={weatherIconMatrix()}
                   bgColour="bg-yellow-300"
                 />
 
                 <WatchListContainer
+                  watchListText="Wetbulb Temperature"
                   watchListValue={watchWetBulb.wetBulbTemperature}
-                  watchListLabel="Wetbulb Temperature"
+                  symbol="°C"
+                  watchListLabel="based on national average"
                   bgColour={colourMatrixWetBulb(
                     watchWetBulb.wetBulbTemperature
                   )}
                 />
                 <WatchListContainer
+                  watchListText="Ultraviolet Index"
                   watchListValue={watchItem.uvIndex}
-                  watchListLabel="Ultraviolet Index"
+                  watchListLabel="based on national average"
                   bgColour={colourMatrixUvIndex(watchItem.uvIndex)}
                 />
               </div>
