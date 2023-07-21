@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import "leaflet/dist/leaflet.css";
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css"; // Re-uses images from ~leaflet package
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import * as L from "leaflet";
+import "leaflet-defaulticon-compatibility";
 import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
 // data
 
 function SingaporeMap(props) {
   const { region, handlerSelectOption } = props;
-  //
+
   return (
     <div className="border border-solid border-gray-300 shadow">
       <MapContainer
