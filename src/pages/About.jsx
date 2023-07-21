@@ -24,41 +24,43 @@ function About(props) {
           <div className="grid grid-cols-3 gap-4 mb-4">
             <DevCards
               devName="Justen Manni"
-              devTitle="Software Engineer"
+              // devTitle="Software Engineer"
               devImg="https://media.licdn.com/dms/image/C5103AQGmSjWRf4V12g/profile-displayphoto-shrink_400_400/0/1543214562119?e=1694649600&v=beta&t=6w2QTRPo0HrRBNZoFnBsh_igbVMAFGjIXmO-9VdlIys"
               linkedin="https://www.linkedin.com/in/justenmanni/"
               github="https://github.com/JustenMX"
             />
             <DevCards
               devName="BingQuan Tan"
-              devTitle="Geotechnical Mechanical Engineer"
+              // devTitle="Geotechnical Mechanical Engineer"
               devImg="https://media.licdn.com/dms/image/C5103AQFW7BuIkdgU1w/profile-displayphoto-shrink_400_400/0/1577424905821?e=1694649600&v=beta&t=n41ALzT-Ez2SpqeAEkp129U76uLOfS4Qp8im_HQ1GMs"
               linkedin="www.linkedin.com/in/bingquan-tan-92b7a9a0"
               github="https://github.com/redplatoon"
             />
             <DevCards
               devName="Zi Xuan Low"
-              devTitle="Software Engineer"
-              devImg="https://i.pravatar.cc"
+              // devTitle="Software Engineer"
+              devImg="https://drive.google.com/uc?export=view&id=1kqKCQruiF-h5Mwyg6MXgkILdBbz49VeH"
+              linkedin="https://www.linkedin.com/in/zi-xuan-low/"
+              github="https://github.com/zixuannlow"
             />
             <DevCards
               devName="Jackson Loh"
-              devTitle="Account Health Specialist"
-              devImg="https://i.pravatar.cc"
+              // devTitle="Account Health Specialist"
+              devImg="https://avatars.githubusercontent.com/u/134292626?v=4"
               linkedin="www.linkedin.com/in/jackson-loh-c-d"
               github="https://github.com/Geekie-Jackie"
             />
             <DevCards
               devName="Farrhan"
-              devTitle="Software Engineering Student"
+              // devTitle="Software Engineering Student"
               devImg="https://media.licdn.com/dms/image/C5103AQGJlb8_FscQlg/profile-displayphoto-shrink_400_400/0/1558292630805?e=1694649600&v=beta&t=ikRBKwD-nl2weTOotKQmCv7Ca9YBx7F6HYuNnT4U3GE"
               linkedin="https://www.linkedin.com/in/farrhan/"
               github="https://github.com/farrhanng"
             />
             <DevCards
               devName="Nelson Chua"
-              devTitle="Marketing Executive - Operation"
-              devImg="https://media.licdn.com/dms/image/D5603AQGWVDYKFAFySQ/profile-displayphoto-shrink_400_400/0/1689345620001?e=1695254400&v=beta&t=HIflEOglhVJFi1964IKW7GhaF-g4d-1u438XGzkqdu4"
+              // devTitle="Marketing Executive - Operation"
+              devImg="https://media.licdn.com/dms/image/D5603AQF4pAwf9eNhXg/profile-displayphoto-shrink_400_400/0/1689777123510?e=1695254400&v=beta&t=tbk5xOqjdEYBfs4EtKhnx0E2Vuj5qcAywBA6ZtM92-8"
               linkedin="https://www.linkedin.com/in/chua-chee-fong-nelson6726/"
               github="https://github.com/nelson6726"
             />

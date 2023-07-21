@@ -12,7 +12,7 @@ function SingaporeMap(props) {
         center={[1.3521, 103.8198]} // singapore
         zoom={11}
         scrollWheelZoom={false}
-        style={{ height: "500px" }}
+        style={{ height: "600px" }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
