@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 // components
 import NavSideBar from "../components/NavSideBar";
 import WatchListContainer from "../components/WatchListContainer";
@@ -22,7 +21,7 @@ function WatchList(props) {
     updateWatchListCount,
   } = props;
   //////////////////////////////
-  // State Management
+  // STATE MANAGEMENT
   //////////////////////////////
   const [watchList, setWatchList] = useState([]);
   const [watchPsi, setWatchPsi] = useState([]);
@@ -34,7 +33,7 @@ function WatchList(props) {
   const [watchWetBulb, setWatchWetBulb] = useState();
 
   //////////////////////////////
-  // GET ALL API
+  // API FETCH
   //////////////////////////////
 
   useEffect(() => {
@@ -70,9 +69,7 @@ function WatchList(props) {
   }, []);
 
   //////////////////////////////
-  // Handlers
-  // handlePsi()
-  // handlePM25()
+  // PRIMARY HANDLERS
   //////////////////////////////
   // explaination provided below (only applies for handlePsi(), as once the watchList is updated, for subsequent handling I use the updated state)
   //////////////////////////////
@@ -218,8 +215,6 @@ function WatchList(props) {
           ) / humidityArr.length;
 
         // Stull Equation
-
-        // get wetbulb temperature
         const wetBulbTemperature =
           avgTemp * Math.atan(0.151977 * Math.sqrt(avgHumidity + 8.313659)) +
           Math.atan(avgTemp + avgHumidity) -
@@ -236,13 +231,6 @@ function WatchList(props) {
         });
       }
     };
-
-    //////////////////////////////
-    // handleColorCode
-    //////////////////////////////
-    // At this stage the states are already updated with the relevent data
-    // to apply color code matrix to all the readings in both states ()
-    //////////////////////////////
 
     //////////////////////////////
     // function calls
@@ -266,9 +254,9 @@ function WatchList(props) {
     watchHumidity,
   ]);
 
-  /////////////
+  //////////////////////////////
   // debug
-  /////////////
+  //////////////////////////////
   console.log("psi");
   console.log(watchPsi);
   console.log("pm25");
@@ -286,9 +274,28 @@ function WatchList(props) {
   console.log("WatchList");
   console.log(watchList);
 
-  /////////////
+  //////////////////////////////
+  // SECONDARY HANDLERS
+  //////////////////////////////
+  // handle delete WatchList list
+  //////////////////////////////
+
+  const handlerDeleteWatchList = (uid, location) => {
+    const updatedWatchList = watchList.filter((item) => item.uid !== uid);
+    setWatchList(updatedWatchList);
+    toast.success(`You have sucessfully deleted ${location}`);
+
+    // Update the watchListCount state in the App.jsx
+    const updatedCount = updatedWatchList.length;
+    updateWatchListCount(updatedCount);
+  };
+
+  //////////////////////////////
+  // At this stage the states are already updated with the relevent data
+  // to apply color code matrix to all the readings
+  //////////////////////////////
   // Colour Matrix
-  /////////////
+  //////////////////////////////
   const colourMatrixPsi = (psi) => {
     if (psi > 300) {
       return "bg-red-300";
@@ -360,20 +367,6 @@ function WatchList(props) {
     } else {
       return "wi-na"; // Default icon when no match is found
     }
-  };
-
-  /////////////
-  // handle delete WatchList list
-  /////////////
-
-  const handlerDeleteWatchList = (uid, location) => {
-    const updatedWatchList = watchList.filter((item) => item.uid !== uid);
-    setWatchList(updatedWatchList);
-    toast.success(`You have sucessfully deleted ${location}`);
-
-    // Update the watchListCount state in the App.jsx
-    const updatedCount = updatedWatchList.length;
-    updateWatchListCount(updatedCount);
   };
 
   return (

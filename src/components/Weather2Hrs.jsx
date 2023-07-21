@@ -54,7 +54,7 @@ function Weather2Hrs({
             based on 2hrs forecast from current time
           </p>
 
-          <p className="mb-3 text-6xl font-bold font-mono text-gray-800 dark:text-gray-400 text-center bg-yellow-200">
+          <p className="mb-3 text-4xl font-bold  text-gray-800 dark:text-gray-400 text-center bg-yellow-200">
             {selectedRegionForecast ? selectedRegionForecast.forecast : ""}
           </p>
           <Button

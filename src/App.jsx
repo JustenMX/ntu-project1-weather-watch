@@ -23,7 +23,9 @@ import regionalData from "./data/regionalData";
 import neaAPI from "./api/neaAPI";
 
 function App() {
-  // state management
+  //////////////////////////////
+  // STATE MANAGEMENT
+  //////////////////////////////
   const [region, setRegion] = useState(regionalData);
   const [selectRegion, setSelectRegion] = useState("");
   const [psiObject, setPsiObject] = useState([]);
@@ -39,64 +41,55 @@ function App() {
   const [watchListCount, setWatchListCount] = useState(0);
 
   //////////////////////////////
-  // GET ALL API
+  // API FETCH
   //////////////////////////////
 
-  const fetchPsiData = async () => {
-    try {
-      const response = await neaAPI.get(`/psi`);
-      setPsiObject(
-        response.data.items[0]["readings"]["psi_twenty_four_hourly"]
-      );
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const fetchPm25Data = async () => {
-    try {
-      const response = await neaAPI.get(`/pm25`);
-      const data = response.data.items[0]?.readings?.pm25_one_hourly;
-      setPm25Data(data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const fetchUvIndexData = async () => {
-    try {
-      const response = await neaAPI.get(`/uv-index`);
-      // console.log(response.data);
-      setUvIndex(response.data);
-      const uvIndexData = response.data.items[0].index[0].value;
-      setUvIndex(uvIndexData);
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  const fetchWeather2HrForecastData = async () => {
-    try {
-      const response = await neaAPI.get(`/2-hour-weather-forecast`);
-      const { forecasts } = response.data.items[0]; // forecasts here = response.data.item[0].forecasts
-      console.log(forecasts);
-      setWeather2HrForecast(forecasts); // update state with latest item[0].forecasts array
-    } catch (error) {
-      console.error("Error fetching weather forecast:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchPsiData();
-    fetchPm25Data();
-    fetchUvIndexData();
-    fetchWeather2HrForecastData();
-  }, []);
+    const fetchPsiData = async () => {
+      try {
+        const response = await neaAPI.get(`/psi`);
+        setPsiObject(
+          response.data.items[0]["readings"]["psi_twenty_four_hourly"]
+        );
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
-  //API Call to fetch Air Temp and Humidity
-  // Fetching the data
-  useEffect(() => {
-    const fetchData = async () => {
+    const fetchPm25Data = async () => {
+      try {
+        const response = await neaAPI.get(`/pm25`);
+        const data = response.data.items[0]?.readings?.pm25_one_hourly;
+        setPm25Data(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    const fetchUvIndexData = async () => {
+      try {
+        const response = await neaAPI.get(`/uv-index`);
+        // console.log(response.data);
+        setUvIndex(response.data);
+        const uvIndexData = response.data.items[0].index[0].value;
+        setUvIndex(uvIndexData);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+
+    const fetchWeather2HrForecastData = async () => {
+      try {
+        const response = await neaAPI.get(`/2-hour-weather-forecast`);
+        const { forecasts } = response.data.items[0]; // forecasts here = response.data.item[0].forecasts
+        console.log(forecasts);
+        setWeather2HrForecast(forecasts); // update state with latest item[0].forecasts array
+      } catch (error) {
+        console.error("Error fetching weather forecast:", error);
+      }
+    };
+
+    const fetchTempHumidityData = async () => {
       try {
         const dryTempResponse = await neaAPI.get(`/air-temperature`);
         const humidityResponse = await neaAPI.get(`/relative-humidity`);
@@ -106,11 +99,16 @@ function App() {
         console.error(`Error fetching data: ${error}`);
       }
     };
-    fetchData();
+
+    fetchPsiData();
+    fetchPm25Data();
+    fetchUvIndexData();
+    fetchWeather2HrForecastData();
+    fetchTempHumidityData();
   }, []);
 
   //////////////////////////////
-  // Handlers
+  // HANDLERS
   //////////////////////////////
 
   // handler Selected Option
@@ -162,14 +160,22 @@ function App() {
   };
 
   //////////////////////////////
-  // debug
+  // DEBUG
   //////////////////////////////
 
   console.log(region);
   console.log(selectRegion);
   console.log(psiObject);
-  console.log("pm25Data");
   console.log(pm25Data);
+  console.log(pm25Data);
+  console.log(uvIndex);
+  console.log(weather2HrForecast);
+  console.log(weather2HrSelectedRegionForcast);
+  console.log(dryTemperatureData);
+  console.log(humidityData);
+  console.log(watchListRegion);
+  console.log(isOptionSelected);
+  console.log(watchListCount);
 
   return (
     <BrowserRouter>

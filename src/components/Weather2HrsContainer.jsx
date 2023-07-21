@@ -14,7 +14,7 @@ function Weather2HrsContainer({ selectedRegionForecast }) {
           <h5 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             WEATHER ADVISORY
           </h5>
-          <p className="mb-3 text-3xl font-mono font-bold text-gray-900 dark:text-gray-400 bg-yellow-100">
+          <p className="mb-3 text-3xl font-bold text-gray-900 dark:text-gray-400 bg-yellow-100">
             {displayWeatherAdvisory}
           </p>
         </div>
