@@ -1,4 +1,4 @@
-const weatherIcons = [
+const weatherIconMap = [
   {
     weather: "Fair (Day)",
     icon: "wi wi-day-sunny",
@@ -81,4 +81,4 @@ const weatherIcons = [
   },
 ];
 
-export default weatherIcons;
+export default weatherIconMap;

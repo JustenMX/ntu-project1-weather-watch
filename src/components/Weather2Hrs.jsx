@@ -5,7 +5,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 
 // data
-import weatherIcons from "../data/weathericons";
+import weatherIconMap from "../data/weatherIconMap";
 
 // Add the weather-icons CSS classes
 import "weather-icons/css/weather-icons.min.css";
@@ -31,7 +31,7 @@ function Weather2Hrs({
   }, [handlerSelectedRegionForecast, selectedRegionForecast]);
 
   // find the weather icon element in the weatherIcons array for the selectedRegionForecast
-  const matchWeatherIcon = weatherIcons.find(
+  const matchWeatherIcon = weatherIconMap.find(
     (weather) =>
       weather.weather ===
       (selectedRegionForecast ? selectedRegionForecast.forecast : "")

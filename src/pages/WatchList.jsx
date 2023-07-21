@@ -10,7 +10,7 @@ import WatchListContainer from "../components/WatchListContainer";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 // data
 import neaAPI from "../api/neaAPI";
-import weatherIcons from "../data/weatherIcons";
+import weatherIconMap from "../data/weatherIconMap";
 
 function WatchList(props) {
   const {
@@ -356,11 +356,11 @@ function WatchList(props) {
 
   const weatherIconMatrix = () => {
     const matchingItem = watchList.find((item) => {
-      return weatherIcons.some((weather) => weather.weather === item.weather);
+      return weatherIconMap.some((weather) => weather.weather === item.weather);
     });
 
     if (matchingItem) {
-      const matchingIcon = weatherIcons.find(
+      const matchingIcon = weatherIconMap.find(
         (weather) => weather.weather === matchingItem.weather
       );
       return matchingIcon.icon;

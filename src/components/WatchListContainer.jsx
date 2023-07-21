@@ -20,7 +20,7 @@ function WatchListContainer(props) {
           <div className="mt-2">
             <i className={`${icon} text-3xl`} />
           </div>
-          <div className="mt-2">
+          <div className="mt-2 mb-2">
             <h5 className="mb-2 text-3xl font-normal tracking-tight text-gray-900 dark:text-white text-center">
               {watchListValue} <span className="text-xs">{symbol}</span>
             </h5>
