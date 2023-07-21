@@ -10,7 +10,7 @@ import WatchListContainer from "../components/WatchListContainer";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 // data
 import neaAPI from "../api/neaAPI";
-import weatherIcons from "../data/weathericons";
+import weatherIcons from "../data/weatherIcons";
 
 function WatchList(props) {
   const {
