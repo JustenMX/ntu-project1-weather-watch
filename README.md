@@ -24,7 +24,7 @@ The project utilizes the following libraries:
 - fortawesome
 - leaflet
 - toastify
-- tailwindcs
+- tailwindcss
 - weather-icons
 
 ## Future Enhancements
