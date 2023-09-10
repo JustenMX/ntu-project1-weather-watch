@@ -1,6 +1,4 @@
-## NTU SCTP in Software Engineering
-
-## Project 1 - Frontend Development
+## NTU Software Engineering Project 1
 
 ## Weather Watch
 
